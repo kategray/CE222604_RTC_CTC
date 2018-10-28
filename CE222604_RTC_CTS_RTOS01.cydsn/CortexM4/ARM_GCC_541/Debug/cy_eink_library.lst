@@ -1,0 +1,4919 @@
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.eabi_attribute 27, 1
+   4              		.fpu fpv4-sp-d16
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 1
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.thumb
+  15              		.syntax unified
+  16              		.file	"cy_eink_library.c"
+  17              		.text
+  18              	.Ltext0:
+  19              		.cfi_sections	.debug_frame
+  20              		.section	.text.Cy_EINK_Start,"ax",%progbits
+  21              		.align	2
+  22              		.global	Cy_EINK_Start
+  23              		.thumb
+  24              		.thumb_func
+  25              		.type	Cy_EINK_Start, %function
+  26              	Cy_EINK_Start:
+  27              	.LFB592:
+  28              		.file 1 "cy_eink_library\\cy_eink_library.c"
+   1:cy_eink_library/cy_eink_library.c **** /******************************************************************************
+   2:cy_eink_library/cy_eink_library.c **** * File Name: cy_eink_library.c
+   3:cy_eink_library/cy_eink_library.c **** *
+   4:cy_eink_library/cy_eink_library.c **** * Version: 1.00
+   5:cy_eink_library/cy_eink_library.c **** *
+   6:cy_eink_library/cy_eink_library.c **** * Description: This file contains the library functions for controlling
+   7:cy_eink_library/cy_eink_library.c **** *              the E-INK display.
+   8:cy_eink_library/cy_eink_library.c **** *
+   9:cy_eink_library/cy_eink_library.c **** * Hardware Dependency: CY8CKIT-028-EPD E-INK Display Shield
+  10:cy_eink_library/cy_eink_library.c **** *
+  11:cy_eink_library/cy_eink_library.c **** *******************************************************************************
+  12:cy_eink_library/cy_eink_library.c **** * Copyright (2018), Cypress Semiconductor Corporation. All rights reserved.
+  13:cy_eink_library/cy_eink_library.c **** *******************************************************************************
+  14:cy_eink_library/cy_eink_library.c **** * This software, including source code, documentation and related materials
+  15:cy_eink_library/cy_eink_library.c **** * (“Software”), is owned by Cypress Semiconductor Corporation or one of its
+  16:cy_eink_library/cy_eink_library.c **** * subsidiaries (“Cypress”) and is protected by and subject to worldwide patent
+  17:cy_eink_library/cy_eink_library.c **** * protection (United States and foreign), United States copyright laws and
+  18:cy_eink_library/cy_eink_library.c **** * international treaty provisions. Therefore, you may use this Software only
+  19:cy_eink_library/cy_eink_library.c **** * as provided in the license agreement accompanying the software package from
+  20:cy_eink_library/cy_eink_library.c **** * which you obtained this Software (“EULA”).
+  21:cy_eink_library/cy_eink_library.c **** *
+  22:cy_eink_library/cy_eink_library.c **** * If no EULA applies, Cypress hereby grants you a personal, nonexclusive,
+  23:cy_eink_library/cy_eink_library.c **** * non-transferable license to copy, modify, and compile the Software source
+  24:cy_eink_library/cy_eink_library.c **** * code solely for use in connection with Cypress’s integrated circuit products.
+  25:cy_eink_library/cy_eink_library.c **** * Any reproduction, modification, translation, compilation, or representation
+  26:cy_eink_library/cy_eink_library.c **** * of this Software except as specified above is prohibited without the express
+  27:cy_eink_library/cy_eink_library.c **** * written permission of Cypress.
+  28:cy_eink_library/cy_eink_library.c **** *
+  29:cy_eink_library/cy_eink_library.c **** * Disclaimer: THIS SOFTWARE IS PROVIDED AS-IS, WITH NO WARRANTY OF ANY KIND, 
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 2
+
+
+  30:cy_eink_library/cy_eink_library.c **** * EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, NONINFRINGEMENT, IMPLIED 
+  31:cy_eink_library/cy_eink_library.c **** * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. Cypress 
+  32:cy_eink_library/cy_eink_library.c **** * reserves the right to make changes to the Software without notice. Cypress 
+  33:cy_eink_library/cy_eink_library.c **** * does not assume any liability arising out of the application or use of the 
+  34:cy_eink_library/cy_eink_library.c **** * Software or any product or circuit described in the Software. Cypress does 
+  35:cy_eink_library/cy_eink_library.c **** * not authorize its products for use in any products where a malfunction or 
+  36:cy_eink_library/cy_eink_library.c **** * failure of the Cypress product may reasonably be expected to result in 
+  37:cy_eink_library/cy_eink_library.c **** * significant property damage, injury or death (“High Risk Product”). By 
+  38:cy_eink_library/cy_eink_library.c **** * including Cypress’s product in a High Risk Product, the manufacturer of such 
+  39:cy_eink_library/cy_eink_library.c **** * system or application assumes all risk of such use and in doing so agrees to 
+  40:cy_eink_library/cy_eink_library.c **** * indemnify Cypress against all liability.
+  41:cy_eink_library/cy_eink_library.c **** *******************************************************************************/
+  42:cy_eink_library/cy_eink_library.c **** /******************************************************************************
+  43:cy_eink_library/cy_eink_library.c **** * This file contains the library functions for controlling the E-INK display.
+  44:cy_eink_library/cy_eink_library.c **** *
+  45:cy_eink_library/cy_eink_library.c **** * For the details of the E-INK display and library functions, see the code  
+  46:cy_eink_library/cy_eink_library.c **** * example document of CE218133 - PSoC 6 MCU E-INK Display with CapSense
+  47:cy_eink_library/cy_eink_library.c **** *
+  48:cy_eink_library/cy_eink_library.c **** * For the details of E-INK display hardware and driver interface, see the 
+  49:cy_eink_library/cy_eink_library.c **** * documents available at the following website:
+  50:cy_eink_library/cy_eink_library.c **** * http://www.pervasivedisplays.com/products/271
+  51:cy_eink_library/cy_eink_library.c ****  *******************************************************************************/
+  52:cy_eink_library/cy_eink_library.c **** 
+  53:cy_eink_library/cy_eink_library.c **** /* Header file includes */
+  54:cy_eink_library/cy_eink_library.c **** #include "cy_eink_library.h"
+  55:cy_eink_library/cy_eink_library.c **** 
+  56:cy_eink_library/cy_eink_library.c **** /* Range of ASCII printable characters: "!" to "~" */
+  57:cy_eink_library/cy_eink_library.c **** #define CY_EINK_ASCII_MIN   (uint8_t) (0x21)
+  58:cy_eink_library/cy_eink_library.c **** #define CY_EINK_ASCII_MAX   (uint8_t) (0x7E)
+  59:cy_eink_library/cy_eink_library.c **** 
+  60:cy_eink_library/cy_eink_library.c **** /* Range of image byte coordinates */
+  61:cy_eink_library/cy_eink_library.c **** #define CY_EINK_IMAGE_X_MAX (uint8_t) (33u)
+  62:cy_eink_library/cy_eink_library.c **** #define CY_EINK_IMAGE_Y_MAX (uint8_t) (175u)
+  63:cy_eink_library/cy_eink_library.c **** 
+  64:cy_eink_library/cy_eink_library.c **** /*******************************************************************************
+  65:cy_eink_library/cy_eink_library.c **** * Function Name: cy_eink_api_result Cy_EINK_Start(int8_t temperature,
+  66:cy_eink_library/cy_eink_library.c **** *                                       cy_eink_delay_function_t delayFunction)
+  67:cy_eink_library/cy_eink_library.c **** ********************************************************************************
+  68:cy_eink_library/cy_eink_library.c **** *
+  69:cy_eink_library/cy_eink_library.c **** * Summary: Initialize the E-INK display hardware, starts the required PSoC 
+  70:cy_eink_library/cy_eink_library.c **** *  components, and also performs temperature compensation of E-INK parameters.
+  71:cy_eink_library/cy_eink_library.c **** *
+  72:cy_eink_library/cy_eink_library.c **** *  Note: This function does not turn on the E-INK display.
+  73:cy_eink_library/cy_eink_library.c **** *
+  74:cy_eink_library/cy_eink_library.c **** * Parameters:
+  75:cy_eink_library/cy_eink_library.c **** *  int8_t temperature       : Ambient temperature in degree Celsius
+  76:cy_eink_library/cy_eink_library.c **** *  cy_eink_delay_function_t : Pointer to a delay function that accepts
+  77:cy_eink_library/cy_eink_library.c **** *                             delay in milliseconds (uint32_t type)                         
+  78:cy_eink_library/cy_eink_library.c **** *
+  79:cy_eink_library/cy_eink_library.c **** * Return:
+  80:cy_eink_library/cy_eink_library.c **** *  None
+  81:cy_eink_library/cy_eink_library.c **** *
+  82:cy_eink_library/cy_eink_library.c **** * Side Effects:
+  83:cy_eink_library/cy_eink_library.c **** *  Lower ambient temperature results in higher refresh times
+  84:cy_eink_library/cy_eink_library.c **** *
+  85:cy_eink_library/cy_eink_library.c **** *******************************************************************************/
+  86:cy_eink_library/cy_eink_library.c **** cy_eink_api_result Cy_EINK_Start(int8_t temperature,
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 3
+
+
+  87:cy_eink_library/cy_eink_library.c ****                                  cy_eink_delay_function_t delayFunction)
+  88:cy_eink_library/cy_eink_library.c **** {
+  29              		.loc 1 88 0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              	.LVL0:
+  89:cy_eink_library/cy_eink_library.c ****     /* Variable to store the return value */
+  90:cy_eink_library/cy_eink_library.c ****     cy_eink_api_result returnValue;
+  91:cy_eink_library/cy_eink_library.c ****     
+  92:cy_eink_library/cy_eink_library.c ****     /* Make sure that the function pointer parameter is not NULL */
+  93:cy_eink_library/cy_eink_library.c ****     if(delayFunction != NULL)
+  34              		.loc 1 93 0
+  35 0000 59B1     		cbz	r1, .L3
+  88:cy_eink_library/cy_eink_library.c ****     /* Variable to store the return value */
+  36              		.loc 1 88 0
+  37 0002 10B5     		push	{r4, lr}
+  38              		.cfi_def_cfa_offset 8
+  39              		.cfi_offset 4, -8
+  40              		.cfi_offset 14, -4
+  41 0004 0446     		mov	r4, r0
+  94:cy_eink_library/cy_eink_library.c ****     {
+  95:cy_eink_library/cy_eink_library.c ****         /* Register the callback function for EINK delay in milliseconds */
+  96:cy_eink_library/cy_eink_library.c ****         Cy_EINK_RegisterDelayFunction(delayFunction);
+  42              		.loc 1 96 0
+  43 0006 0846     		mov	r0, r1
+  44              	.LVL1:
+  45 0008 FFF7FEFF 		bl	Cy_EINK_RegisterDelayFunction
+  46              	.LVL2:
+  97:cy_eink_library/cy_eink_library.c ****         
+  98:cy_eink_library/cy_eink_library.c ****         /* Initialize the E-INK display hardware and associated PSoC
+  99:cy_eink_library/cy_eink_library.c ****            components */
+ 100:cy_eink_library/cy_eink_library.c ****         Pv_EINK_Init();
+  47              		.loc 1 100 0
+  48 000c FFF7FEFF 		bl	Pv_EINK_Init
+  49              	.LVL3:
+ 101:cy_eink_library/cy_eink_library.c ****         /* Perform temperature compensation of E-INK parameters */
+ 102:cy_eink_library/cy_eink_library.c ****         Pv_EINK_SetTempFactor(temperature);
+  50              		.loc 1 102 0
+  51 0010 2046     		mov	r0, r4
+  52 0012 FFF7FEFF 		bl	Pv_EINK_SetTempFactor
+  53              	.LVL4:
+ 103:cy_eink_library/cy_eink_library.c ****         
+ 104:cy_eink_library/cy_eink_library.c ****         /* Return success */
+ 105:cy_eink_library/cy_eink_library.c ****         returnValue = CY_EINK_SUCCESS;
+  54              		.loc 1 105 0
+  55 0016 0020     		movs	r0, #0
+  56 0018 10BD     		pop	{r4, pc}
+  57              	.LVL5:
+  58              	.L3:
+  59              		.cfi_def_cfa_offset 0
+  60              		.cfi_restore 4
+  61              		.cfi_restore 14
+ 106:cy_eink_library/cy_eink_library.c ****     }
+ 107:cy_eink_library/cy_eink_library.c ****     else
+ 108:cy_eink_library/cy_eink_library.c ****     {
+ 109:cy_eink_library/cy_eink_library.c ****         /* Return failure */
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 4
+
+
+ 110:cy_eink_library/cy_eink_library.c ****         returnValue = CY_EINK_FAILURE;
+  62              		.loc 1 110 0
+  63 001a 0120     		movs	r0, #1
+  64              	.LVL6:
+  65 001c 7047     		bx	lr
+  66              		.cfi_endproc
+  67              	.LFE592:
+  68              		.size	Cy_EINK_Start, .-Cy_EINK_Start
+  69 001e 00BF     		.section	.text.Cy_EINK_Power,"ax",%progbits
+  70              		.align	2
+  71              		.global	Cy_EINK_Power
+  72              		.thumb
+  73              		.thumb_func
+  74              		.type	Cy_EINK_Power, %function
+  75              	Cy_EINK_Power:
+  76              	.LFB593:
+ 111:cy_eink_library/cy_eink_library.c ****     }
+ 112:cy_eink_library/cy_eink_library.c ****     
+ 113:cy_eink_library/cy_eink_library.c ****     return returnValue;
+ 114:cy_eink_library/cy_eink_library.c **** }
+ 115:cy_eink_library/cy_eink_library.c **** 
+ 116:cy_eink_library/cy_eink_library.c **** /*******************************************************************************
+ 117:cy_eink_library/cy_eink_library.c **** * Function Name: cy_eink_api_result Cy_EINK_Power(bool powerCtrl)
+ 118:cy_eink_library/cy_eink_library.c **** ********************************************************************************
+ 119:cy_eink_library/cy_eink_library.c **** *
+ 120:cy_eink_library/cy_eink_library.c **** * Summary: This function is used to turn on/off the E-INK display power.
+ 121:cy_eink_library/cy_eink_library.c **** *
+ 122:cy_eink_library/cy_eink_library.c **** *  Note: This function can not be used to clear the E-INK display. The display 
+ 123:cy_eink_library/cy_eink_library.c **** *  will retain the previously written frame even when it's turned off.
+ 124:cy_eink_library/cy_eink_library.c **** *
+ 125:cy_eink_library/cy_eink_library.c **** * Parameters:
+ 126:cy_eink_library/cy_eink_library.c **** *  bool powerCtrl       : "False" turns off and "True" turns on the display.
+ 127:cy_eink_library/cy_eink_library.c **** *
+ 128:cy_eink_library/cy_eink_library.c **** * Return:
+ 129:cy_eink_library/cy_eink_library.c **** *  cy_eink_api_result   : "CY_EINK_SUCCESS" if operation was successful;
+ 130:cy_eink_library/cy_eink_library.c **** *                         "CY_EINK_FAILURE" otherwise
+ 131:cy_eink_library/cy_eink_library.c **** *
+ 132:cy_eink_library/cy_eink_library.c **** * Side Effects:
+ 133:cy_eink_library/cy_eink_library.c **** *  None
+ 134:cy_eink_library/cy_eink_library.c **** *
+ 135:cy_eink_library/cy_eink_library.c **** *******************************************************************************/
+ 136:cy_eink_library/cy_eink_library.c **** cy_eink_api_result Cy_EINK_Power(bool powerCtrl)
+ 137:cy_eink_library/cy_eink_library.c **** {
+  77              		.loc 1 137 0
+  78              		.cfi_startproc
+  79              		@ args = 0, pretend = 0, frame = 0
+  80              		@ frame_needed = 0, uses_anonymous_args = 0
+  81              	.LVL7:
+  82 0000 08B5     		push	{r3, lr}
+  83              		.cfi_def_cfa_offset 8
+  84              		.cfi_offset 3, -8
+  85              		.cfi_offset 14, -4
+ 138:cy_eink_library/cy_eink_library.c ****     /* Variable to store operation status */
+ 139:cy_eink_library/cy_eink_library.c ****     pv_eink_status_t pwrStatus;
+ 140:cy_eink_library/cy_eink_library.c ****     cy_eink_api_result returnValue;
+ 141:cy_eink_library/cy_eink_library.c ****     
+ 142:cy_eink_library/cy_eink_library.c ****     /* Turn on the E-INK power if powerCtrl is "true" */
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 5
+
+
+ 143:cy_eink_library/cy_eink_library.c ****     if (powerCtrl == CY_EINK_ON)
+  86              		.loc 1 143 0
+  87 0002 10B1     		cbz	r0, .L7
+ 144:cy_eink_library/cy_eink_library.c ****     {
+ 145:cy_eink_library/cy_eink_library.c ****         pwrStatus = Pv_EINK_HardwarePowerOn();
+  88              		.loc 1 145 0
+  89 0004 FFF7FEFF 		bl	Pv_EINK_HardwarePowerOn
+  90              	.LVL8:
+  91 0008 01E0     		b	.L8
+  92              	.LVL9:
+  93              	.L7:
+ 146:cy_eink_library/cy_eink_library.c ****     }
+ 147:cy_eink_library/cy_eink_library.c ****     /* Turn off the E-INK power if powerCtrl is "false" */
+ 148:cy_eink_library/cy_eink_library.c ****     else
+ 149:cy_eink_library/cy_eink_library.c ****     {
+ 150:cy_eink_library/cy_eink_library.c ****         pwrStatus = Pv_EINK_HardwarePowerOff();
+  94              		.loc 1 150 0
+  95 000a FFF7FEFF 		bl	Pv_EINK_HardwarePowerOff
+  96              	.LVL10:
+  97              	.L8:
+ 151:cy_eink_library/cy_eink_library.c ****     }
+ 152:cy_eink_library/cy_eink_library.c ****     /* If the operation was successful, return "true" */
+ 153:cy_eink_library/cy_eink_library.c ****     if (pwrStatus == PV_EINK_RES_OK)
+  98              		.loc 1 153 0
+  99 000e 00B1     		cbz	r0, .L9
+ 154:cy_eink_library/cy_eink_library.c ****     {
+ 155:cy_eink_library/cy_eink_library.c ****         returnValue = CY_EINK_SUCCESS;
+ 156:cy_eink_library/cy_eink_library.c ****     }
+ 157:cy_eink_library/cy_eink_library.c ****     /* If the operation was not successful, return "false" */
+ 158:cy_eink_library/cy_eink_library.c ****     else
+ 159:cy_eink_library/cy_eink_library.c ****     {
+ 160:cy_eink_library/cy_eink_library.c ****         returnValue = CY_EINK_FAILURE;
+ 100              		.loc 1 160 0
+ 101 0010 0120     		movs	r0, #1
+ 102              	.LVL11:
+ 103              	.L9:
+ 161:cy_eink_library/cy_eink_library.c ****     }
+ 162:cy_eink_library/cy_eink_library.c ****     
+ 163:cy_eink_library/cy_eink_library.c ****     /* Return the outcome of the power control operation */
+ 164:cy_eink_library/cy_eink_library.c ****     return (returnValue);
+ 165:cy_eink_library/cy_eink_library.c **** }
+ 104              		.loc 1 165 0
+ 105 0012 08BD     		pop	{r3, pc}
+ 106              		.cfi_endproc
+ 107              	.LFE593:
+ 108              		.size	Cy_EINK_Power, .-Cy_EINK_Power
+ 109              		.section	.text.Cy_EINK_Clear,"ax",%progbits
+ 110              		.align	2
+ 111              		.global	Cy_EINK_Clear
+ 112              		.thumb
+ 113              		.thumb_func
+ 114              		.type	Cy_EINK_Clear, %function
+ 115              	Cy_EINK_Clear:
+ 116              	.LFB594:
+ 166:cy_eink_library/cy_eink_library.c **** 
+ 167:cy_eink_library/cy_eink_library.c **** /*******************************************************************************
+ 168:cy_eink_library/cy_eink_library.c **** * Function Name: void Cy_EINK_Clear(bool background, bool powerCycle)
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 6
+
+
+ 169:cy_eink_library/cy_eink_library.c **** ********************************************************************************
+ 170:cy_eink_library/cy_eink_library.c **** *
+ 171:cy_eink_library/cy_eink_library.c **** * Summary: This function is used to clear the display to all white or all black
+ 172:cy_eink_library/cy_eink_library.c **** *  pixels.
+ 173:cy_eink_library/cy_eink_library.c **** *
+ 174:cy_eink_library/cy_eink_library.c **** *  Note1: The E-INK display should be powered on (using Cy_EINK_Power function) 
+ 175:cy_eink_library/cy_eink_library.c **** *  before calling this function if "powerCycle" is false. Otherwise the display 
+ 176:cy_eink_library/cy_eink_library.c **** *  won't be cleared.
+ 177:cy_eink_library/cy_eink_library.c **** *
+ 178:cy_eink_library/cy_eink_library.c **** *  Note2: This function is intended to be called only after a reset/power up.
+ 179:cy_eink_library/cy_eink_library.c **** *  Use Cy_EINK_ShowFrame() function to clear the display if you know the frame
+ 180:cy_eink_library/cy_eink_library.c **** *  that has been written to the display.
+ 181:cy_eink_library/cy_eink_library.c **** *
+ 182:cy_eink_library/cy_eink_library.c **** * Parameters:
+ 183:cy_eink_library/cy_eink_library.c **** *  bool background   : False for black background and True for white background.
+ 184:cy_eink_library/cy_eink_library.c **** *  bool powerCycle   : True for automatic power cycle. False otherwise
+ 185:cy_eink_library/cy_eink_library.c **** * 
+ 186:cy_eink_library/cy_eink_library.c **** * Return:
+ 187:cy_eink_library/cy_eink_library.c **** *  None
+ 188:cy_eink_library/cy_eink_library.c **** *
+ 189:cy_eink_library/cy_eink_library.c **** * Side Effects:
+ 190:cy_eink_library/cy_eink_library.c **** *  This is a blocking function that can take as many as 2 seconds 
+ 191:cy_eink_library/cy_eink_library.c **** *
+ 192:cy_eink_library/cy_eink_library.c **** *******************************************************************************/
+ 193:cy_eink_library/cy_eink_library.c **** void Cy_EINK_Clear(bool background, bool powerCycle)
+ 194:cy_eink_library/cy_eink_library.c **** {
+ 117              		.loc 1 194 0
+ 118              		.cfi_startproc
+ 119              		@ args = 0, pretend = 0, frame = 0
+ 120              		@ frame_needed = 0, uses_anonymous_args = 0
+ 121              	.LVL12:
+ 122 0000 38B5     		push	{r3, r4, r5, lr}
+ 123              		.cfi_def_cfa_offset 16
+ 124              		.cfi_offset 3, -16
+ 125              		.cfi_offset 4, -12
+ 126              		.cfi_offset 5, -8
+ 127              		.cfi_offset 14, -4
+ 128 0002 0446     		mov	r4, r0
+ 195:cy_eink_library/cy_eink_library.c ****     /* If power cycle operation requested, turn on E-INK power */
+ 196:cy_eink_library/cy_eink_library.c ****     if (powerCycle)
+ 129              		.loc 1 196 0
+ 130 0004 0D46     		mov	r5, r1
+ 131 0006 11B1     		cbz	r1, .L13
+ 197:cy_eink_library/cy_eink_library.c ****     {
+ 198:cy_eink_library/cy_eink_library.c ****         Cy_EINK_Power(CY_EINK_ON);
+ 132              		.loc 1 198 0
+ 133 0008 0120     		movs	r0, #1
+ 134              	.LVL13:
+ 135 000a FFF7FEFF 		bl	Cy_EINK_Power
+ 136              	.LVL14:
+ 137              	.L13:
+ 199:cy_eink_library/cy_eink_library.c ****     }
+ 200:cy_eink_library/cy_eink_library.c ****     /* Clear the display to white background */
+ 201:cy_eink_library/cy_eink_library.c ****     if (background == CY_EINK_WHITE_BACKGROUND)
+ 138              		.loc 1 201 0
+ 139 000e 44B1     		cbz	r4, .L14
+ 202:cy_eink_library/cy_eink_library.c ****     {
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 7
+
+
+ 203:cy_eink_library/cy_eink_library.c ****         /* Two consecutive display updates to reduce ghosting */
+ 204:cy_eink_library/cy_eink_library.c ****         Pv_EINK_FullStageHandler(CY_EINK_WHITE_FRAME, PV_EINK_STAGE4);
+ 140              		.loc 1 204 0
+ 141 0010 0321     		movs	r1, #3
+ 142 0012 0020     		movs	r0, #0
+ 143 0014 FFF7FEFF 		bl	Pv_EINK_FullStageHandler
+ 144              	.LVL15:
+ 205:cy_eink_library/cy_eink_library.c ****         Pv_EINK_FullStageHandler(CY_EINK_WHITE_FRAME, PV_EINK_STAGE4);
+ 145              		.loc 1 205 0
+ 146 0018 0321     		movs	r1, #3
+ 147 001a 0020     		movs	r0, #0
+ 148 001c FFF7FEFF 		bl	Pv_EINK_FullStageHandler
+ 149              	.LVL16:
+ 150 0020 09E0     		b	.L15
+ 151              	.L14:
+ 206:cy_eink_library/cy_eink_library.c ****     }
+ 207:cy_eink_library/cy_eink_library.c ****     /* Clear the display to black background */
+ 208:cy_eink_library/cy_eink_library.c ****     else if (background == CY_EINK_BLACK_BACKGROUND)
+ 152              		.loc 1 208 0
+ 153 0022 44B9     		cbnz	r4, .L15
+ 209:cy_eink_library/cy_eink_library.c ****     {
+ 210:cy_eink_library/cy_eink_library.c ****         /* Two consecutive display updates to reduce ghosting */
+ 211:cy_eink_library/cy_eink_library.c ****         Pv_EINK_FullStageHandler(CY_EINK_BLACK_FRAME, PV_EINK_STAGE4);
+ 154              		.loc 1 211 0
+ 155 0024 064C     		ldr	r4, .L18
+ 156 0026 0321     		movs	r1, #3
+ 157 0028 2046     		mov	r0, r4
+ 158 002a FFF7FEFF 		bl	Pv_EINK_FullStageHandler
+ 159              	.LVL17:
+ 212:cy_eink_library/cy_eink_library.c ****         Pv_EINK_FullStageHandler(CY_EINK_BLACK_FRAME, PV_EINK_STAGE4);
+ 160              		.loc 1 212 0
+ 161 002e 0321     		movs	r1, #3
+ 162 0030 2046     		mov	r0, r4
+ 163 0032 FFF7FEFF 		bl	Pv_EINK_FullStageHandler
+ 164              	.LVL18:
+ 165              	.L15:
+ 213:cy_eink_library/cy_eink_library.c ****     }
+ 214:cy_eink_library/cy_eink_library.c ****     else
+ 215:cy_eink_library/cy_eink_library.c ****     {
+ 216:cy_eink_library/cy_eink_library.c ****     }
+ 217:cy_eink_library/cy_eink_library.c ****     
+ 218:cy_eink_library/cy_eink_library.c ****     /* If power cycle operation requested, turn off E-INK power */
+ 219:cy_eink_library/cy_eink_library.c ****     if (powerCycle)
+ 166              		.loc 1 219 0
+ 167 0036 15B1     		cbz	r5, .L12
+ 220:cy_eink_library/cy_eink_library.c ****     {
+ 221:cy_eink_library/cy_eink_library.c ****         Cy_EINK_Power(CY_EINK_OFF);
+ 168              		.loc 1 221 0
+ 169 0038 0020     		movs	r0, #0
+ 170 003a FFF7FEFF 		bl	Cy_EINK_Power
+ 171              	.LVL19:
+ 172              	.L12:
+ 173 003e 38BD     		pop	{r3, r4, r5, pc}
+ 174              	.L19:
+ 175              		.align	2
+ 176              	.L18:
+ 177 0040 FFFF0F10 		.word	269484031
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 8
+
+
+ 178              		.cfi_endproc
+ 179              	.LFE594:
+ 180              		.size	Cy_EINK_Clear, .-Cy_EINK_Clear
+ 181              		.section	.text.Cy_EINK_ShowFrame,"ax",%progbits
+ 182              		.align	2
+ 183              		.global	Cy_EINK_ShowFrame
+ 184              		.thumb
+ 185              		.thumb_func
+ 186              		.type	Cy_EINK_ShowFrame, %function
+ 187              	Cy_EINK_ShowFrame:
+ 188              	.LFB595:
+ 222:cy_eink_library/cy_eink_library.c ****     }
+ 223:cy_eink_library/cy_eink_library.c **** }
+ 224:cy_eink_library/cy_eink_library.c **** 
+ 225:cy_eink_library/cy_eink_library.c **** /*******************************************************************************
+ 226:cy_eink_library/cy_eink_library.c **** * Function Name: void Cy_EINK_ShowFrame(cy_eink_frame_t* prevFrame, 
+ 227:cy_eink_library/cy_eink_library.c **** *      cy_eink_frame_t* newFrame,CY_EINK_UpdateType updateType, bool powerCycle)
+ 228:cy_eink_library/cy_eink_library.c **** ********************************************************************************
+ 229:cy_eink_library/cy_eink_library.c **** *
+ 230:cy_eink_library/cy_eink_library.c **** * Summary: Updates the E-INK display with a frame/image stored in the flash
+ 231:cy_eink_library/cy_eink_library.c **** *          or RAM.
+ 232:cy_eink_library/cy_eink_library.c **** *
+ 233:cy_eink_library/cy_eink_library.c **** *  Notes: This function requires the previous frame data as well as the new 
+ 234:cy_eink_library/cy_eink_library.c **** *  frame data. If the previous frame data changes from the actual frame 
+ 235:cy_eink_library/cy_eink_library.c **** *  previously written to the display, considerable ghosting may occur.
+ 236:cy_eink_library/cy_eink_library.c **** *
+ 237:cy_eink_library/cy_eink_library.c **** *  The E-INK display should be powered on (using Cy_EINK_Power function) before 
+ 238:cy_eink_library/cy_eink_library.c **** *  calling this function, if "powerCycle" parameter is false. Otherwise the 
+ 239:cy_eink_library/cy_eink_library.c **** *  display won't be updated.
+ 240:cy_eink_library/cy_eink_library.c **** *
+ 241:cy_eink_library/cy_eink_library.c **** * Parameters:
+ 242:cy_eink_library/cy_eink_library.c **** *  cy_eink_frame_t* prevFrame    : Pointer to the previous frame written on the 
+ 243:cy_eink_library/cy_eink_library.c **** *                                  display
+ 244:cy_eink_library/cy_eink_library.c **** *  cy_eink_frame_t* newFrame     : Pointer to the new frame that need to be
+ 245:cy_eink_library/cy_eink_library.c **** *                                  written
+ 246:cy_eink_library/cy_eink_library.c **** *  cy_eink_update_t              : Full update (2/4 stages) or  Partial update
+ 247:cy_eink_library/cy_eink_library.c **** *  bool powerCycle               : "true" for automatic power cycle, "false" 
+ 248:cy_eink_library/cy_eink_library.c **** *                                  for manual
+ 249:cy_eink_library/cy_eink_library.c **** *  
+ 250:cy_eink_library/cy_eink_library.c **** * Return:
+ 251:cy_eink_library/cy_eink_library.c **** *  None
+ 252:cy_eink_library/cy_eink_library.c **** *
+ 253:cy_eink_library/cy_eink_library.c **** * Side Effects:
+ 254:cy_eink_library/cy_eink_library.c **** *  This is a blocking function that can take as many as 2 seconds 
+ 255:cy_eink_library/cy_eink_library.c **** *
+ 256:cy_eink_library/cy_eink_library.c **** *******************************************************************************/
+ 257:cy_eink_library/cy_eink_library.c **** void Cy_EINK_ShowFrame(cy_eink_frame_t* prevFrame, cy_eink_frame_t* newFrame,
+ 258:cy_eink_library/cy_eink_library.c ****                        cy_eink_update_t updateType, bool powerCycle)
+ 259:cy_eink_library/cy_eink_library.c **** {
+ 189              		.loc 1 259 0
+ 190              		.cfi_startproc
+ 191              		@ args = 0, pretend = 0, frame = 0
+ 192              		@ frame_needed = 0, uses_anonymous_args = 0
+ 193              	.LVL20:
+ 194 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 195              		.cfi_def_cfa_offset 24
+ 196              		.cfi_offset 3, -24
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 9
+
+
+ 197              		.cfi_offset 4, -20
+ 198              		.cfi_offset 5, -16
+ 199              		.cfi_offset 6, -12
+ 200              		.cfi_offset 7, -8
+ 201              		.cfi_offset 14, -4
+ 202 0002 0746     		mov	r7, r0
+ 203 0004 0E46     		mov	r6, r1
+ 204 0006 1446     		mov	r4, r2
+ 260:cy_eink_library/cy_eink_library.c ****     /* If power cycle operation requested, turn on E-INK power */
+ 261:cy_eink_library/cy_eink_library.c ****     if (powerCycle)
+ 205              		.loc 1 261 0
+ 206 0008 1D46     		mov	r5, r3
+ 207 000a 13B1     		cbz	r3, .L21
+ 262:cy_eink_library/cy_eink_library.c ****     {
+ 263:cy_eink_library/cy_eink_library.c ****         Cy_EINK_Power(CY_EINK_ON);
+ 208              		.loc 1 263 0
+ 209 000c 0120     		movs	r0, #1
+ 210              	.LVL21:
+ 211 000e FFF7FEFF 		bl	Cy_EINK_Power
+ 212              	.LVL22:
+ 213              	.L21:
+ 264:cy_eink_library/cy_eink_library.c ****     }
+ 265:cy_eink_library/cy_eink_library.c ****     /* Partial update stage */
+ 266:cy_eink_library/cy_eink_library.c ****     if (updateType == CY_EINK_PARTIAL)
+ 214              		.loc 1 266 0
+ 215 0012 24B9     		cbnz	r4, .L22
+ 267:cy_eink_library/cy_eink_library.c ****     {
+ 268:cy_eink_library/cy_eink_library.c ****         /* Update the display with changes from previous frame */
+ 269:cy_eink_library/cy_eink_library.c ****         Pv_EINK_PartialStageHandler(prevFrame, newFrame);
+ 216              		.loc 1 269 0
+ 217 0014 3146     		mov	r1, r6
+ 218 0016 3846     		mov	r0, r7
+ 219 0018 FFF7FEFF 		bl	Pv_EINK_PartialStageHandler
+ 220              	.LVL23:
+ 221 001c 15E0     		b	.L23
+ 222              	.L22:
+ 270:cy_eink_library/cy_eink_library.c ****     }
+ 271:cy_eink_library/cy_eink_library.c ****     /* Full update stages */
+ 272:cy_eink_library/cy_eink_library.c ****     else if ((updateType == CY_EINK_FULL_4STAGE) || 
+ 223              		.loc 1 272 0
+ 224 001e 631E     		subs	r3, r4, #1
+ 225 0020 DBB2     		uxtb	r3, r3
+ 226 0022 012B     		cmp	r3, #1
+ 227 0024 11D8     		bhi	.L23
+ 273:cy_eink_library/cy_eink_library.c ****              (updateType == CY_EINK_FULL_2STAGE))
+ 274:cy_eink_library/cy_eink_library.c ****     {
+ 275:cy_eink_library/cy_eink_library.c ****         /* Stage 1: update the display with the inverted version of the previous 
+ 276:cy_eink_library/cy_eink_library.c ****            frame */
+ 277:cy_eink_library/cy_eink_library.c ****         Pv_EINK_FullStageHandler(prevFrame, PV_EINK_STAGE1);
+ 228              		.loc 1 277 0
+ 229 0026 0021     		movs	r1, #0
+ 230 0028 3846     		mov	r0, r7
+ 231 002a FFF7FEFF 		bl	Pv_EINK_FullStageHandler
+ 232              	.LVL24:
+ 278:cy_eink_library/cy_eink_library.c ****         
+ 279:cy_eink_library/cy_eink_library.c ****         /* Additional stages that reduce ghosting for a 4 stage full update */
+ 280:cy_eink_library/cy_eink_library.c ****         if (updateType == CY_EINK_FULL_4STAGE)
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 10
+
+
+ 233              		.loc 1 280 0
+ 234 002e 012C     		cmp	r4, #1
+ 235 0030 07D1     		bne	.L24
+ 281:cy_eink_library/cy_eink_library.c ****         {
+ 282:cy_eink_library/cy_eink_library.c ****             /* Stage 2: update the display with an all white frame */
+ 283:cy_eink_library/cy_eink_library.c ****             Pv_EINK_FullStageHandler(prevFrame, PV_EINK_STAGE2);
+ 236              		.loc 1 283 0
+ 237 0032 0121     		movs	r1, #1
+ 238 0034 3846     		mov	r0, r7
+ 239 0036 FFF7FEFF 		bl	Pv_EINK_FullStageHandler
+ 240              	.LVL25:
+ 284:cy_eink_library/cy_eink_library.c ****             /* Stage 3: update the display with the inverted version of the new 
+ 285:cy_eink_library/cy_eink_library.c ****                frame */
+ 286:cy_eink_library/cy_eink_library.c ****             Pv_EINK_FullStageHandler(newFrame, PV_EINK_STAGE3);
+ 241              		.loc 1 286 0
+ 242 003a 0221     		movs	r1, #2
+ 243 003c 3046     		mov	r0, r6
+ 244 003e FFF7FEFF 		bl	Pv_EINK_FullStageHandler
+ 245              	.LVL26:
+ 246              	.L24:
+ 287:cy_eink_library/cy_eink_library.c ****         }
+ 288:cy_eink_library/cy_eink_library.c ****         
+ 289:cy_eink_library/cy_eink_library.c ****         /* Stage 4: update the display with the new frame */
+ 290:cy_eink_library/cy_eink_library.c ****         Pv_EINK_FullStageHandler(newFrame, PV_EINK_STAGE4);
+ 247              		.loc 1 290 0
+ 248 0042 0321     		movs	r1, #3
+ 249 0044 3046     		mov	r0, r6
+ 250 0046 FFF7FEFF 		bl	Pv_EINK_FullStageHandler
+ 251              	.LVL27:
+ 252              	.L23:
+ 291:cy_eink_library/cy_eink_library.c ****     }
+ 292:cy_eink_library/cy_eink_library.c ****     else
+ 293:cy_eink_library/cy_eink_library.c ****     {
+ 294:cy_eink_library/cy_eink_library.c ****     }
+ 295:cy_eink_library/cy_eink_library.c ****     
+ 296:cy_eink_library/cy_eink_library.c ****     /* If power cycle operation requested, turn off E-INK power */
+ 297:cy_eink_library/cy_eink_library.c ****     if (powerCycle)
+ 253              		.loc 1 297 0
+ 254 004a 15B1     		cbz	r5, .L20
+ 298:cy_eink_library/cy_eink_library.c ****     {
+ 299:cy_eink_library/cy_eink_library.c ****         Cy_EINK_Power(CY_EINK_OFF);
+ 255              		.loc 1 299 0
+ 256 004c 0020     		movs	r0, #0
+ 257 004e FFF7FEFF 		bl	Cy_EINK_Power
+ 258              	.LVL28:
+ 259              	.L20:
+ 260 0052 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 261              		.cfi_endproc
+ 262              	.LFE595:
+ 263              		.size	Cy_EINK_ShowFrame, .-Cy_EINK_ShowFrame
+ 264              		.section	.text.Cy_EINK_ImageToFrameBuffer,"ax",%progbits
+ 265              		.align	2
+ 266              		.global	Cy_EINK_ImageToFrameBuffer
+ 267              		.thumb
+ 268              		.thumb_func
+ 269              		.type	Cy_EINK_ImageToFrameBuffer, %function
+ 270              	Cy_EINK_ImageToFrameBuffer:
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 11
+
+
+ 271              	.LFB596:
+ 300:cy_eink_library/cy_eink_library.c ****     }
+ 301:cy_eink_library/cy_eink_library.c **** }
+ 302:cy_eink_library/cy_eink_library.c **** 
+ 303:cy_eink_library/cy_eink_library.c **** /*******************************************************************************
+ 304:cy_eink_library/cy_eink_library.c **** * Function Name: void Cy_EINK_ImageToFrameBuffer(cy_eink_frame_t* frameBuffer,
+ 305:cy_eink_library/cy_eink_library.c **** *                               cy_eink_frame_t* image, uint8_t* imgCoordinates)
+ 306:cy_eink_library/cy_eink_library.c **** ********************************************************************************
+ 307:cy_eink_library/cy_eink_library.c **** *
+ 308:cy_eink_library/cy_eink_library.c **** * Summary: Copies pixel block data between the specified x and y coordinates 
+ 309:cy_eink_library/cy_eink_library.c **** *  from an image (typically stored in the flash) to a frame buffer in RAM.
+ 310:cy_eink_library/cy_eink_library.c **** *
+ 311:cy_eink_library/cy_eink_library.c **** *  Notes: Image array should be of the same size as frame buffer.
+ 312:cy_eink_library/cy_eink_library.c **** *
+ 313:cy_eink_library/cy_eink_library.c **** *  Copying is done at byte level. Pixel level operations are not supported.
+ 314:cy_eink_library/cy_eink_library.c **** *
+ 315:cy_eink_library/cy_eink_library.c **** *  This function does not update the E-INK display. After frame buffer update,
+ 316:cy_eink_library/cy_eink_library.c **** *  use Cy_EINK_ShowFrame() function to update the display if required.
+ 317:cy_eink_library/cy_eink_library.c **** *
+ 318:cy_eink_library/cy_eink_library.c **** *  This function can be used to clear the frame buffer by passing an all-white 
+ 319:cy_eink_library/cy_eink_library.c **** *  or an all-black image.
+ 320:cy_eink_library/cy_eink_library.c **** *
+ 321:cy_eink_library/cy_eink_library.c **** * Parameters:
+ 322:cy_eink_library/cy_eink_library.c **** *  cy_eink_frame_t* frameBuffer   : Pointer to the frame buffer array in RAM
+ 323:cy_eink_library/cy_eink_library.c **** *  cy_eink_frame_t* image         : Pointer to the image array (typically in 
+ 324:cy_eink_library/cy_eink_library.c **** *                                   flash)
+ 325:cy_eink_library/cy_eink_library.c **** *  uint8_t* imgCoordinates        : Pointer to a 4-byte array of image byte
+ 326:cy_eink_library/cy_eink_library.c **** *                                   coordinates
+ 327:cy_eink_library/cy_eink_library.c **** *
+ 328:cy_eink_library/cy_eink_library.c **** * Return:
+ 329:cy_eink_library/cy_eink_library.c **** *  cy_eink_api_result   : "CY_EINK_SUCCESS" if operation was successful;
+ 330:cy_eink_library/cy_eink_library.c **** *                         "CY_EINK_FAILURE" otherwise
+ 331:cy_eink_library/cy_eink_library.c **** *
+ 332:cy_eink_library/cy_eink_library.c **** * Side Effects:
+ 333:cy_eink_library/cy_eink_library.c **** *  This is a blocking function that can take as many as 5808 RAM write cycles
+ 334:cy_eink_library/cy_eink_library.c **** *  to complete.
+ 335:cy_eink_library/cy_eink_library.c **** *
+ 336:cy_eink_library/cy_eink_library.c **** *******************************************************************************/
+ 337:cy_eink_library/cy_eink_library.c **** cy_eink_api_result Cy_EINK_ImageToFrameBuffer(cy_eink_frame_t* frameBuffer, 
+ 338:cy_eink_library/cy_eink_library.c ****                         cy_eink_frame_t* image, uint8_t* imgCoordinates)
+ 339:cy_eink_library/cy_eink_library.c **** {
+ 272              		.loc 1 339 0
+ 273              		.cfi_startproc
+ 274              		@ args = 0, pretend = 0, frame = 0
+ 275              		@ frame_needed = 0, uses_anonymous_args = 0
+ 276              	.LVL29:
+ 277 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 278              		.cfi_def_cfa_offset 24
+ 279              		.cfi_offset 3, -24
+ 280              		.cfi_offset 4, -20
+ 281              		.cfi_offset 5, -16
+ 282              		.cfi_offset 6, -12
+ 283              		.cfi_offset 7, -8
+ 284              		.cfi_offset 14, -4
+ 340:cy_eink_library/cy_eink_library.c ****     /* Counter variable for horizontal pixel lines */
+ 341:cy_eink_library/cy_eink_library.c ****     uint16_t pixelLineCounter;
+ 342:cy_eink_library/cy_eink_library.c ****     
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 12
+
+
+ 343:cy_eink_library/cy_eink_library.c ****     /* Variable that stores the starting location of the current pixel line */
+ 344:cy_eink_library/cy_eink_library.c ****     uint16_t startLocation;
+ 345:cy_eink_library/cy_eink_library.c ****     
+ 346:cy_eink_library/cy_eink_library.c ****     /* Variable that stores the length of the pixel line */
+ 347:cy_eink_library/cy_eink_library.c ****     uint16_t lineLength;
+ 348:cy_eink_library/cy_eink_library.c ****     
+ 349:cy_eink_library/cy_eink_library.c ****     /* Variable that stores the return value */
+ 350:cy_eink_library/cy_eink_library.c ****     cy_eink_api_result returnValue;
+ 351:cy_eink_library/cy_eink_library.c ****     
+ 352:cy_eink_library/cy_eink_library.c ****     /* Check if the coordinates are within limits */
+ 353:cy_eink_library/cy_eink_library.c ****     if((imgCoordinates[CY_EINK_IMG_X1] < imgCoordinates[CY_EINK_IMG_X2])&& 
+ 285              		.loc 1 353 0
+ 286 0002 1478     		ldrb	r4, [r2]	@ zero_extendqisi2
+ 287 0004 5378     		ldrb	r3, [r2, #1]	@ zero_extendqisi2
+ 288 0006 9C42     		cmp	r4, r3
+ 289 0008 1FD2     		bcs	.L31
+ 354:cy_eink_library/cy_eink_library.c ****        (imgCoordinates[CY_EINK_IMG_Y1] < imgCoordinates[CY_EINK_IMG_Y2])&& 
+ 290              		.loc 1 354 0 discriminator 1
+ 291 000a 9478     		ldrb	r4, [r2, #2]	@ zero_extendqisi2
+ 292 000c D578     		ldrb	r5, [r2, #3]	@ zero_extendqisi2
+ 353:cy_eink_library/cy_eink_library.c ****        (imgCoordinates[CY_EINK_IMG_Y1] < imgCoordinates[CY_EINK_IMG_Y2])&& 
+ 293              		.loc 1 353 0 discriminator 1
+ 294 000e AC42     		cmp	r4, r5
+ 295 0010 1DD2     		bcs	.L32
+ 296              		.loc 1 354 0
+ 297 0012 212B     		cmp	r3, #33
+ 298 0014 1DD8     		bhi	.L33
+ 355:cy_eink_library/cy_eink_library.c ****        (imgCoordinates[CY_EINK_IMG_X2] <= CY_EINK_IMAGE_X_MAX)&&
+ 299              		.loc 1 355 0
+ 300 0016 AF2D     		cmp	r5, #175
+ 301 0018 1DD8     		bhi	.L34
+ 302 001a 1546     		mov	r5, r2
+ 303 001c 0F46     		mov	r7, r1
+ 304 001e 0646     		mov	r6, r0
+ 356:cy_eink_library/cy_eink_library.c ****        (imgCoordinates[CY_EINK_IMG_Y2] <= CY_EINK_IMAGE_Y_MAX))
+ 357:cy_eink_library/cy_eink_library.c ****     {
+ 358:cy_eink_library/cy_eink_library.c ****         /* Do this for all horizontal pixel lines between Y1 and Y2 
+ 359:cy_eink_library/cy_eink_library.c ****            coordinates */
+ 360:cy_eink_library/cy_eink_library.c ****         for (pixelLineCounter  = imgCoordinates[CY_EINK_IMG_Y1];
+ 305              		.loc 1 360 0
+ 306 0020 A4B2     		uxth	r4, r4
+ 307              	.LVL30:
+ 308 0022 0DE0     		b	.L29
+ 309              	.LVL31:
+ 310              	.L30:
+ 361:cy_eink_library/cy_eink_library.c ****              pixelLineCounter <= imgCoordinates[CY_EINK_IMG_Y2];
+ 362:cy_eink_library/cy_eink_library.c ****              pixelLineCounter++)
+ 363:cy_eink_library/cy_eink_library.c ****         {
+ 364:cy_eink_library/cy_eink_library.c ****             
+ 365:cy_eink_library/cy_eink_library.c ****             /* Find the starting location of the pixel line */
+ 366:cy_eink_library/cy_eink_library.c ****             startLocation = (pixelLineCounter * PV_EINK_HORIZONTAL_SIZE) + 
+ 311              		.loc 1 366 0
+ 312 0024 2A78     		ldrb	r2, [r5]	@ zero_extendqisi2
+ 313 0026 04EB4410 		add	r0, r4, r4, lsl #5
+ 314 002a 1044     		add	r0, r0, r2
+ 315 002c 80B2     		uxth	r0, r0
+ 316              	.LVL32:
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 13
+
+
+ 367:cy_eink_library/cy_eink_library.c ****                              imgCoordinates[CY_EINK_IMG_X1];
+ 368:cy_eink_library/cy_eink_library.c ****             
+ 369:cy_eink_library/cy_eink_library.c ****            /* Find the length of the pixel line to be copied */
+ 370:cy_eink_library/cy_eink_library.c ****             lineLength = imgCoordinates[CY_EINK_IMG_X2] - 
+ 317              		.loc 1 370 0
+ 318 002e 6B78     		ldrb	r3, [r5, #1]	@ zero_extendqisi2
+ 319 0030 9A1A     		subs	r2, r3, r2
+ 320              	.LVL33:
+ 371:cy_eink_library/cy_eink_library.c ****                          imgCoordinates[CY_EINK_IMG_X1];
+ 372:cy_eink_library/cy_eink_library.c ****             
+ 373:cy_eink_library/cy_eink_library.c ****             /* Copy the pixel line from the image to the same location in the 
+ 374:cy_eink_library/cy_eink_library.c ****                frame buffer */
+ 375:cy_eink_library/cy_eink_library.c ****             memcpy (&frameBuffer[startLocation], &image[startLocation],
+ 321              		.loc 1 375 0
+ 322 0032 92B2     		uxth	r2, r2
+ 323 0034 3918     		adds	r1, r7, r0
+ 324 0036 3044     		add	r0, r0, r6
+ 325              	.LVL34:
+ 326 0038 FFF7FEFF 		bl	memcpy
+ 327              	.LVL35:
+ 362:cy_eink_library/cy_eink_library.c ****         {
+ 328              		.loc 1 362 0
+ 329 003c 0134     		adds	r4, r4, #1
+ 330              	.LVL36:
+ 331 003e A4B2     		uxth	r4, r4
+ 332              	.LVL37:
+ 333              	.L29:
+ 361:cy_eink_library/cy_eink_library.c ****              pixelLineCounter++)
+ 334              		.loc 1 361 0 discriminator 1
+ 335 0040 EB78     		ldrb	r3, [r5, #3]	@ zero_extendqisi2
+ 360:cy_eink_library/cy_eink_library.c ****              pixelLineCounter <= imgCoordinates[CY_EINK_IMG_Y2];
+ 336              		.loc 1 360 0 discriminator 1
+ 337 0042 9C42     		cmp	r4, r3
+ 338 0044 EED9     		bls	.L30
+ 376:cy_eink_library/cy_eink_library.c ****                     lineLength);
+ 377:cy_eink_library/cy_eink_library.c ****         }
+ 378:cy_eink_library/cy_eink_library.c ****         
+ 379:cy_eink_library/cy_eink_library.c ****         returnValue = CY_EINK_SUCCESS;
+ 339              		.loc 1 379 0
+ 340 0046 0020     		movs	r0, #0
+ 341 0048 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 342              	.LVL38:
+ 343              	.L31:
+ 380:cy_eink_library/cy_eink_library.c ****     }
+ 381:cy_eink_library/cy_eink_library.c ****     else
+ 382:cy_eink_library/cy_eink_library.c ****     {   
+ 383:cy_eink_library/cy_eink_library.c ****         /* Operation failed. Check the input parameters */
+ 384:cy_eink_library/cy_eink_library.c ****         returnValue = CY_EINK_FAILURE; 
+ 344              		.loc 1 384 0
+ 345 004a 0120     		movs	r0, #1
+ 346              	.LVL39:
+ 347 004c F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 348              	.LVL40:
+ 349              	.L32:
+ 350 004e 0120     		movs	r0, #1
+ 351              	.LVL41:
+ 352 0050 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 14
+
+
+ 353              	.LVL42:
+ 354              	.L33:
+ 355 0052 0120     		movs	r0, #1
+ 356              	.LVL43:
+ 357 0054 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 358              	.LVL44:
+ 359              	.L34:
+ 360 0056 0120     		movs	r0, #1
+ 361              	.LVL45:
+ 385:cy_eink_library/cy_eink_library.c ****     }
+ 386:cy_eink_library/cy_eink_library.c ****     
+ 387:cy_eink_library/cy_eink_library.c ****     return returnValue;
+ 388:cy_eink_library/cy_eink_library.c **** }
+ 362              		.loc 1 388 0
+ 363 0058 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 364              		.cfi_endproc
+ 365              	.LFE596:
+ 366              		.size	Cy_EINK_ImageToFrameBuffer, .-Cy_EINK_ImageToFrameBuffer
+ 367 005a 00BF     		.section	.text.Cy_EINK_TextToFrameBuffer,"ax",%progbits
+ 368              		.align	2
+ 369              		.global	Cy_EINK_TextToFrameBuffer
+ 370              		.thumb
+ 371              		.thumb_func
+ 372              		.type	Cy_EINK_TextToFrameBuffer, %function
+ 373              	Cy_EINK_TextToFrameBuffer:
+ 374              	.LFB597:
+ 389:cy_eink_library/cy_eink_library.c **** 
+ 390:cy_eink_library/cy_eink_library.c **** /*******************************************************************************
+ 391:cy_eink_library/cy_eink_library.c **** * Function Name: void Cy_EINK_TextToFrameBuffer(cy_eink_frame_t* frameBuffer, 
+ 392:cy_eink_library/cy_eink_library.c **** *                char* string, cy_eink_font_t* fontInfo , uint8_t* fontCor)
+ 393:cy_eink_library/cy_eink_library.c **** ********************************************************************************
+ 394:cy_eink_library/cy_eink_library.c **** *
+ 395:cy_eink_library/cy_eink_library.c **** * Summary: Converts a text input (string) to pixel data and stores it at the
+ 396:cy_eink_library/cy_eink_library.c **** *  specified coordinates of a frame buffer.
+ 397:cy_eink_library/cy_eink_library.c **** *
+ 398:cy_eink_library/cy_eink_library.c **** *  Notes: This function only supports printable ASCII characters from "!" to "~"
+ 399:cy_eink_library/cy_eink_library.c **** *
+ 400:cy_eink_library/cy_eink_library.c **** *  X and Y locations used in this function are font coordinates, rather than the
+ 401:cy_eink_library/cy_eink_library.c **** *  pixel coordinates used in Cy_EINK_ImageToFrameBuffer() function. See the 
+ 402:cy_eink_library/cy_eink_library.c **** *  CY_EINK_fonts.h for details.
+ 403:cy_eink_library/cy_eink_library.c **** *
+ 404:cy_eink_library/cy_eink_library.c **** *  This function does not update the E-INK display. After frame buffer update,
+ 405:cy_eink_library/cy_eink_library.c **** *  use CY_EINK_ShowFrame() function to update the display if required.
+ 406:cy_eink_library/cy_eink_library.c **** *
+ 407:cy_eink_library/cy_eink_library.c **** * Parameters:
+ 408:cy_eink_library/cy_eink_library.c **** *  cy_eink_frame_t* frameBuffer : Pointer to the frame buffer array in RAM
+ 409:cy_eink_library/cy_eink_library.c **** *  char* string                 : Pointer to the string
+ 410:cy_eink_library/cy_eink_library.c **** *  cy_eink_font_t* fontInfo     : Structure that stores font information
+ 411:cy_eink_library/cy_eink_library.c **** *  uint8_t* fontCor             : Pointer to the 2-byte array containing X and
+ 412:cy_eink_library/cy_eink_library.c **** *                                 Y locations
+ 413:cy_eink_library/cy_eink_library.c **** *
+ 414:cy_eink_library/cy_eink_library.c **** * Return:
+ 415:cy_eink_library/cy_eink_library.c **** *  cy_eink_api_result   : "CY_EINK_SUCCESS" if operation was successful;
+ 416:cy_eink_library/cy_eink_library.c **** *                         "CY_EINK_FAILURE" otherwise
+ 417:cy_eink_library/cy_eink_library.c **** *
+ 418:cy_eink_library/cy_eink_library.c **** * Side Effects:
+ 419:cy_eink_library/cy_eink_library.c **** *  This is a blocking function that can take as many as 5808 RAM write cycles
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 15
+
+
+ 420:cy_eink_library/cy_eink_library.c **** *  to complete.
+ 421:cy_eink_library/cy_eink_library.c **** *
+ 422:cy_eink_library/cy_eink_library.c **** *******************************************************************************/
+ 423:cy_eink_library/cy_eink_library.c **** cy_eink_api_result  Cy_EINK_TextToFrameBuffer(cy_eink_frame_t* frameBuffer, 
+ 424:cy_eink_library/cy_eink_library.c ****                        char* string, cy_eink_font_t* fontInfo, uint8_t* fontCor)
+ 425:cy_eink_library/cy_eink_library.c **** { 
+ 375              		.loc 1 425 0
+ 376              		.cfi_startproc
+ 377              		@ args = 0, pretend = 0, frame = 0
+ 378              		@ frame_needed = 0, uses_anonymous_args = 0
+ 379              	.LVL46:
+ 380 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
+ 381              		.cfi_def_cfa_offset 36
+ 382              		.cfi_offset 4, -36
+ 383              		.cfi_offset 5, -32
+ 384              		.cfi_offset 6, -28
+ 385              		.cfi_offset 7, -24
+ 386              		.cfi_offset 8, -20
+ 387              		.cfi_offset 9, -16
+ 388              		.cfi_offset 10, -12
+ 389              		.cfi_offset 11, -8
+ 390              		.cfi_offset 14, -4
+ 391 0004 8B46     		mov	fp, r1
+ 392              	.LVL47:
+ 426:cy_eink_library/cy_eink_library.c ****     /* Pointer variable for current character under conversion */
+ 427:cy_eink_library/cy_eink_library.c ****     char* currentChar;
+ 428:cy_eink_library/cy_eink_library.c ****     
+ 429:cy_eink_library/cy_eink_library.c ****     /* Variable for storing the location in the frame buffer to which 
+ 430:cy_eink_library/cy_eink_library.c ****        the font data is printed */
+ 431:cy_eink_library/cy_eink_library.c ****     uint16_t printLocation;
+ 432:cy_eink_library/cy_eink_library.c ****     /* Variable for storing the character location in the font */
+ 433:cy_eink_library/cy_eink_library.c ****     uint16_t charLocation;
+ 434:cy_eink_library/cy_eink_library.c ****     
+ 435:cy_eink_library/cy_eink_library.c ****     /* Variable that stores the pixel data byte location in the frame 
+ 436:cy_eink_library/cy_eink_library.c ****        buffer */
+ 437:cy_eink_library/cy_eink_library.c ****     uint16_t frameByte;
+ 438:cy_eink_library/cy_eink_library.c ****     /* Variable that stores the pixel data byte location in the font array */
+ 439:cy_eink_library/cy_eink_library.c ****     uint16_t fontByte;
+ 440:cy_eink_library/cy_eink_library.c ****     
+ 441:cy_eink_library/cy_eink_library.c ****     /* Counter variable for the vertical loop */
+ 442:cy_eink_library/cy_eink_library.c ****     uint8_t verticalCounter;
+ 443:cy_eink_library/cy_eink_library.c ****     /* Counter variable for the horizontal loop */
+ 444:cy_eink_library/cy_eink_library.c ****     uint8_t horizontalCounter;
+ 445:cy_eink_library/cy_eink_library.c ****     
+ 446:cy_eink_library/cy_eink_library.c ****     /* Variable that stores the return value */
+ 447:cy_eink_library/cy_eink_library.c ****     cy_eink_api_result returnValue = CY_EINK_SUCCESS;
+ 393              		.loc 1 447 0
+ 394 0006 4FF00008 		mov	r8, #0
+ 448:cy_eink_library/cy_eink_library.c ****     
+ 449:cy_eink_library/cy_eink_library.c ****     /* Repeat this process until the null character of the string is reached */
+ 450:cy_eink_library/cy_eink_library.c ****     for (currentChar = string;  *currentChar != '\0'; currentChar++)
+ 395              		.loc 1 450 0
+ 396 000a 83E0     		b	.L37
+ 397              	.LVL48:
+ 398              	.L51:
+ 451:cy_eink_library/cy_eink_library.c ****     {
+ 452:cy_eink_library/cy_eink_library.c ****         /* Check if X and Y coordinates are between the font's max limits */
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 16
+
+
+ 453:cy_eink_library/cy_eink_library.c ****         if ((fontCor[CY_EINK_FONT_X] < (fontInfo->xSpan)) && 
+ 399              		.loc 1 453 0
+ 400 000c 1D78     		ldrb	r5, [r3]	@ zero_extendqisi2
+ 401 000e 167A     		ldrb	r6, [r2, #8]	@ zero_extendqisi2
+ 402 0010 B542     		cmp	r5, r6
+ 403 0012 6DD2     		bcs	.L38
+ 454:cy_eink_library/cy_eink_library.c ****             (fontCor[CY_EINK_FONT_Y] < (fontInfo->ySpan)))
+ 404              		.loc 1 454 0 discriminator 1
+ 405 0014 5E78     		ldrb	r6, [r3, #1]	@ zero_extendqisi2
+ 406 0016 577A     		ldrb	r7, [r2, #9]	@ zero_extendqisi2
+ 453:cy_eink_library/cy_eink_library.c ****             (fontCor[CY_EINK_FONT_Y] < (fontInfo->ySpan)))
+ 407              		.loc 1 453 0 discriminator 1
+ 408 0018 BE42     		cmp	r6, r7
+ 409 001a 69D2     		bcs	.L38
+ 455:cy_eink_library/cy_eink_library.c ****         {
+ 456:cy_eink_library/cy_eink_library.c ****             /* Find the actual pixel location in the frame buffer where the
+ 457:cy_eink_library/cy_eink_library.c ****                pixel data should be copied */
+ 458:cy_eink_library/cy_eink_library.c ****             printLocation = (fontInfo->xOffset) + (fontCor[CY_EINK_FONT_X]   * 
+ 410              		.loc 1 458 0
+ 411 001c 1779     		ldrb	r7, [r2, #4]	@ zero_extendqisi2
+ 459:cy_eink_library/cy_eink_library.c ****                             (fontInfo->xSize))  + (((fontCor[CY_EINK_FONT_Y] * 
+ 460:cy_eink_library/cy_eink_library.c ****                             (fontInfo->ySize))  + (fontInfo->yOffset))    * 
+ 412              		.loc 1 460 0
+ 413 001e 92F807E0 		ldrb	lr, [r2, #7]	@ zero_extendqisi2
+ 414 0022 92F805C0 		ldrb	ip, [r2, #5]	@ zero_extendqisi2
+ 415 0026 0EFB06C6 		mla	r6, lr, r6, ip
+ 458:cy_eink_library/cy_eink_library.c ****                             (fontInfo->xSize))  + (((fontCor[CY_EINK_FONT_Y] * 
+ 416              		.loc 1 458 0
+ 417 002a 92F806C0 		ldrb	ip, [r2, #6]	@ zero_extendqisi2
+ 418 002e 06EB4616 		add	r6, r6, r6, lsl #5
+ 419 0032 05FB0C65 		mla	r5, r5, ip, r6
+ 420 0036 3D44     		add	r5, r5, r7
+ 421 0038 AFB2     		uxth	r7, r5
+ 422              	.LVL49:
+ 461:cy_eink_library/cy_eink_library.c ****                              PV_EINK_HORIZONTAL_SIZE);
+ 462:cy_eink_library/cy_eink_library.c ****             
+ 463:cy_eink_library/cy_eink_library.c ****             /* Check if the current character is a printable ASCII character 
+ 464:cy_eink_library/cy_eink_library.c ****                between "!" and "~" */
+ 465:cy_eink_library/cy_eink_library.c ****             if ((*currentChar <= CY_EINK_ASCII_MAX) &&
+ 423              		.loc 1 465 0
+ 424 003a A4F12105 		sub	r5, r4, #33
+ 425 003e EDB2     		uxtb	r5, r5
+ 426 0040 5D2D     		cmp	r5, #93
+ 427 0042 51D8     		bhi	.L52
+ 466:cy_eink_library/cy_eink_library.c ****                 (*currentChar >= CY_EINK_ASCII_MIN))
+ 467:cy_eink_library/cy_eink_library.c ****             {
+ 468:cy_eink_library/cy_eink_library.c ****                 /* Find the location of pixel data corresponding to the 
+ 469:cy_eink_library/cy_eink_library.c ****                    current character from the font array */
+ 470:cy_eink_library/cy_eink_library.c ****                 charLocation = (*currentChar - CY_EINK_ASCII_MIN) *
+ 428              		.loc 1 470 0
+ 429 0044 213C     		subs	r4, r4, #33
+ 430 0046 1EFB0CFE 		smulbb	lr, lr, ip
+ 431 004a 1EFB04FE 		smulbb	lr, lr, r4
+ 432 004e 1FFA8EFC 		uxth	ip, lr
+ 433              	.LVL50:
+ 471:cy_eink_library/cy_eink_library.c ****                                ((fontInfo->ySize) * (fontInfo->xSize));
+ 472:cy_eink_library/cy_eink_library.c ****                 
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 17
+
+
+ 473:cy_eink_library/cy_eink_library.c ****                 /* Vertical copying loop */
+ 474:cy_eink_library/cy_eink_library.c ****                 for (verticalCounter = 0; verticalCounter < (fontInfo->ySize); 
+ 434              		.loc 1 474 0
+ 435 0052 4FF0000E 		mov	lr, #0
+ 436 0056 26E0     		b	.L40
+ 437              	.LVL51:
+ 438              	.L43:
+ 475:cy_eink_library/cy_eink_library.c ****                      verticalCounter++)
+ 476:cy_eink_library/cy_eink_library.c ****                 {
+ 477:cy_eink_library/cy_eink_library.c ****                     /* Horizontal copying loop */
+ 478:cy_eink_library/cy_eink_library.c ****                     for (horizontalCounter = 0; 
+ 479:cy_eink_library/cy_eink_library.c ****                          horizontalCounter < (fontInfo->xSize); 
+ 480:cy_eink_library/cy_eink_library.c ****                          horizontalCounter++)
+ 481:cy_eink_library/cy_eink_library.c ****                     {
+ 482:cy_eink_library/cy_eink_library.c ****                         /* Calculate the current pixel data byte location of 
+ 483:cy_eink_library/cy_eink_library.c ****                            the frame buffer */
+ 484:cy_eink_library/cy_eink_library.c ****                         frameByte = horizontalCounter + (printLocation +
+ 439              		.loc 1 484 0
+ 440 0058 1FFA86F9 		uxth	r9, r6
+ 441 005c 1FFA8EF4 		uxth	r4, lr
+ 442 0060 04EB4415 		add	r5, r4, r4, lsl #5
+ 443 0064 3D44     		add	r5, r5, r7
+ 444 0066 4D44     		add	r5, r5, r9
+ 445 0068 ADB2     		uxth	r5, r5
+ 446              	.LVL52:
+ 485:cy_eink_library/cy_eink_library.c ****                                     (PV_EINK_HORIZONTAL_SIZE 
+ 486:cy_eink_library/cy_eink_library.c ****                                      * verticalCounter));
+ 487:cy_eink_library/cy_eink_library.c ****                         
+ 488:cy_eink_library/cy_eink_library.c ****                         /* Calculate the current pixel data byte location of 
+ 489:cy_eink_library/cy_eink_library.c ****                            the font */
+ 490:cy_eink_library/cy_eink_library.c ****                         fontByte = charLocation + (verticalCounter * 
+ 447              		.loc 1 490 0
+ 448 006a 0AFB04C4 		mla	r4, r10, r4, ip
+ 449 006e 4C44     		add	r4, r4, r9
+ 450 0070 A4B2     		uxth	r4, r4
+ 451              	.LVL53:
+ 491:cy_eink_library/cy_eink_library.c ****                                    (fontInfo->xSize)) + horizontalCounter;
+ 492:cy_eink_library/cy_eink_library.c ****                         
+ 493:cy_eink_library/cy_eink_library.c ****                         /* Copy the pixel data as is for black font on white 
+ 494:cy_eink_library/cy_eink_library.c ****                            background */
+ 495:cy_eink_library/cy_eink_library.c ****                         if ((fontInfo->color) == CY_EINK_WHITE_BACKGROUND)
+ 452              		.loc 1 495 0
+ 453 0072 917A     		ldrb	r1, [r2, #10]	@ zero_extendqisi2
+ 454 0074 21B1     		cbz	r1, .L41
+ 496:cy_eink_library/cy_eink_library.c ****                         {
+ 497:cy_eink_library/cy_eink_library.c ****                             frameBuffer[frameByte] = ~(fontInfo->fontData
+ 498:cy_eink_library/cy_eink_library.c ****                                                                  [fontByte]);
+ 455              		.loc 1 498 0
+ 456 0076 1168     		ldr	r1, [r2]
+ 457 0078 0C5D     		ldrb	r4, [r1, r4]	@ zero_extendqisi2
+ 458              	.LVL54:
+ 497:cy_eink_library/cy_eink_library.c ****                                                                  [fontByte]);
+ 459              		.loc 1 497 0
+ 460 007a E443     		mvns	r4, r4
+ 461 007c 4455     		strb	r4, [r0, r5]
+ 462 007e 06E0     		b	.L42
+ 463              	.LVL55:
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 18
+
+
+ 464              	.L41:
+ 499:cy_eink_library/cy_eink_library.c ****                         }
+ 500:cy_eink_library/cy_eink_library.c ****                         /* Copy the inverted pixel data for white font on black
+ 501:cy_eink_library/cy_eink_library.c ****                            background */
+ 502:cy_eink_library/cy_eink_library.c ****                         else if ((fontInfo->color) == CY_EINK_BLACK_BACKGROUND)
+ 465              		.loc 1 502 0
+ 466 0080 19B9     		cbnz	r1, .L53
+ 503:cy_eink_library/cy_eink_library.c ****                         {
+ 504:cy_eink_library/cy_eink_library.c ****                             frameBuffer[frameByte] = fontInfo->fontData
+ 505:cy_eink_library/cy_eink_library.c ****                                                               [fontByte];
+ 467              		.loc 1 505 0
+ 468 0082 1168     		ldr	r1, [r2]
+ 469 0084 0C5D     		ldrb	r4, [r1, r4]	@ zero_extendqisi2
+ 470              	.LVL56:
+ 504:cy_eink_library/cy_eink_library.c ****                                                               [fontByte];
+ 471              		.loc 1 504 0
+ 472 0086 4455     		strb	r4, [r0, r5]
+ 473 0088 01E0     		b	.L42
+ 474              	.LVL57:
+ 475              	.L53:
+ 506:cy_eink_library/cy_eink_library.c ****                         }
+ 507:cy_eink_library/cy_eink_library.c ****                         else
+ 508:cy_eink_library/cy_eink_library.c ****                         {
+ 509:cy_eink_library/cy_eink_library.c ****                             returnValue = CY_EINK_FAILURE;
+ 476              		.loc 1 509 0
+ 477 008a 4FF00108 		mov	r8, #1
+ 478              	.LVL58:
+ 479              	.L42:
+ 480:cy_eink_library/cy_eink_library.c ****                     {
+ 480              		.loc 1 480 0
+ 481 008e 0136     		adds	r6, r6, #1
+ 482              	.LVL59:
+ 483 0090 F6B2     		uxtb	r6, r6
+ 484              	.LVL60:
+ 485 0092 00E0     		b	.L44
+ 486              	.LVL61:
+ 487              	.L54:
+ 488 0094 0026     		movs	r6, #0
+ 489              	.L44:
+ 490              	.LVL62:
+ 479:cy_eink_library/cy_eink_library.c ****                          horizontalCounter++)
+ 491              		.loc 1 479 0 discriminator 1
+ 492 0096 92F806A0 		ldrb	r10, [r2, #6]	@ zero_extendqisi2
+ 478:cy_eink_library/cy_eink_library.c ****                          horizontalCounter < (fontInfo->xSize); 
+ 493              		.loc 1 478 0 discriminator 1
+ 494 009a 5645     		cmp	r6, r10
+ 495 009c DCD3     		bcc	.L43
+ 475:cy_eink_library/cy_eink_library.c ****                 {
+ 496              		.loc 1 475 0
+ 497 009e 0EF1010E 		add	lr, lr, #1
+ 498              	.LVL63:
+ 499 00a2 5FFA8EFE 		uxtb	lr, lr
+ 500              	.LVL64:
+ 501              	.L40:
+ 474:cy_eink_library/cy_eink_library.c ****                      verticalCounter++)
+ 502              		.loc 1 474 0 discriminator 1
+ 503 00a6 D479     		ldrb	r4, [r2, #7]	@ zero_extendqisi2
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 19
+
+
+ 504 00a8 A645     		cmp	lr, r4
+ 505 00aa F3D3     		bcc	.L54
+ 506 00ac 20E0     		b	.L38
+ 507              	.LVL65:
+ 508              	.L47:
+ 510:cy_eink_library/cy_eink_library.c ****                         }
+ 511:cy_eink_library/cy_eink_library.c ****                     }
+ 512:cy_eink_library/cy_eink_library.c ****                 }
+ 513:cy_eink_library/cy_eink_library.c ****             }
+ 514:cy_eink_library/cy_eink_library.c ****             /* For space and non-printable ASCII characters */
+ 515:cy_eink_library/cy_eink_library.c ****             else
+ 516:cy_eink_library/cy_eink_library.c ****             {
+ 517:cy_eink_library/cy_eink_library.c ****                 /* Vertical copying loop */
+ 518:cy_eink_library/cy_eink_library.c ****                 for (verticalCounter = 0; 
+ 519:cy_eink_library/cy_eink_library.c ****                      verticalCounter < (fontInfo->ySize); 
+ 520:cy_eink_library/cy_eink_library.c ****                      verticalCounter++)
+ 521:cy_eink_library/cy_eink_library.c ****                 {
+ 522:cy_eink_library/cy_eink_library.c ****                     /* Horizontal copying loop */
+ 523:cy_eink_library/cy_eink_library.c ****                     for (horizontalCounter = 0; 
+ 524:cy_eink_library/cy_eink_library.c ****                          horizontalCounter < (fontInfo->xSize);
+ 525:cy_eink_library/cy_eink_library.c ****                          horizontalCounter++)
+ 526:cy_eink_library/cy_eink_library.c ****                     {
+ 527:cy_eink_library/cy_eink_library.c ****                         /* Calculate the current pixel data byte location of 
+ 528:cy_eink_library/cy_eink_library.c ****                            the frame buffer */
+ 529:cy_eink_library/cy_eink_library.c ****                         frameByte = horizontalCounter + (printLocation +
+ 509              		.loc 1 529 0
+ 510 00ae 06EB4614 		add	r4, r6, r6, lsl #5
+ 511 00b2 3C44     		add	r4, r4, r7
+ 512 00b4 2C44     		add	r4, r4, r5
+ 513 00b6 A4B2     		uxth	r4, r4
+ 514              	.LVL66:
+ 530:cy_eink_library/cy_eink_library.c ****                                     (PV_EINK_HORIZONTAL_SIZE 
+ 531:cy_eink_library/cy_eink_library.c ****                                     * verticalCounter));
+ 532:cy_eink_library/cy_eink_library.c ****                         
+ 533:cy_eink_library/cy_eink_library.c ****                         /* Copy white pixels to create a space for fonts with 
+ 534:cy_eink_library/cy_eink_library.c ****                            white background */
+ 535:cy_eink_library/cy_eink_library.c ****                         if ((fontInfo->color) == CY_EINK_WHITE_BACKGROUND)
+ 515              		.loc 1 535 0
+ 516 00b8 92F80AE0 		ldrb	lr, [r2, #10]	@ zero_extendqisi2
+ 517 00bc BEF1000F 		cmp	lr, #0
+ 518 00c0 04D0     		beq	.L45
+ 536:cy_eink_library/cy_eink_library.c ****                         {
+ 537:cy_eink_library/cy_eink_library.c ****                             frameBuffer[frameByte] = CY_EINK_CLEAR_TO_WHITE;
+ 519              		.loc 1 537 0
+ 520 00c2 4FF0FF0E 		mov	lr, #255
+ 521 00c6 00F804E0 		strb	lr, [r0, r4]
+ 522 00ca 03E0     		b	.L46
+ 523              	.L45:
+ 538:cy_eink_library/cy_eink_library.c ****                         }
+ 539:cy_eink_library/cy_eink_library.c ****                         /* Copy black pixels to create a space for fonts with 
+ 540:cy_eink_library/cy_eink_library.c ****                            black background */
+ 541:cy_eink_library/cy_eink_library.c ****                         else
+ 542:cy_eink_library/cy_eink_library.c ****                         {
+ 543:cy_eink_library/cy_eink_library.c ****                             frameBuffer[frameByte] = CY_EINK_CLEAR_TO_BLACK;
+ 524              		.loc 1 543 0
+ 525 00cc 4FF0000E 		mov	lr, #0
+ 526 00d0 00F804E0 		strb	lr, [r0, r4]
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 20
+
+
+ 527              	.L46:
+ 525:cy_eink_library/cy_eink_library.c ****                     {
+ 528              		.loc 1 525 0
+ 529 00d4 0135     		adds	r5, r5, #1
+ 530              	.LVL67:
+ 531 00d6 EDB2     		uxtb	r5, r5
+ 532              	.LVL68:
+ 533 00d8 00E0     		b	.L48
+ 534              	.LVL69:
+ 535              	.L55:
+ 536 00da 0025     		movs	r5, #0
+ 537              	.L48:
+ 538              	.LVL70:
+ 524:cy_eink_library/cy_eink_library.c ****                          horizontalCounter++)
+ 539              		.loc 1 524 0 discriminator 1
+ 540 00dc 9479     		ldrb	r4, [r2, #6]	@ zero_extendqisi2
+ 523:cy_eink_library/cy_eink_library.c ****                          horizontalCounter < (fontInfo->xSize);
+ 541              		.loc 1 523 0 discriminator 1
+ 542 00de A542     		cmp	r5, r4
+ 543 00e0 E5D3     		bcc	.L47
+ 520:cy_eink_library/cy_eink_library.c ****                 {
+ 544              		.loc 1 520 0
+ 545 00e2 0136     		adds	r6, r6, #1
+ 546              	.LVL71:
+ 547 00e4 F6B2     		uxtb	r6, r6
+ 548              	.LVL72:
+ 549 00e6 00E0     		b	.L39
+ 550              	.LVL73:
+ 551              	.L52:
+ 552 00e8 0026     		movs	r6, #0
+ 553              	.L39:
+ 554              	.LVL74:
+ 519:cy_eink_library/cy_eink_library.c ****                      verticalCounter++)
+ 555              		.loc 1 519 0 discriminator 1
+ 556 00ea D479     		ldrb	r4, [r2, #7]	@ zero_extendqisi2
+ 518:cy_eink_library/cy_eink_library.c ****                      verticalCounter < (fontInfo->ySize); 
+ 557              		.loc 1 518 0 discriminator 1
+ 558 00ec A642     		cmp	r6, r4
+ 559 00ee F4D3     		bcc	.L55
+ 560              	.LVL75:
+ 561              	.L38:
+ 544:cy_eink_library/cy_eink_library.c ****                         }
+ 545:cy_eink_library/cy_eink_library.c ****                     }
+ 546:cy_eink_library/cy_eink_library.c ****                 }
+ 547:cy_eink_library/cy_eink_library.c ****             }
+ 548:cy_eink_library/cy_eink_library.c ****         }
+ 549:cy_eink_library/cy_eink_library.c ****         /* Move on to the next character by incrementing the horizontal
+ 550:cy_eink_library/cy_eink_library.c ****            location */
+ 551:cy_eink_library/cy_eink_library.c ****         fontCor[CY_EINK_FONT_X]++;
+ 562              		.loc 1 551 0
+ 563 00f0 1C78     		ldrb	r4, [r3]	@ zero_extendqisi2
+ 564 00f2 0134     		adds	r4, r4, #1
+ 565 00f4 E4B2     		uxtb	r4, r4
+ 566 00f6 1C70     		strb	r4, [r3]
+ 552:cy_eink_library/cy_eink_library.c ****         
+ 553:cy_eink_library/cy_eink_library.c ****         /* Reset the X location and increment the Y location if the X span 
+ 554:cy_eink_library/cy_eink_library.c ****            is reached */
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 21
+
+
+ 555:cy_eink_library/cy_eink_library.c ****         if (fontCor[CY_EINK_FONT_X] >= (fontInfo->xSpan))
+ 567              		.loc 1 555 0
+ 568 00f8 157A     		ldrb	r5, [r2, #8]	@ zero_extendqisi2
+ 569 00fa AC42     		cmp	r4, r5
+ 570 00fc 04D3     		bcc	.L49
+ 556:cy_eink_library/cy_eink_library.c ****         {
+ 557:cy_eink_library/cy_eink_library.c ****             fontCor[CY_EINK_FONT_X] = 0;
+ 571              		.loc 1 557 0
+ 572 00fe 0024     		movs	r4, #0
+ 573 0100 1C70     		strb	r4, [r3]
+ 558:cy_eink_library/cy_eink_library.c ****             fontCor[CY_EINK_FONT_Y]++;
+ 574              		.loc 1 558 0
+ 575 0102 5C78     		ldrb	r4, [r3, #1]	@ zero_extendqisi2
+ 576 0104 0134     		adds	r4, r4, #1
+ 577 0106 5C70     		strb	r4, [r3, #1]
+ 578              	.L49:
+ 559:cy_eink_library/cy_eink_library.c ****         }
+ 560:cy_eink_library/cy_eink_library.c ****         /* End the function if the Y span is reached */
+ 561:cy_eink_library/cy_eink_library.c ****         if (fontCor[CY_EINK_FONT_Y] > (fontInfo->ySpan))
+ 579              		.loc 1 561 0
+ 580 0108 5D78     		ldrb	r5, [r3, #1]	@ zero_extendqisi2
+ 581 010a 547A     		ldrb	r4, [r2, #9]	@ zero_extendqisi2
+ 582 010c A542     		cmp	r5, r4
+ 583 010e 06D8     		bhi	.L50
+ 450:cy_eink_library/cy_eink_library.c ****     {
+ 584              		.loc 1 450 0 discriminator 2
+ 585 0110 0BF1010B 		add	fp, fp, #1
+ 586              	.LVL76:
+ 587              	.L37:
+ 450:cy_eink_library/cy_eink_library.c ****     {
+ 588              		.loc 1 450 0 is_stmt 0 discriminator 1
+ 589 0114 9BF80040 		ldrb	r4, [fp]	@ zero_extendqisi2
+ 590 0118 002C     		cmp	r4, #0
+ 591 011a 7FF477AF 		bne	.L51
+ 592              	.L50:
+ 562:cy_eink_library/cy_eink_library.c ****         {
+ 563:cy_eink_library/cy_eink_library.c ****             break;
+ 564:cy_eink_library/cy_eink_library.c ****         }
+ 565:cy_eink_library/cy_eink_library.c ****     }
+ 566:cy_eink_library/cy_eink_library.c ****     
+ 567:cy_eink_library/cy_eink_library.c ****     return returnValue;
+ 568:cy_eink_library/cy_eink_library.c **** }
+ 593              		.loc 1 568 0 is_stmt 1
+ 594 011e 4046     		mov	r0, r8
+ 595              	.LVL77:
+ 596 0120 BDE8F08F 		pop	{r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 597              		.cfi_endproc
+ 598              	.LFE597:
+ 599              		.size	Cy_EINK_TextToFrameBuffer, .-Cy_EINK_TextToFrameBuffer
+ 600              		.text
+ 601              	.Letext0:
+ 602              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+ 603              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+ 604              		.file 4 "Generated_Source\\PSoC6\\pdl\\drivers/peripheral/rtc/cy_rtc.h"
+ 605              		.file 5 "Generated_Source\\PSoC6\\pdl\\drivers/peripheral/scb/cy_scb_spi.h"
+ 606              		.file 6 "Generated_Source\\PSoC6\\pdl\\drivers/peripheral/scb/cy_scb_uart.h"
+ 607              		.file 7 "Generated_Source\\PSoC6\\pdl\\drivers/peripheral/sar/cy_sar.h"
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 22
+
+
+ 608              		.file 8 "Generated_Source\\PSoC6\\pdl\\middleware/ble/cy_ble_stack_host_main.h"
+ 609              		.file 9 "Generated_Source\\PSoC6\\pdl\\middleware/ble/cy_ble_gap.h"
+ 610              		.file 10 "Generated_Source\\PSoC6/ADC.h"
+ 611              		.file 11 "cy_eink_library\\cy_eink_fonts.h"
+ 612              		.file 12 "cy_eink_library\\cy_eink_psoc_interface.h"
+ 613              		.file 13 "cy_eink_library\\pervasive_eink_hardware_driver.h"
+ 614              		.file 14 "cy_eink_library\\cy_eink_library.h"
+ 615              		.file 15 "Generated_Source\\PSoC6\\pdl\\cmsis/include/core_cm4.h"
+ 616              		.file 16 "Generated_Source\\PSoC6/DEBUG_UART.h"
+ 617              		.file 17 "Generated_Source\\PSoC6/RTC.h"
+ 618              		.file 18 "Generated_Source\\PSoC6/CY_EINK_SPIM.h"
+ 619              		.section	.debug_info,"",%progbits
+ 620              	.Ldebug_info0:
+ 621 0000 E70B0000 		.4byte	0xbe7
+ 622 0004 0400     		.2byte	0x4
+ 623 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 624 000a 04       		.byte	0x4
+ 625 000b 01       		.uleb128 0x1
+ 626 000c B7060000 		.4byte	.LASF185
+ 627 0010 0C       		.byte	0xc
+ 628 0011 B7080000 		.4byte	.LASF186
+ 629 0015 EB050000 		.4byte	.LASF187
+ 630 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 631 001d 00000000 		.4byte	0
+ 632 0021 00000000 		.4byte	.Ldebug_line0
+ 633 0025 02       		.uleb128 0x2
+ 634 0026 29010000 		.4byte	.LASF0
+ 635 002a 02       		.byte	0x2
+ 636 002b 1B       		.byte	0x1b
+ 637 002c 30000000 		.4byte	0x30
+ 638 0030 03       		.uleb128 0x3
+ 639 0031 01       		.byte	0x1
+ 640 0032 06       		.byte	0x6
+ 641 0033 65010000 		.4byte	.LASF2
+ 642 0037 02       		.uleb128 0x2
+ 643 0038 B2000000 		.4byte	.LASF1
+ 644 003c 02       		.byte	0x2
+ 645 003d 1D       		.byte	0x1d
+ 646 003e 42000000 		.4byte	0x42
+ 647 0042 03       		.uleb128 0x3
+ 648 0043 01       		.byte	0x1
+ 649 0044 08       		.byte	0x8
+ 650 0045 63080000 		.4byte	.LASF3
+ 651 0049 03       		.uleb128 0x3
+ 652 004a 02       		.byte	0x2
+ 653 004b 05       		.byte	0x5
+ 654 004c 87080000 		.4byte	.LASF4
+ 655 0050 02       		.uleb128 0x2
+ 656 0051 B3090000 		.4byte	.LASF5
+ 657 0055 02       		.byte	0x2
+ 658 0056 2B       		.byte	0x2b
+ 659 0057 5B000000 		.4byte	0x5b
+ 660 005b 03       		.uleb128 0x3
+ 661 005c 02       		.byte	0x2
+ 662 005d 07       		.byte	0x7
+ 663 005e 68040000 		.4byte	.LASF6
+ 664 0062 02       		.uleb128 0x2
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 23
+
+
+ 665 0063 37050000 		.4byte	.LASF7
+ 666 0067 02       		.byte	0x2
+ 667 0068 3F       		.byte	0x3f
+ 668 0069 6D000000 		.4byte	0x6d
+ 669 006d 03       		.uleb128 0x3
+ 670 006e 04       		.byte	0x4
+ 671 006f 05       		.byte	0x5
+ 672 0070 74020000 		.4byte	.LASF8
+ 673 0074 02       		.uleb128 0x2
+ 674 0075 5E030000 		.4byte	.LASF9
+ 675 0079 02       		.byte	0x2
+ 676 007a 41       		.byte	0x41
+ 677 007b 7F000000 		.4byte	0x7f
+ 678 007f 03       		.uleb128 0x3
+ 679 0080 04       		.byte	0x4
+ 680 0081 07       		.byte	0x7
+ 681 0082 C5010000 		.4byte	.LASF10
+ 682 0086 03       		.uleb128 0x3
+ 683 0087 08       		.byte	0x8
+ 684 0088 05       		.byte	0x5
+ 685 0089 57010000 		.4byte	.LASF11
+ 686 008d 03       		.uleb128 0x3
+ 687 008e 08       		.byte	0x8
+ 688 008f 07       		.byte	0x7
+ 689 0090 F3000000 		.4byte	.LASF12
+ 690 0094 04       		.uleb128 0x4
+ 691 0095 04       		.byte	0x4
+ 692 0096 05       		.byte	0x5
+ 693 0097 696E7400 		.ascii	"int\000"
+ 694 009b 03       		.uleb128 0x3
+ 695 009c 04       		.byte	0x4
+ 696 009d 07       		.byte	0x7
+ 697 009e DB030000 		.4byte	.LASF13
+ 698 00a2 03       		.uleb128 0x3
+ 699 00a3 08       		.byte	0x8
+ 700 00a4 04       		.byte	0x4
+ 701 00a5 A9050000 		.4byte	.LASF14
+ 702 00a9 05       		.uleb128 0x5
+ 703 00aa 04       		.byte	0x4
+ 704 00ab 03       		.uleb128 0x3
+ 705 00ac 04       		.byte	0x4
+ 706 00ad 07       		.byte	0x7
+ 707 00ae 95050000 		.4byte	.LASF15
+ 708 00b2 06       		.uleb128 0x6
+ 709 00b3 04       		.byte	0x4
+ 710 00b4 B8000000 		.4byte	0xb8
+ 711 00b8 03       		.uleb128 0x3
+ 712 00b9 01       		.byte	0x1
+ 713 00ba 08       		.byte	0x8
+ 714 00bb 8C090000 		.4byte	.LASF16
+ 715 00bf 02       		.uleb128 0x2
+ 716 00c0 790A0000 		.4byte	.LASF17
+ 717 00c4 03       		.byte	0x3
+ 718 00c5 14       		.byte	0x14
+ 719 00c6 25000000 		.4byte	0x25
+ 720 00ca 02       		.uleb128 0x2
+ 721 00cb 7D0B0000 		.4byte	.LASF18
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 24
+
+
+ 722 00cf 03       		.byte	0x3
+ 723 00d0 18       		.byte	0x18
+ 724 00d1 37000000 		.4byte	0x37
+ 725 00d5 02       		.uleb128 0x2
+ 726 00d6 D6020000 		.4byte	.LASF19
+ 727 00da 03       		.byte	0x3
+ 728 00db 24       		.byte	0x24
+ 729 00dc 50000000 		.4byte	0x50
+ 730 00e0 02       		.uleb128 0x2
+ 731 00e1 5B080000 		.4byte	.LASF20
+ 732 00e5 03       		.byte	0x3
+ 733 00e6 2C       		.byte	0x2c
+ 734 00e7 62000000 		.4byte	0x62
+ 735 00eb 02       		.uleb128 0x2
+ 736 00ec 2D090000 		.4byte	.LASF21
+ 737 00f0 03       		.byte	0x3
+ 738 00f1 30       		.byte	0x30
+ 739 00f2 74000000 		.4byte	0x74
+ 740 00f6 07       		.uleb128 0x7
+ 741 00f7 EB000000 		.4byte	0xeb
+ 742 00fb 03       		.uleb128 0x3
+ 743 00fc 04       		.byte	0x4
+ 744 00fd 04       		.byte	0x4
+ 745 00fe 9C070000 		.4byte	.LASF22
+ 746 0102 03       		.uleb128 0x3
+ 747 0103 08       		.byte	0x8
+ 748 0104 04       		.byte	0x4
+ 749 0105 DF020000 		.4byte	.LASF23
+ 750 0109 03       		.uleb128 0x3
+ 751 010a 01       		.byte	0x1
+ 752 010b 02       		.byte	0x2
+ 753 010c 55080000 		.4byte	.LASF24
+ 754 0110 08       		.uleb128 0x8
+ 755 0111 01       		.byte	0x1
+ 756 0112 42000000 		.4byte	0x42
+ 757 0116 04       		.byte	0x4
+ 758 0117 6A01     		.2byte	0x16a
+ 759 0119 2A010000 		.4byte	0x12a
+ 760 011d 09       		.uleb128 0x9
+ 761 011e F8090000 		.4byte	.LASF25
+ 762 0122 00       		.byte	0
+ 763 0123 09       		.uleb128 0x9
+ 764 0124 63020000 		.4byte	.LASF26
+ 765 0128 01       		.byte	0x1
+ 766 0129 00       		.byte	0
+ 767 012a 0A       		.uleb128 0xa
+ 768 012b 41050000 		.4byte	.LASF27
+ 769 012f 04       		.byte	0x4
+ 770 0130 6D01     		.2byte	0x16d
+ 771 0132 10010000 		.4byte	0x110
+ 772 0136 0B       		.uleb128 0xb
+ 773 0137 18       		.byte	0x18
+ 774 0138 04       		.byte	0x4
+ 775 0139 CE01     		.2byte	0x1ce
+ 776 013b 8E010000 		.4byte	0x18e
+ 777 013f 0C       		.uleb128 0xc
+ 778 0140 E0080000 		.4byte	.LASF28
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 25
+
+
+ 779 0144 04       		.byte	0x4
+ 780 0145 D001     		.2byte	0x1d0
+ 781 0147 2A010000 		.4byte	0x12a
+ 782 014b 00       		.byte	0
+ 783 014c 0C       		.uleb128 0xc
+ 784 014d A4060000 		.4byte	.LASF29
+ 785 0151 04       		.byte	0x4
+ 786 0152 D301     		.2byte	0x1d3
+ 787 0154 EB000000 		.4byte	0xeb
+ 788 0158 04       		.byte	0x4
+ 789 0159 0C       		.uleb128 0xc
+ 790 015a A2070000 		.4byte	.LASF30
+ 791 015e 04       		.byte	0x4
+ 792 015f D501     		.2byte	0x1d5
+ 793 0161 EB000000 		.4byte	0xeb
+ 794 0165 08       		.byte	0x8
+ 795 0166 0C       		.uleb128 0xc
+ 796 0167 41010000 		.4byte	.LASF31
+ 797 016b 04       		.byte	0x4
+ 798 016c D801     		.2byte	0x1d8
+ 799 016e EB000000 		.4byte	0xeb
+ 800 0172 0C       		.byte	0xc
+ 801 0173 0C       		.uleb128 0xc
+ 802 0174 61050000 		.4byte	.LASF32
+ 803 0178 04       		.byte	0x4
+ 804 0179 DC01     		.2byte	0x1dc
+ 805 017b EB000000 		.4byte	0xeb
+ 806 017f 10       		.byte	0x10
+ 807 0180 0C       		.uleb128 0xc
+ 808 0181 D5030000 		.4byte	.LASF33
+ 809 0185 04       		.byte	0x4
+ 810 0186 E001     		.2byte	0x1e0
+ 811 0188 EB000000 		.4byte	0xeb
+ 812 018c 14       		.byte	0x14
+ 813 018d 00       		.byte	0
+ 814 018e 0A       		.uleb128 0xa
+ 815 018f 800A0000 		.4byte	.LASF34
+ 816 0193 04       		.byte	0x4
+ 817 0194 E201     		.2byte	0x1e2
+ 818 0196 36010000 		.4byte	0x136
+ 819 019a 0B       		.uleb128 0xb
+ 820 019b 30       		.byte	0x30
+ 821 019c 04       		.byte	0x4
+ 822 019d E501     		.2byte	0x1e5
+ 823 019f BE010000 		.4byte	0x1be
+ 824 01a3 0C       		.uleb128 0xc
+ 825 01a4 42020000 		.4byte	.LASF35
+ 826 01a8 04       		.byte	0x4
+ 827 01a9 E701     		.2byte	0x1e7
+ 828 01ab 8E010000 		.4byte	0x18e
+ 829 01af 00       		.byte	0
+ 830 01b0 0C       		.uleb128 0xc
+ 831 01b1 2B0C0000 		.4byte	.LASF36
+ 832 01b5 04       		.byte	0x4
+ 833 01b6 E801     		.2byte	0x1e8
+ 834 01b8 8E010000 		.4byte	0x18e
+ 835 01bc 18       		.byte	0x18
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 26
+
+
+ 836 01bd 00       		.byte	0
+ 837 01be 0A       		.uleb128 0xa
+ 838 01bf 7D020000 		.4byte	.LASF37
+ 839 01c3 04       		.byte	0x4
+ 840 01c4 E901     		.2byte	0x1e9
+ 841 01c6 9A010000 		.4byte	0x19a
+ 842 01ca 06       		.uleb128 0x6
+ 843 01cb 04       		.byte	0x4
+ 844 01cc D0010000 		.4byte	0x1d0
+ 845 01d0 0D       		.uleb128 0xd
+ 846 01d1 DB010000 		.4byte	0x1db
+ 847 01d5 0E       		.uleb128 0xe
+ 848 01d6 EB000000 		.4byte	0xeb
+ 849 01da 00       		.byte	0
+ 850 01db 06       		.uleb128 0x6
+ 851 01dc 04       		.byte	0x4
+ 852 01dd CA000000 		.4byte	0xca
+ 853 01e1 0A       		.uleb128 0xa
+ 854 01e2 13020000 		.4byte	.LASF38
+ 855 01e6 05       		.byte	0x5
+ 856 01e7 BF01     		.2byte	0x1bf
+ 857 01e9 CA010000 		.4byte	0x1ca
+ 858 01ed 0F       		.uleb128 0xf
+ 859 01ee 71010000 		.4byte	.LASF50
+ 860 01f2 24       		.byte	0x24
+ 861 01f3 05       		.byte	0x5
+ 862 01f4 4102     		.2byte	0x241
+ 863 01f6 70020000 		.4byte	0x270
+ 864 01fa 0C       		.uleb128 0xc
+ 865 01fb D9080000 		.4byte	.LASF39
+ 866 01ff 05       		.byte	0x5
+ 867 0200 4402     		.2byte	0x244
+ 868 0202 F6000000 		.4byte	0xf6
+ 869 0206 00       		.byte	0
+ 870 0207 0C       		.uleb128 0xc
+ 871 0208 A00A0000 		.4byte	.LASF40
+ 872 020c 05       		.byte	0x5
+ 873 020d 4602     		.2byte	0x246
+ 874 020f A9000000 		.4byte	0xa9
+ 875 0213 04       		.byte	0x4
+ 876 0214 0C       		.uleb128 0xc
+ 877 0215 08000000 		.4byte	.LASF41
+ 878 0219 05       		.byte	0x5
+ 879 021a 4702     		.2byte	0x247
+ 880 021c EB000000 		.4byte	0xeb
+ 881 0220 08       		.byte	0x8
+ 882 0221 0C       		.uleb128 0xc
+ 883 0222 9C030000 		.4byte	.LASF42
+ 884 0226 05       		.byte	0x5
+ 885 0227 4802     		.2byte	0x248
+ 886 0229 F6000000 		.4byte	0xf6
+ 887 022d 0C       		.byte	0xc
+ 888 022e 0C       		.uleb128 0xc
+ 889 022f 32010000 		.4byte	.LASF43
+ 890 0233 05       		.byte	0x5
+ 891 0234 4A02     		.2byte	0x24a
+ 892 0236 A9000000 		.4byte	0xa9
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 27
+
+
+ 893 023a 10       		.byte	0x10
+ 894 023b 0C       		.uleb128 0xc
+ 895 023c CB030000 		.4byte	.LASF44
+ 896 0240 05       		.byte	0x5
+ 897 0241 4B02     		.2byte	0x24b
+ 898 0243 EB000000 		.4byte	0xeb
+ 899 0247 14       		.byte	0x14
+ 900 0248 0C       		.uleb128 0xc
+ 901 0249 E7080000 		.4byte	.LASF45
+ 902 024d 05       		.byte	0x5
+ 903 024e 4C02     		.2byte	0x24c
+ 904 0250 F6000000 		.4byte	0xf6
+ 905 0254 18       		.byte	0x18
+ 906 0255 0C       		.uleb128 0xc
+ 907 0256 A9040000 		.4byte	.LASF46
+ 908 025a 05       		.byte	0x5
+ 909 025b 5202     		.2byte	0x252
+ 910 025d E1010000 		.4byte	0x1e1
+ 911 0261 1C       		.byte	0x1c
+ 912 0262 0C       		.uleb128 0xc
+ 913 0263 980A0000 		.4byte	.LASF47
+ 914 0267 05       		.byte	0x5
+ 915 0268 5502     		.2byte	0x255
+ 916 026a EB000000 		.4byte	0xeb
+ 917 026e 20       		.byte	0x20
+ 918 026f 00       		.byte	0
+ 919 0270 0A       		.uleb128 0xa
+ 920 0271 48090000 		.4byte	.LASF48
+ 921 0275 05       		.byte	0x5
+ 922 0276 5802     		.2byte	0x258
+ 923 0278 ED010000 		.4byte	0x1ed
+ 924 027c 0A       		.uleb128 0xa
+ 925 027d 520A0000 		.4byte	.LASF49
+ 926 0281 06       		.byte	0x6
+ 927 0282 AB01     		.2byte	0x1ab
+ 928 0284 CA010000 		.4byte	0x1ca
+ 929 0288 0F       		.uleb128 0xf
+ 930 0289 620C0000 		.4byte	.LASF51
+ 931 028d 38       		.byte	0x38
+ 932 028e 06       		.byte	0x6
+ 933 028f 4702     		.2byte	0x247
+ 934 0291 4C030000 		.4byte	0x34c
+ 935 0295 0C       		.uleb128 0xc
+ 936 0296 5F040000 		.4byte	.LASF52
+ 937 029a 06       		.byte	0x6
+ 938 029b 4A02     		.2byte	0x24a
+ 939 029d F6000000 		.4byte	0xf6
+ 940 02a1 00       		.byte	0
+ 941 02a2 0C       		.uleb128 0xc
+ 942 02a3 9B060000 		.4byte	.LASF53
+ 943 02a7 06       		.byte	0x6
+ 944 02a8 4B02     		.2byte	0x24b
+ 945 02aa F6000000 		.4byte	0xf6
+ 946 02ae 04       		.byte	0x4
+ 947 02af 0C       		.uleb128 0xc
+ 948 02b0 0A010000 		.4byte	.LASF54
+ 949 02b4 06       		.byte	0x6
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 28
+
+
+ 950 02b5 4D02     		.2byte	0x24d
+ 951 02b7 A9000000 		.4byte	0xa9
+ 952 02bb 08       		.byte	0x8
+ 953 02bc 0C       		.uleb128 0xc
+ 954 02bd 1A0A0000 		.4byte	.LASF55
+ 955 02c1 06       		.byte	0x6
+ 956 02c2 4E02     		.2byte	0x24e
+ 957 02c4 EB000000 		.4byte	0xeb
+ 958 02c8 0C       		.byte	0xc
+ 959 02c9 0C       		.uleb128 0xc
+ 960 02ca 0C0A0000 		.4byte	.LASF56
+ 961 02ce 06       		.byte	0x6
+ 962 02cf 4F02     		.2byte	0x24f
+ 963 02d1 F6000000 		.4byte	0xf6
+ 964 02d5 10       		.byte	0x10
+ 965 02d6 0C       		.uleb128 0xc
+ 966 02d7 DE0B0000 		.4byte	.LASF57
+ 967 02db 06       		.byte	0x6
+ 968 02dc 5002     		.2byte	0x250
+ 969 02de F6000000 		.4byte	0xf6
+ 970 02e2 14       		.byte	0x14
+ 971 02e3 0C       		.uleb128 0xc
+ 972 02e4 A00A0000 		.4byte	.LASF40
+ 973 02e8 06       		.byte	0x6
+ 974 02e9 5202     		.2byte	0x252
+ 975 02eb A9000000 		.4byte	0xa9
+ 976 02ef 18       		.byte	0x18
+ 977 02f0 0C       		.uleb128 0xc
+ 978 02f1 08000000 		.4byte	.LASF41
+ 979 02f5 06       		.byte	0x6
+ 980 02f6 5302     		.2byte	0x253
+ 981 02f8 EB000000 		.4byte	0xeb
+ 982 02fc 1C       		.byte	0x1c
+ 983 02fd 0C       		.uleb128 0xc
+ 984 02fe 9C030000 		.4byte	.LASF42
+ 985 0302 06       		.byte	0x6
+ 986 0303 5402     		.2byte	0x254
+ 987 0305 F6000000 		.4byte	0xf6
+ 988 0309 20       		.byte	0x20
+ 989 030a 0C       		.uleb128 0xc
+ 990 030b 32010000 		.4byte	.LASF43
+ 991 030f 06       		.byte	0x6
+ 992 0310 5602     		.2byte	0x256
+ 993 0312 A9000000 		.4byte	0xa9
+ 994 0316 24       		.byte	0x24
+ 995 0317 0C       		.uleb128 0xc
+ 996 0318 CB030000 		.4byte	.LASF44
+ 997 031c 06       		.byte	0x6
+ 998 031d 5702     		.2byte	0x257
+ 999 031f EB000000 		.4byte	0xeb
+ 1000 0323 28       		.byte	0x28
+ 1001 0324 0C       		.uleb128 0xc
+ 1002 0325 DB070000 		.4byte	.LASF58
+ 1003 0329 06       		.byte	0x6
+ 1004 032a 5802     		.2byte	0x258
+ 1005 032c F6000000 		.4byte	0xf6
+ 1006 0330 2C       		.byte	0x2c
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 29
+
+
+ 1007 0331 0C       		.uleb128 0xc
+ 1008 0332 A9040000 		.4byte	.LASF46
+ 1009 0336 06       		.byte	0x6
+ 1010 0337 5D02     		.2byte	0x25d
+ 1011 0339 7C020000 		.4byte	0x27c
+ 1012 033d 30       		.byte	0x30
+ 1013 033e 0C       		.uleb128 0xc
+ 1014 033f 980A0000 		.4byte	.LASF47
+ 1015 0343 06       		.byte	0x6
+ 1016 0344 6002     		.2byte	0x260
+ 1017 0346 EB000000 		.4byte	0xeb
+ 1018 034a 34       		.byte	0x34
+ 1019 034b 00       		.byte	0
+ 1020 034c 0A       		.uleb128 0xa
+ 1021 034d 88010000 		.4byte	.LASF59
+ 1022 0351 06       		.byte	0x6
+ 1023 0352 6302     		.2byte	0x263
+ 1024 0354 88020000 		.4byte	0x288
+ 1025 0358 08       		.uleb128 0x8
+ 1026 0359 01       		.byte	0x1
+ 1027 035a 42000000 		.4byte	0x42
+ 1028 035e 07       		.byte	0x7
+ 1029 035f 0504     		.2byte	0x405
+ 1030 0361 7E030000 		.4byte	0x37e
+ 1031 0365 09       		.uleb128 0x9
+ 1032 0366 4B020000 		.4byte	.LASF60
+ 1033 036a 00       		.byte	0
+ 1034 036b 09       		.uleb128 0x9
+ 1035 036c C6040000 		.4byte	.LASF61
+ 1036 0370 01       		.byte	0x1
+ 1037 0371 09       		.uleb128 0x9
+ 1038 0372 BE020000 		.4byte	.LASF62
+ 1039 0376 02       		.byte	0x2
+ 1040 0377 09       		.uleb128 0x9
+ 1041 0378 C40B0000 		.4byte	.LASF63
+ 1042 037c 03       		.byte	0x3
+ 1043 037d 00       		.byte	0
+ 1044 037e 0A       		.uleb128 0xa
+ 1045 037f A2010000 		.4byte	.LASF64
+ 1046 0383 07       		.byte	0x7
+ 1047 0384 0A04     		.2byte	0x40a
+ 1048 0386 58030000 		.4byte	0x358
+ 1049 038a 0B       		.uleb128 0xb
+ 1050 038b 78       		.byte	0x78
+ 1051 038c 07       		.byte	0x7
+ 1052 038d F404     		.2byte	0x4f4
+ 1053 038f 57040000 		.4byte	0x457
+ 1054 0393 0C       		.uleb128 0xc
+ 1055 0394 BE090000 		.4byte	.LASF65
+ 1056 0398 07       		.byte	0x7
+ 1057 0399 F604     		.2byte	0x4f6
+ 1058 039b EB000000 		.4byte	0xeb
+ 1059 039f 00       		.byte	0
+ 1060 03a0 0C       		.uleb128 0xc
+ 1061 03a1 590B0000 		.4byte	.LASF66
+ 1062 03a5 07       		.byte	0x7
+ 1063 03a6 F704     		.2byte	0x4f7
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 30
+
+
+ 1064 03a8 EB000000 		.4byte	0xeb
+ 1065 03ac 04       		.byte	0x4
+ 1066 03ad 0C       		.uleb128 0xc
+ 1067 03ae 14030000 		.4byte	.LASF67
+ 1068 03b2 07       		.byte	0x7
+ 1069 03b3 F804     		.2byte	0x4f8
+ 1070 03b5 EB000000 		.4byte	0xeb
+ 1071 03b9 08       		.byte	0x8
+ 1072 03ba 0C       		.uleb128 0xc
+ 1073 03bb 9E0B0000 		.4byte	.LASF68
+ 1074 03bf 07       		.byte	0x7
+ 1075 03c0 F904     		.2byte	0x4f9
+ 1076 03c2 EB000000 		.4byte	0xeb
+ 1077 03c6 0C       		.byte	0xc
+ 1078 03c7 0C       		.uleb128 0xc
+ 1079 03c8 8D040000 		.4byte	.LASF69
+ 1080 03cc 07       		.byte	0x7
+ 1081 03cd FA04     		.2byte	0x4fa
+ 1082 03cf EB000000 		.4byte	0xeb
+ 1083 03d3 10       		.byte	0x10
+ 1084 03d4 0C       		.uleb128 0xc
+ 1085 03d5 DC0A0000 		.4byte	.LASF70
+ 1086 03d9 07       		.byte	0x7
+ 1087 03da FB04     		.2byte	0x4fb
+ 1088 03dc 7E030000 		.4byte	0x37e
+ 1089 03e0 14       		.byte	0x14
+ 1090 03e1 0C       		.uleb128 0xc
+ 1091 03e2 FD070000 		.4byte	.LASF71
+ 1092 03e6 07       		.byte	0x7
+ 1093 03e7 FC04     		.2byte	0x4fc
+ 1094 03e9 EB000000 		.4byte	0xeb
+ 1095 03ed 18       		.byte	0x18
+ 1096 03ee 0C       		.uleb128 0xc
+ 1097 03ef 6B050000 		.4byte	.LASF72
+ 1098 03f3 07       		.byte	0x7
+ 1099 03f4 FD04     		.2byte	0x4fd
+ 1100 03f6 57040000 		.4byte	0x457
+ 1101 03fa 1C       		.byte	0x1c
+ 1102 03fb 0C       		.uleb128 0xc
+ 1103 03fc 58050000 		.4byte	.LASF73
+ 1104 0400 07       		.byte	0x7
+ 1105 0401 FE04     		.2byte	0x4fe
+ 1106 0403 EB000000 		.4byte	0xeb
+ 1107 0407 5C       		.byte	0x5c
+ 1108 0408 0C       		.uleb128 0xc
+ 1109 0409 20000000 		.4byte	.LASF74
+ 1110 040d 07       		.byte	0x7
+ 1111 040e FF04     		.2byte	0x4ff
+ 1112 0410 EB000000 		.4byte	0xeb
+ 1113 0414 60       		.byte	0x60
+ 1114 0415 0C       		.uleb128 0xc
+ 1115 0416 A9060000 		.4byte	.LASF75
+ 1116 041a 07       		.byte	0x7
+ 1117 041b 0005     		.2byte	0x500
+ 1118 041d EB000000 		.4byte	0xeb
+ 1119 0421 64       		.byte	0x64
+ 1120 0422 0C       		.uleb128 0xc
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 31
+
+
+ 1121 0423 91080000 		.4byte	.LASF76
+ 1122 0427 07       		.byte	0x7
+ 1123 0428 0105     		.2byte	0x501
+ 1124 042a EB000000 		.4byte	0xeb
+ 1125 042e 68       		.byte	0x68
+ 1126 042f 0C       		.uleb128 0xc
+ 1127 0430 330C0000 		.4byte	.LASF77
+ 1128 0434 07       		.byte	0x7
+ 1129 0435 0205     		.2byte	0x502
+ 1130 0437 EB000000 		.4byte	0xeb
+ 1131 043b 6C       		.byte	0x6c
+ 1132 043c 0C       		.uleb128 0xc
+ 1133 043d 57060000 		.4byte	.LASF78
+ 1134 0441 07       		.byte	0x7
+ 1135 0442 0305     		.2byte	0x503
+ 1136 0444 09010000 		.4byte	0x109
+ 1137 0448 70       		.byte	0x70
+ 1138 0449 0C       		.uleb128 0xc
+ 1139 044a 61090000 		.4byte	.LASF79
+ 1140 044e 07       		.byte	0x7
+ 1141 044f 0405     		.2byte	0x504
+ 1142 0451 EB000000 		.4byte	0xeb
+ 1143 0455 74       		.byte	0x74
+ 1144 0456 00       		.byte	0
+ 1145 0457 10       		.uleb128 0x10
+ 1146 0458 EB000000 		.4byte	0xeb
+ 1147 045c 67040000 		.4byte	0x467
+ 1148 0460 11       		.uleb128 0x11
+ 1149 0461 AB000000 		.4byte	0xab
+ 1150 0465 0F       		.byte	0xf
+ 1151 0466 00       		.byte	0
+ 1152 0467 0A       		.uleb128 0xa
+ 1153 0468 0E0C0000 		.4byte	.LASF80
+ 1154 046c 07       		.byte	0x7
+ 1155 046d 0505     		.2byte	0x505
+ 1156 046f 8A030000 		.4byte	0x38a
+ 1157 0473 12       		.uleb128 0x12
+ 1158 0474 CA000000 		.4byte	0xca
+ 1159 0478 0B       		.uleb128 0xb
+ 1160 0479 02       		.byte	0x2
+ 1161 047a 08       		.byte	0x8
+ 1162 047b 5B01     		.2byte	0x15b
+ 1163 047d 9C040000 		.4byte	0x49c
+ 1164 0481 0C       		.uleb128 0xc
+ 1165 0482 220C0000 		.4byte	.LASF81
+ 1166 0486 08       		.byte	0x8
+ 1167 0487 6501     		.2byte	0x165
+ 1168 0489 CA000000 		.4byte	0xca
+ 1169 048d 00       		.byte	0
+ 1170 048e 0C       		.uleb128 0xc
+ 1171 048f 76050000 		.4byte	.LASF82
+ 1172 0493 08       		.byte	0x8
+ 1173 0494 6901     		.2byte	0x169
+ 1174 0496 CA000000 		.4byte	0xca
+ 1175 049a 01       		.byte	0x1
+ 1176 049b 00       		.byte	0
+ 1177 049c 0A       		.uleb128 0xa
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 32
+
+
+ 1178 049d BC000000 		.4byte	.LASF83
+ 1179 04a1 08       		.byte	0x8
+ 1180 04a2 6B01     		.2byte	0x16b
+ 1181 04a4 78040000 		.4byte	0x478
+ 1182 04a8 13       		.uleb128 0x13
+ 1183 04a9 01       		.byte	0x1
+ 1184 04aa 42000000 		.4byte	0x42
+ 1185 04ae 09       		.byte	0x9
+ 1186 04af 7E       		.byte	0x7e
+ 1187 04b0 CD040000 		.4byte	0x4cd
+ 1188 04b4 09       		.uleb128 0x9
+ 1189 04b5 640B0000 		.4byte	.LASF84
+ 1190 04b9 00       		.byte	0
+ 1191 04ba 09       		.uleb128 0x9
+ 1192 04bb CC050000 		.4byte	.LASF85
+ 1193 04bf 01       		.byte	0x1
+ 1194 04c0 09       		.uleb128 0x9
+ 1195 04c1 3C0B0000 		.4byte	.LASF86
+ 1196 04c5 02       		.byte	0x2
+ 1197 04c6 09       		.uleb128 0x9
+ 1198 04c7 F3010000 		.4byte	.LASF87
+ 1199 04cb 03       		.byte	0x3
+ 1200 04cc 00       		.byte	0
+ 1201 04cd 02       		.uleb128 0x2
+ 1202 04ce A1020000 		.4byte	.LASF88
+ 1203 04d2 09       		.byte	0x9
+ 1204 04d3 83       		.byte	0x83
+ 1205 04d4 A8040000 		.4byte	0x4a8
+ 1206 04d8 13       		.uleb128 0x13
+ 1207 04d9 01       		.byte	0x1
+ 1208 04da 42000000 		.4byte	0x42
+ 1209 04de 09       		.byte	0x9
+ 1210 04df 87       		.byte	0x87
+ 1211 04e0 15050000 		.4byte	0x515
+ 1212 04e4 09       		.uleb128 0x9
+ 1213 04e5 BD0A0000 		.4byte	.LASF89
+ 1214 04e9 00       		.byte	0
+ 1215 04ea 09       		.uleb128 0x9
+ 1216 04eb 04040000 		.4byte	.LASF90
+ 1217 04ef 01       		.byte	0x1
+ 1218 04f0 09       		.uleb128 0x9
+ 1219 04f1 E8030000 		.4byte	.LASF91
+ 1220 04f5 02       		.byte	0x2
+ 1221 04f6 09       		.uleb128 0x9
+ 1222 04f7 280A0000 		.4byte	.LASF92
+ 1223 04fb 03       		.byte	0x3
+ 1224 04fc 09       		.uleb128 0x9
+ 1225 04fd 21030000 		.4byte	.LASF93
+ 1226 0501 04       		.byte	0x4
+ 1227 0502 09       		.uleb128 0x9
+ 1228 0503 2B080000 		.4byte	.LASF94
+ 1229 0507 05       		.byte	0x5
+ 1230 0508 09       		.uleb128 0x9
+ 1231 0509 F0080000 		.4byte	.LASF95
+ 1232 050d 06       		.byte	0x6
+ 1233 050e 09       		.uleb128 0x9
+ 1234 050f 78070000 		.4byte	.LASF96
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 33
+
+
+ 1235 0513 07       		.byte	0x7
+ 1236 0514 00       		.byte	0
+ 1237 0515 02       		.uleb128 0x2
+ 1238 0516 B5050000 		.4byte	.LASF97
+ 1239 051a 09       		.byte	0x9
+ 1240 051b 90       		.byte	0x90
+ 1241 051c D8040000 		.4byte	0x4d8
+ 1242 0520 14       		.uleb128 0x14
+ 1243 0521 14       		.byte	0x14
+ 1244 0522 0A       		.byte	0xa
+ 1245 0523 3B       		.byte	0x3b
+ 1246 0524 65050000 		.4byte	0x565
+ 1247 0528 15       		.uleb128 0x15
+ 1248 0529 020C0000 		.4byte	.LASF98
+ 1249 052d 0A       		.byte	0xa
+ 1250 052e 3D       		.byte	0x3d
+ 1251 052f EB000000 		.4byte	0xeb
+ 1252 0533 00       		.byte	0
+ 1253 0534 15       		.uleb128 0x15
+ 1254 0535 EF040000 		.4byte	.LASF99
+ 1255 0539 0A       		.byte	0xa
+ 1256 053a 3E       		.byte	0x3e
+ 1257 053b EB000000 		.4byte	0xeb
+ 1258 053f 04       		.byte	0x4
+ 1259 0540 15       		.uleb128 0x15
+ 1260 0541 69030000 		.4byte	.LASF100
+ 1261 0545 0A       		.byte	0xa
+ 1262 0546 3F       		.byte	0x3f
+ 1263 0547 65050000 		.4byte	0x565
+ 1264 054b 08       		.byte	0x8
+ 1265 054c 15       		.uleb128 0x15
+ 1266 054d 9E050000 		.4byte	.LASF101
+ 1267 0551 0A       		.byte	0xa
+ 1268 0552 40       		.byte	0x40
+ 1269 0553 EB000000 		.4byte	0xeb
+ 1270 0557 0C       		.byte	0xc
+ 1271 0558 15       		.uleb128 0x15
+ 1272 0559 D7010000 		.4byte	.LASF102
+ 1273 055d 0A       		.byte	0xa
+ 1274 055e 45       		.byte	0x45
+ 1275 055f EB000000 		.4byte	0xeb
+ 1276 0563 10       		.byte	0x10
+ 1277 0564 00       		.byte	0
+ 1278 0565 06       		.uleb128 0x6
+ 1279 0566 04       		.byte	0x4
+ 1280 0567 6B050000 		.4byte	0x56b
+ 1281 056b 12       		.uleb128 0x12
+ 1282 056c 67040000 		.4byte	0x467
+ 1283 0570 02       		.uleb128 0x2
+ 1284 0571 FC020000 		.4byte	.LASF103
+ 1285 0575 0A       		.byte	0xa
+ 1286 0576 48       		.byte	0x48
+ 1287 0577 20050000 		.4byte	0x520
+ 1288 057b 14       		.uleb128 0x14
+ 1289 057c 0C       		.byte	0xc
+ 1290 057d 0B       		.byte	0xb
+ 1291 057e 3B       		.byte	0x3b
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 34
+
+
+ 1292 057f E4050000 		.4byte	0x5e4
+ 1293 0583 15       		.uleb128 0x15
+ 1294 0584 38010000 		.4byte	.LASF104
+ 1295 0588 0B       		.byte	0xb
+ 1296 0589 3E       		.byte	0x3e
+ 1297 058a DB010000 		.4byte	0x1db
+ 1298 058e 00       		.byte	0
+ 1299 058f 15       		.uleb128 0x15
+ 1300 0590 7C050000 		.4byte	.LASF105
+ 1301 0594 0B       		.byte	0xb
+ 1302 0595 40       		.byte	0x40
+ 1303 0596 CA000000 		.4byte	0xca
+ 1304 059a 04       		.byte	0x4
+ 1305 059b 15       		.uleb128 0x15
+ 1306 059c 00000000 		.4byte	.LASF106
+ 1307 05a0 0B       		.byte	0xb
+ 1308 05a1 42       		.byte	0x42
+ 1309 05a2 CA000000 		.4byte	0xca
+ 1310 05a6 05       		.byte	0x5
+ 1311 05a7 15       		.uleb128 0x15
+ 1312 05a8 B5030000 		.4byte	.LASF107
+ 1313 05ac 0B       		.byte	0xb
+ 1314 05ad 44       		.byte	0x44
+ 1315 05ae CA000000 		.4byte	0xca
+ 1316 05b2 06       		.byte	0x6
+ 1317 05b3 15       		.uleb128 0x15
+ 1318 05b4 EC0B0000 		.4byte	.LASF108
+ 1319 05b8 0B       		.byte	0xb
+ 1320 05b9 46       		.byte	0x46
+ 1321 05ba CA000000 		.4byte	0xca
+ 1322 05be 07       		.byte	0x7
+ 1323 05bf 15       		.uleb128 0x15
+ 1324 05c0 AD090000 		.4byte	.LASF109
+ 1325 05c4 0B       		.byte	0xb
+ 1326 05c5 48       		.byte	0x48
+ 1327 05c6 CA000000 		.4byte	0xca
+ 1328 05ca 08       		.byte	0x8
+ 1329 05cb 15       		.uleb128 0x15
+ 1330 05cc 7B040000 		.4byte	.LASF110
+ 1331 05d0 0B       		.byte	0xb
+ 1332 05d1 4A       		.byte	0x4a
+ 1333 05d2 CA000000 		.4byte	0xca
+ 1334 05d6 09       		.byte	0x9
+ 1335 05d7 15       		.uleb128 0x15
+ 1336 05d8 86090000 		.4byte	.LASF111
+ 1337 05dc 0B       		.byte	0xb
+ 1338 05dd 4D       		.byte	0x4d
+ 1339 05de 09010000 		.4byte	0x109
+ 1340 05e2 0A       		.byte	0xa
+ 1341 05e3 00       		.byte	0
+ 1342 05e4 02       		.uleb128 0x2
+ 1343 05e5 50040000 		.4byte	.LASF112
+ 1344 05e9 0B       		.byte	0xb
+ 1345 05ea 4E       		.byte	0x4e
+ 1346 05eb 7B050000 		.4byte	0x57b
+ 1347 05ef 02       		.uleb128 0x2
+ 1348 05f0 6D090000 		.4byte	.LASF113
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 35
+
+
+ 1349 05f4 0C       		.byte	0xc
+ 1350 05f5 73       		.byte	0x73
+ 1351 05f6 CA010000 		.4byte	0x1ca
+ 1352 05fa 02       		.uleb128 0x2
+ 1353 05fb 14010000 		.4byte	.LASF114
+ 1354 05ff 0D       		.byte	0xd
+ 1355 0600 35       		.byte	0x35
+ 1356 0601 42000000 		.4byte	0x42
+ 1357 0605 13       		.uleb128 0x13
+ 1358 0606 01       		.byte	0x1
+ 1359 0607 42000000 		.4byte	0x42
+ 1360 060b 0D       		.byte	0xd
+ 1361 060c 39       		.byte	0x39
+ 1362 060d 36060000 		.4byte	0x636
+ 1363 0611 09       		.uleb128 0x9
+ 1364 0612 1C080000 		.4byte	.LASF115
+ 1365 0616 00       		.byte	0
+ 1366 0617 09       		.uleb128 0x9
+ 1367 0618 4B030000 		.4byte	.LASF116
+ 1368 061c 01       		.byte	0x1
+ 1369 061d 09       		.uleb128 0x9
+ 1370 061e E2010000 		.4byte	.LASF117
+ 1371 0622 02       		.byte	0x2
+ 1372 0623 09       		.uleb128 0x9
+ 1373 0624 A60A0000 		.4byte	.LASF118
+ 1374 0628 03       		.byte	0x3
+ 1375 0629 09       		.uleb128 0x9
+ 1376 062a 510C0000 		.4byte	.LASF119
+ 1377 062e 04       		.byte	0x4
+ 1378 062f 09       		.uleb128 0x9
+ 1379 0630 5B000000 		.4byte	.LASF120
+ 1380 0634 05       		.byte	0x5
+ 1381 0635 00       		.byte	0
+ 1382 0636 02       		.uleb128 0x2
+ 1383 0637 EC070000 		.4byte	.LASF121
+ 1384 063b 0D       		.byte	0xd
+ 1385 063c 40       		.byte	0x40
+ 1386 063d 05060000 		.4byte	0x605
+ 1387 0641 13       		.uleb128 0x13
+ 1388 0642 01       		.byte	0x1
+ 1389 0643 42000000 		.4byte	0x42
+ 1390 0647 0D       		.byte	0xd
+ 1391 0648 44       		.byte	0x44
+ 1392 0649 66060000 		.4byte	0x666
+ 1393 064d 09       		.uleb128 0x9
+ 1394 064e FB040000 		.4byte	.LASF122
+ 1395 0652 00       		.byte	0
+ 1396 0653 09       		.uleb128 0x9
+ 1397 0654 0A050000 		.4byte	.LASF123
+ 1398 0658 01       		.byte	0x1
+ 1399 0659 09       		.uleb128 0x9
+ 1400 065a 19050000 		.4byte	.LASF124
+ 1401 065e 02       		.byte	0x2
+ 1402 065f 09       		.uleb128 0x9
+ 1403 0660 28050000 		.4byte	.LASF125
+ 1404 0664 03       		.byte	0x3
+ 1405 0665 00       		.byte	0
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 36
+
+
+ 1406 0666 02       		.uleb128 0x2
+ 1407 0667 DF040000 		.4byte	.LASF126
+ 1408 066b 0E       		.byte	0xe
+ 1409 066c 6D       		.byte	0x6d
+ 1410 066d FA050000 		.4byte	0x5fa
+ 1411 0671 13       		.uleb128 0x13
+ 1412 0672 01       		.byte	0x1
+ 1413 0673 42000000 		.4byte	0x42
+ 1414 0677 0E       		.byte	0xe
+ 1415 0678 72       		.byte	0x72
+ 1416 0679 90060000 		.4byte	0x690
+ 1417 067d 09       		.uleb128 0x9
+ 1418 067e A5030000 		.4byte	.LASF127
+ 1419 0682 00       		.byte	0
+ 1420 0683 09       		.uleb128 0x9
+ 1421 0684 75030000 		.4byte	.LASF128
+ 1422 0688 01       		.byte	0x1
+ 1423 0689 09       		.uleb128 0x9
+ 1424 068a B2040000 		.4byte	.LASF129
+ 1425 068e 02       		.byte	0x2
+ 1426 068f 00       		.byte	0
+ 1427 0690 02       		.uleb128 0x2
+ 1428 0691 31020000 		.4byte	.LASF130
+ 1429 0695 0E       		.byte	0xe
+ 1430 0696 76       		.byte	0x76
+ 1431 0697 71060000 		.4byte	0x671
+ 1432 069b 13       		.uleb128 0x13
+ 1433 069c 01       		.byte	0x1
+ 1434 069d 42000000 		.4byte	0x42
+ 1435 06a1 0E       		.byte	0xe
+ 1436 06a2 7A       		.byte	0x7a
+ 1437 06a3 B4060000 		.4byte	0x6b4
+ 1438 06a7 09       		.uleb128 0x9
+ 1439 06a8 F20B0000 		.4byte	.LASF131
+ 1440 06ac 00       		.byte	0
+ 1441 06ad 09       		.uleb128 0x9
+ 1442 06ae BB030000 		.4byte	.LASF132
+ 1443 06b2 01       		.byte	0x1
+ 1444 06b3 00       		.byte	0
+ 1445 06b4 02       		.uleb128 0x2
+ 1446 06b5 89030000 		.4byte	.LASF133
+ 1447 06b9 0E       		.byte	0xe
+ 1448 06ba 7C       		.byte	0x7c
+ 1449 06bb 9B060000 		.4byte	0x69b
+ 1450 06bf 16       		.uleb128 0x16
+ 1451 06c0 12000000 		.4byte	.LASF136
+ 1452 06c4 01       		.byte	0x1
+ 1453 06c5 56       		.byte	0x56
+ 1454 06c6 B4060000 		.4byte	0x6b4
+ 1455 06ca 00000000 		.4byte	.LFB592
+ 1456 06ce 1E000000 		.4byte	.LFE592-.LFB592
+ 1457 06d2 01       		.uleb128 0x1
+ 1458 06d3 9C       		.byte	0x9c
+ 1459 06d4 34070000 		.4byte	0x734
+ 1460 06d8 17       		.uleb128 0x17
+ 1461 06d9 F0020000 		.4byte	.LASF134
+ 1462 06dd 01       		.byte	0x1
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 37
+
+
+ 1463 06de 56       		.byte	0x56
+ 1464 06df BF000000 		.4byte	0xbf
+ 1465 06e3 00000000 		.4byte	.LLST0
+ 1466 06e7 17       		.uleb128 0x17
+ 1467 06e8 430C0000 		.4byte	.LASF135
+ 1468 06ec 01       		.byte	0x1
+ 1469 06ed 57       		.byte	0x57
+ 1470 06ee EF050000 		.4byte	0x5ef
+ 1471 06f2 3A000000 		.4byte	.LLST1
+ 1472 06f6 18       		.uleb128 0x18
+ 1473 06f7 880C0000 		.4byte	.LASF139
+ 1474 06fb 01       		.byte	0x1
+ 1475 06fc 5A       		.byte	0x5a
+ 1476 06fd B4060000 		.4byte	0x6b4
+ 1477 0701 66000000 		.4byte	.LLST2
+ 1478 0705 19       		.uleb128 0x19
+ 1479 0706 0C000000 		.4byte	.LVL2
+ 1480 070a 940B0000 		.4byte	0xb94
+ 1481 070e 1A070000 		.4byte	0x71a
+ 1482 0712 1A       		.uleb128 0x1a
+ 1483 0713 01       		.uleb128 0x1
+ 1484 0714 50       		.byte	0x50
+ 1485 0715 03       		.uleb128 0x3
+ 1486 0716 F3       		.byte	0xf3
+ 1487 0717 01       		.uleb128 0x1
+ 1488 0718 51       		.byte	0x51
+ 1489 0719 00       		.byte	0
+ 1490 071a 1B       		.uleb128 0x1b
+ 1491 071b 10000000 		.4byte	.LVL3
+ 1492 071f 9F0B0000 		.4byte	0xb9f
+ 1493 0723 1C       		.uleb128 0x1c
+ 1494 0724 16000000 		.4byte	.LVL4
+ 1495 0728 AA0B0000 		.4byte	0xbaa
+ 1496 072c 1A       		.uleb128 0x1a
+ 1497 072d 01       		.uleb128 0x1
+ 1498 072e 50       		.byte	0x50
+ 1499 072f 02       		.uleb128 0x2
+ 1500 0730 74       		.byte	0x74
+ 1501 0731 00       		.sleb128 0
+ 1502 0732 00       		.byte	0
+ 1503 0733 00       		.byte	0
+ 1504 0734 16       		.uleb128 0x16
+ 1505 0735 940C0000 		.4byte	.LASF137
+ 1506 0739 01       		.byte	0x1
+ 1507 073a 88       		.byte	0x88
+ 1508 073b B4060000 		.4byte	0x6b4
+ 1509 073f 00000000 		.4byte	.LFB593
+ 1510 0743 14000000 		.4byte	.LFE593-.LFB593
+ 1511 0747 01       		.uleb128 0x1
+ 1512 0748 9C       		.byte	0x9c
+ 1513 0749 8B070000 		.4byte	0x78b
+ 1514 074d 17       		.uleb128 0x17
+ 1515 074e 4D010000 		.4byte	.LASF138
+ 1516 0752 01       		.byte	0x1
+ 1517 0753 88       		.byte	0x88
+ 1518 0754 09010000 		.4byte	0x109
+ 1519 0758 7A000000 		.4byte	.LLST3
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 38
+
+
+ 1520 075c 18       		.uleb128 0x18
+ 1521 075d EE090000 		.4byte	.LASF140
+ 1522 0761 01       		.byte	0x1
+ 1523 0762 8B       		.byte	0x8b
+ 1524 0763 36060000 		.4byte	0x636
+ 1525 0767 B4000000 		.4byte	.LLST4
+ 1526 076b 1D       		.uleb128 0x1d
+ 1527 076c 880C0000 		.4byte	.LASF139
+ 1528 0770 01       		.byte	0x1
+ 1529 0771 8C       		.byte	0x8c
+ 1530 0772 B4060000 		.4byte	0x6b4
+ 1531 0776 01       		.uleb128 0x1
+ 1532 0777 50       		.byte	0x50
+ 1533 0778 1B       		.uleb128 0x1b
+ 1534 0779 08000000 		.4byte	.LVL8
+ 1535 077d B50B0000 		.4byte	0xbb5
+ 1536 0781 1B       		.uleb128 0x1b
+ 1537 0782 0E000000 		.4byte	.LVL10
+ 1538 0786 C00B0000 		.4byte	0xbc0
+ 1539 078a 00       		.byte	0
+ 1540 078b 1E       		.uleb128 0x1e
+ 1541 078c 7A0C0000 		.4byte	.LASF143
+ 1542 0790 01       		.byte	0x1
+ 1543 0791 C1       		.byte	0xc1
+ 1544 0792 00000000 		.4byte	.LFB594
+ 1545 0796 44000000 		.4byte	.LFE594-.LFB594
+ 1546 079a 01       		.uleb128 0x1
+ 1547 079b 9C       		.byte	0x9c
+ 1548 079c 43080000 		.4byte	0x843
+ 1549 07a0 17       		.uleb128 0x17
+ 1550 07a1 1B090000 		.4byte	.LASF141
+ 1551 07a5 01       		.byte	0x1
+ 1552 07a6 C1       		.byte	0xc1
+ 1553 07a7 09010000 		.4byte	0x109
+ 1554 07ab D2000000 		.4byte	.LLST5
+ 1555 07af 17       		.uleb128 0x17
+ 1556 07b0 F80A0000 		.4byte	.LASF142
+ 1557 07b4 01       		.byte	0x1
+ 1558 07b5 C1       		.byte	0xc1
+ 1559 07b6 09010000 		.4byte	0x109
+ 1560 07ba F3000000 		.4byte	.LLST6
+ 1561 07be 19       		.uleb128 0x19
+ 1562 07bf 0E000000 		.4byte	.LVL14
+ 1563 07c3 34070000 		.4byte	0x734
+ 1564 07c7 D1070000 		.4byte	0x7d1
+ 1565 07cb 1A       		.uleb128 0x1a
+ 1566 07cc 01       		.uleb128 0x1
+ 1567 07cd 50       		.byte	0x50
+ 1568 07ce 01       		.uleb128 0x1
+ 1569 07cf 31       		.byte	0x31
+ 1570 07d0 00       		.byte	0
+ 1571 07d1 19       		.uleb128 0x19
+ 1572 07d2 18000000 		.4byte	.LVL15
+ 1573 07d6 CB0B0000 		.4byte	0xbcb
+ 1574 07da E9070000 		.4byte	0x7e9
+ 1575 07de 1A       		.uleb128 0x1a
+ 1576 07df 01       		.uleb128 0x1
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 39
+
+
+ 1577 07e0 50       		.byte	0x50
+ 1578 07e1 01       		.uleb128 0x1
+ 1579 07e2 30       		.byte	0x30
+ 1580 07e3 1A       		.uleb128 0x1a
+ 1581 07e4 01       		.uleb128 0x1
+ 1582 07e5 51       		.byte	0x51
+ 1583 07e6 01       		.uleb128 0x1
+ 1584 07e7 33       		.byte	0x33
+ 1585 07e8 00       		.byte	0
+ 1586 07e9 19       		.uleb128 0x19
+ 1587 07ea 20000000 		.4byte	.LVL16
+ 1588 07ee CB0B0000 		.4byte	0xbcb
+ 1589 07f2 01080000 		.4byte	0x801
+ 1590 07f6 1A       		.uleb128 0x1a
+ 1591 07f7 01       		.uleb128 0x1
+ 1592 07f8 50       		.byte	0x50
+ 1593 07f9 01       		.uleb128 0x1
+ 1594 07fa 30       		.byte	0x30
+ 1595 07fb 1A       		.uleb128 0x1a
+ 1596 07fc 01       		.uleb128 0x1
+ 1597 07fd 51       		.byte	0x51
+ 1598 07fe 01       		.uleb128 0x1
+ 1599 07ff 33       		.byte	0x33
+ 1600 0800 00       		.byte	0
+ 1601 0801 19       		.uleb128 0x19
+ 1602 0802 2E000000 		.4byte	.LVL17
+ 1603 0806 CB0B0000 		.4byte	0xbcb
+ 1604 080a 1A080000 		.4byte	0x81a
+ 1605 080e 1A       		.uleb128 0x1a
+ 1606 080f 01       		.uleb128 0x1
+ 1607 0810 50       		.byte	0x50
+ 1608 0811 02       		.uleb128 0x2
+ 1609 0812 74       		.byte	0x74
+ 1610 0813 00       		.sleb128 0
+ 1611 0814 1A       		.uleb128 0x1a
+ 1612 0815 01       		.uleb128 0x1
+ 1613 0816 51       		.byte	0x51
+ 1614 0817 01       		.uleb128 0x1
+ 1615 0818 33       		.byte	0x33
+ 1616 0819 00       		.byte	0
+ 1617 081a 19       		.uleb128 0x19
+ 1618 081b 36000000 		.4byte	.LVL18
+ 1619 081f CB0B0000 		.4byte	0xbcb
+ 1620 0823 33080000 		.4byte	0x833
+ 1621 0827 1A       		.uleb128 0x1a
+ 1622 0828 01       		.uleb128 0x1
+ 1623 0829 50       		.byte	0x50
+ 1624 082a 02       		.uleb128 0x2
+ 1625 082b 74       		.byte	0x74
+ 1626 082c 00       		.sleb128 0
+ 1627 082d 1A       		.uleb128 0x1a
+ 1628 082e 01       		.uleb128 0x1
+ 1629 082f 51       		.byte	0x51
+ 1630 0830 01       		.uleb128 0x1
+ 1631 0831 33       		.byte	0x33
+ 1632 0832 00       		.byte	0
+ 1633 0833 1C       		.uleb128 0x1c
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 40
+
+
+ 1634 0834 3E000000 		.4byte	.LVL19
+ 1635 0838 34070000 		.4byte	0x734
+ 1636 083c 1A       		.uleb128 0x1a
+ 1637 083d 01       		.uleb128 0x1
+ 1638 083e 50       		.byte	0x50
+ 1639 083f 01       		.uleb128 0x1
+ 1640 0840 30       		.byte	0x30
+ 1641 0841 00       		.byte	0
+ 1642 0842 00       		.byte	0
+ 1643 0843 1F       		.uleb128 0x1f
+ 1644 0844 CC090000 		.4byte	.LASF144
+ 1645 0848 01       		.byte	0x1
+ 1646 0849 0101     		.2byte	0x101
+ 1647 084b 00000000 		.4byte	.LFB595
+ 1648 084f 54000000 		.4byte	.LFE595-.LFB595
+ 1649 0853 01       		.uleb128 0x1
+ 1650 0854 9C       		.byte	0x9c
+ 1651 0855 3A090000 		.4byte	0x93a
+ 1652 0859 20       		.uleb128 0x20
+ 1653 085a 4D060000 		.4byte	.LASF145
+ 1654 085e 01       		.byte	0x1
+ 1655 085f 0101     		.2byte	0x101
+ 1656 0861 3A090000 		.4byte	0x93a
+ 1657 0865 14010000 		.4byte	.LLST7
+ 1658 0869 20       		.uleb128 0x20
+ 1659 086a 7E080000 		.4byte	.LASF146
+ 1660 086e 01       		.byte	0x1
+ 1661 086f 0101     		.2byte	0x101
+ 1662 0871 3A090000 		.4byte	0x93a
+ 1663 0875 32010000 		.4byte	.LLST8
+ 1664 0879 20       		.uleb128 0x20
+ 1665 087a 45040000 		.4byte	.LASF147
+ 1666 087e 01       		.byte	0x1
+ 1667 087f 0201     		.2byte	0x102
+ 1668 0881 90060000 		.4byte	0x690
+ 1669 0885 50010000 		.4byte	.LLST9
+ 1670 0889 20       		.uleb128 0x20
+ 1671 088a F80A0000 		.4byte	.LASF142
+ 1672 088e 01       		.byte	0x1
+ 1673 088f 0201     		.2byte	0x102
+ 1674 0891 09010000 		.4byte	0x109
+ 1675 0895 71010000 		.4byte	.LLST10
+ 1676 0899 19       		.uleb128 0x19
+ 1677 089a 12000000 		.4byte	.LVL22
+ 1678 089e 34070000 		.4byte	0x734
+ 1679 08a2 AC080000 		.4byte	0x8ac
+ 1680 08a6 1A       		.uleb128 0x1a
+ 1681 08a7 01       		.uleb128 0x1
+ 1682 08a8 50       		.byte	0x50
+ 1683 08a9 01       		.uleb128 0x1
+ 1684 08aa 31       		.byte	0x31
+ 1685 08ab 00       		.byte	0
+ 1686 08ac 19       		.uleb128 0x19
+ 1687 08ad 1C000000 		.4byte	.LVL23
+ 1688 08b1 D60B0000 		.4byte	0xbd6
+ 1689 08b5 C6080000 		.4byte	0x8c6
+ 1690 08b9 1A       		.uleb128 0x1a
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 41
+
+
+ 1691 08ba 01       		.uleb128 0x1
+ 1692 08bb 50       		.byte	0x50
+ 1693 08bc 02       		.uleb128 0x2
+ 1694 08bd 77       		.byte	0x77
+ 1695 08be 00       		.sleb128 0
+ 1696 08bf 1A       		.uleb128 0x1a
+ 1697 08c0 01       		.uleb128 0x1
+ 1698 08c1 51       		.byte	0x51
+ 1699 08c2 02       		.uleb128 0x2
+ 1700 08c3 76       		.byte	0x76
+ 1701 08c4 00       		.sleb128 0
+ 1702 08c5 00       		.byte	0
+ 1703 08c6 19       		.uleb128 0x19
+ 1704 08c7 2E000000 		.4byte	.LVL24
+ 1705 08cb CB0B0000 		.4byte	0xbcb
+ 1706 08cf DF080000 		.4byte	0x8df
+ 1707 08d3 1A       		.uleb128 0x1a
+ 1708 08d4 01       		.uleb128 0x1
+ 1709 08d5 50       		.byte	0x50
+ 1710 08d6 02       		.uleb128 0x2
+ 1711 08d7 77       		.byte	0x77
+ 1712 08d8 00       		.sleb128 0
+ 1713 08d9 1A       		.uleb128 0x1a
+ 1714 08da 01       		.uleb128 0x1
+ 1715 08db 51       		.byte	0x51
+ 1716 08dc 01       		.uleb128 0x1
+ 1717 08dd 30       		.byte	0x30
+ 1718 08de 00       		.byte	0
+ 1719 08df 19       		.uleb128 0x19
+ 1720 08e0 3A000000 		.4byte	.LVL25
+ 1721 08e4 CB0B0000 		.4byte	0xbcb
+ 1722 08e8 F8080000 		.4byte	0x8f8
+ 1723 08ec 1A       		.uleb128 0x1a
+ 1724 08ed 01       		.uleb128 0x1
+ 1725 08ee 50       		.byte	0x50
+ 1726 08ef 02       		.uleb128 0x2
+ 1727 08f0 77       		.byte	0x77
+ 1728 08f1 00       		.sleb128 0
+ 1729 08f2 1A       		.uleb128 0x1a
+ 1730 08f3 01       		.uleb128 0x1
+ 1731 08f4 51       		.byte	0x51
+ 1732 08f5 01       		.uleb128 0x1
+ 1733 08f6 31       		.byte	0x31
+ 1734 08f7 00       		.byte	0
+ 1735 08f8 19       		.uleb128 0x19
+ 1736 08f9 42000000 		.4byte	.LVL26
+ 1737 08fd CB0B0000 		.4byte	0xbcb
+ 1738 0901 11090000 		.4byte	0x911
+ 1739 0905 1A       		.uleb128 0x1a
+ 1740 0906 01       		.uleb128 0x1
+ 1741 0907 50       		.byte	0x50
+ 1742 0908 02       		.uleb128 0x2
+ 1743 0909 76       		.byte	0x76
+ 1744 090a 00       		.sleb128 0
+ 1745 090b 1A       		.uleb128 0x1a
+ 1746 090c 01       		.uleb128 0x1
+ 1747 090d 51       		.byte	0x51
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 42
+
+
+ 1748 090e 01       		.uleb128 0x1
+ 1749 090f 32       		.byte	0x32
+ 1750 0910 00       		.byte	0
+ 1751 0911 19       		.uleb128 0x19
+ 1752 0912 4A000000 		.4byte	.LVL27
+ 1753 0916 CB0B0000 		.4byte	0xbcb
+ 1754 091a 2A090000 		.4byte	0x92a
+ 1755 091e 1A       		.uleb128 0x1a
+ 1756 091f 01       		.uleb128 0x1
+ 1757 0920 50       		.byte	0x50
+ 1758 0921 02       		.uleb128 0x2
+ 1759 0922 76       		.byte	0x76
+ 1760 0923 00       		.sleb128 0
+ 1761 0924 1A       		.uleb128 0x1a
+ 1762 0925 01       		.uleb128 0x1
+ 1763 0926 51       		.byte	0x51
+ 1764 0927 01       		.uleb128 0x1
+ 1765 0928 33       		.byte	0x33
+ 1766 0929 00       		.byte	0
+ 1767 092a 1C       		.uleb128 0x1c
+ 1768 092b 52000000 		.4byte	.LVL28
+ 1769 092f 34070000 		.4byte	0x734
+ 1770 0933 1A       		.uleb128 0x1a
+ 1771 0934 01       		.uleb128 0x1
+ 1772 0935 50       		.byte	0x50
+ 1773 0936 01       		.uleb128 0x1
+ 1774 0937 30       		.byte	0x30
+ 1775 0938 00       		.byte	0
+ 1776 0939 00       		.byte	0
+ 1777 093a 06       		.uleb128 0x6
+ 1778 093b 04       		.byte	0x4
+ 1779 093c 66060000 		.4byte	0x666
+ 1780 0940 21       		.uleb128 0x21
+ 1781 0941 80060000 		.4byte	.LASF148
+ 1782 0945 01       		.byte	0x1
+ 1783 0946 5101     		.2byte	0x151
+ 1784 0948 B4060000 		.4byte	0x6b4
+ 1785 094c 00000000 		.4byte	.LFB596
+ 1786 0950 5A000000 		.4byte	.LFE596-.LFB596
+ 1787 0954 01       		.uleb128 0x1
+ 1788 0955 9C       		.byte	0x9c
+ 1789 0956 D2090000 		.4byte	0x9d2
+ 1790 095a 20       		.uleb128 0x20
+ 1791 095b D5000000 		.4byte	.LASF149
+ 1792 095f 01       		.byte	0x1
+ 1793 0960 5101     		.2byte	0x151
+ 1794 0962 3A090000 		.4byte	0x93a
+ 1795 0966 92010000 		.4byte	.LLST11
+ 1796 096a 20       		.uleb128 0x20
+ 1797 096b 0E030000 		.4byte	.LASF150
+ 1798 096f 01       		.byte	0x1
+ 1799 0970 5201     		.2byte	0x152
+ 1800 0972 3A090000 		.4byte	0x93a
+ 1801 0976 14020000 		.4byte	.LLST12
+ 1802 097a 20       		.uleb128 0x20
+ 1803 097b CC070000 		.4byte	.LASF151
+ 1804 097f 01       		.byte	0x1
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 43
+
+
+ 1805 0980 5201     		.2byte	0x152
+ 1806 0982 DB010000 		.4byte	0x1db
+ 1807 0986 3D020000 		.4byte	.LLST13
+ 1808 098a 22       		.uleb128 0x22
+ 1809 098b 84050000 		.4byte	.LASF152
+ 1810 098f 01       		.byte	0x1
+ 1811 0990 5501     		.2byte	0x155
+ 1812 0992 D5000000 		.4byte	0xd5
+ 1813 0996 66020000 		.4byte	.LLST14
+ 1814 099a 22       		.uleb128 0x22
+ 1815 099b 180B0000 		.4byte	.LASF153
+ 1816 099f 01       		.byte	0x1
+ 1817 09a0 5801     		.2byte	0x158
+ 1818 09a2 D5000000 		.4byte	0xd5
+ 1819 09a6 84020000 		.4byte	.LLST15
+ 1820 09aa 22       		.uleb128 0x22
+ 1821 09ab 8E000000 		.4byte	.LASF154
+ 1822 09af 01       		.byte	0x1
+ 1823 09b0 5B01     		.2byte	0x15b
+ 1824 09b2 D5000000 		.4byte	0xd5
+ 1825 09b6 B1020000 		.4byte	.LLST16
+ 1826 09ba 23       		.uleb128 0x23
+ 1827 09bb 880C0000 		.4byte	.LASF139
+ 1828 09bf 01       		.byte	0x1
+ 1829 09c0 5E01     		.2byte	0x15e
+ 1830 09c2 B4060000 		.4byte	0x6b4
+ 1831 09c6 01       		.uleb128 0x1
+ 1832 09c7 50       		.byte	0x50
+ 1833 09c8 1B       		.uleb128 0x1b
+ 1834 09c9 3C000000 		.4byte	.LVL35
+ 1835 09cd E10B0000 		.4byte	0xbe1
+ 1836 09d1 00       		.byte	0
+ 1837 09d2 21       		.uleb128 0x21
+ 1838 09d3 74000000 		.4byte	.LASF155
+ 1839 09d7 01       		.byte	0x1
+ 1840 09d8 A701     		.2byte	0x1a7
+ 1841 09da B4060000 		.4byte	0x6b4
+ 1842 09de 00000000 		.4byte	.LFB597
+ 1843 09e2 24010000 		.4byte	.LFE597-.LFB597
+ 1844 09e6 01       		.uleb128 0x1
+ 1845 09e7 9C       		.byte	0x9c
+ 1846 09e8 A90A0000 		.4byte	0xaa9
+ 1847 09ec 20       		.uleb128 0x20
+ 1848 09ed D5000000 		.4byte	.LASF149
+ 1849 09f1 01       		.byte	0x1
+ 1850 09f2 A701     		.2byte	0x1a7
+ 1851 09f4 3A090000 		.4byte	0x93a
+ 1852 09f8 C4020000 		.4byte	.LLST17
+ 1853 09fc 20       		.uleb128 0x20
+ 1854 09fd 26090000 		.4byte	.LASF156
+ 1855 0a01 01       		.byte	0x1
+ 1856 0a02 A801     		.2byte	0x1a8
+ 1857 0a04 B2000000 		.4byte	0xb2
+ 1858 0a08 E5020000 		.4byte	.LLST18
+ 1859 0a0c 24       		.uleb128 0x24
+ 1860 0a0d C3070000 		.4byte	.LASF157
+ 1861 0a11 01       		.byte	0x1
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 44
+
+
+ 1862 0a12 A801     		.2byte	0x1a8
+ 1863 0a14 A90A0000 		.4byte	0xaa9
+ 1864 0a18 01       		.uleb128 0x1
+ 1865 0a19 52       		.byte	0x52
+ 1866 0a1a 24       		.uleb128 0x24
+ 1867 0a1b 710A0000 		.4byte	.LASF158
+ 1868 0a1f 01       		.byte	0x1
+ 1869 0a20 A801     		.2byte	0x1a8
+ 1870 0a22 DB010000 		.4byte	0x1db
+ 1871 0a26 01       		.uleb128 0x1
+ 1872 0a27 53       		.byte	0x53
+ 1873 0a28 22       		.uleb128 0x22
+ 1874 0a29 81040000 		.4byte	.LASF159
+ 1875 0a2d 01       		.byte	0x1
+ 1876 0a2e AB01     		.2byte	0x1ab
+ 1877 0a30 B2000000 		.4byte	0xb2
+ 1878 0a34 06030000 		.4byte	.LLST19
+ 1879 0a38 22       		.uleb128 0x22
+ 1880 0a39 6A070000 		.4byte	.LASF160
+ 1881 0a3d 01       		.byte	0x1
+ 1882 0a3e AF01     		.2byte	0x1af
+ 1883 0a40 D5000000 		.4byte	0xd5
+ 1884 0a44 24030000 		.4byte	.LLST20
+ 1885 0a48 22       		.uleb128 0x22
+ 1886 0a49 91090000 		.4byte	.LASF161
+ 1887 0a4d 01       		.byte	0x1
+ 1888 0a4e B101     		.2byte	0x1b1
+ 1889 0a50 D5000000 		.4byte	0xd5
+ 1890 0a54 37030000 		.4byte	.LLST21
+ 1891 0a58 22       		.uleb128 0x22
+ 1892 0a59 E6020000 		.4byte	.LASF162
+ 1893 0a5d 01       		.byte	0x1
+ 1894 0a5e B501     		.2byte	0x1b5
+ 1895 0a60 D5000000 		.4byte	0xd5
+ 1896 0a64 4A030000 		.4byte	.LLST22
+ 1897 0a68 22       		.uleb128 0x22
+ 1898 0a69 C3090000 		.4byte	.LASF163
+ 1899 0a6d 01       		.byte	0x1
+ 1900 0a6e B701     		.2byte	0x1b7
+ 1901 0a70 D5000000 		.4byte	0xd5
+ 1902 0a74 68030000 		.4byte	.LLST23
+ 1903 0a78 22       		.uleb128 0x22
+ 1904 0a79 35040000 		.4byte	.LASF164
+ 1905 0a7d 01       		.byte	0x1
+ 1906 0a7e BA01     		.2byte	0x1ba
+ 1907 0a80 CA000000 		.4byte	0xca
+ 1908 0a84 DF030000 		.4byte	.LLST24
+ 1909 0a88 22       		.uleb128 0x22
+ 1910 0a89 36090000 		.4byte	.LASF165
+ 1911 0a8d 01       		.byte	0x1
+ 1912 0a8e BC01     		.2byte	0x1bc
+ 1913 0a90 CA000000 		.4byte	0xca
+ 1914 0a94 2A040000 		.4byte	.LLST25
+ 1915 0a98 22       		.uleb128 0x22
+ 1916 0a99 880C0000 		.4byte	.LASF139
+ 1917 0a9d 01       		.byte	0x1
+ 1918 0a9e BF01     		.2byte	0x1bf
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 45
+
+
+ 1919 0aa0 B4060000 		.4byte	0x6b4
+ 1920 0aa4 74040000 		.4byte	.LLST26
+ 1921 0aa8 00       		.byte	0
+ 1922 0aa9 06       		.uleb128 0x6
+ 1923 0aaa 04       		.byte	0x4
+ 1924 0aab E4050000 		.4byte	0x5e4
+ 1925 0aaf 25       		.uleb128 0x25
+ 1926 0ab0 71080000 		.4byte	.LASF166
+ 1927 0ab4 0F       		.byte	0xf
+ 1928 0ab5 EA07     		.2byte	0x7ea
+ 1929 0ab7 BB0A0000 		.4byte	0xabb
+ 1930 0abb 07       		.uleb128 0x7
+ 1931 0abc E0000000 		.4byte	0xe0
+ 1932 0ac0 10       		.uleb128 0x10
+ 1933 0ac1 73040000 		.4byte	0x473
+ 1934 0ac5 D00A0000 		.4byte	0xad0
+ 1935 0ac9 11       		.uleb128 0x11
+ 1936 0aca AB000000 		.4byte	0xab
+ 1937 0ace 0B       		.byte	0xb
+ 1938 0acf 00       		.byte	0
+ 1939 0ad0 25       		.uleb128 0x25
+ 1940 0ad1 AD070000 		.4byte	.LASF167
+ 1941 0ad5 04       		.byte	0x4
+ 1942 0ad6 FC02     		.2byte	0x2fc
+ 1943 0ad8 DC0A0000 		.4byte	0xadc
+ 1944 0adc 12       		.uleb128 0x12
+ 1945 0add C00A0000 		.4byte	0xac0
+ 1946 0ae1 25       		.uleb128 0x25
+ 1947 0ae2 DE090000 		.4byte	.LASF168
+ 1948 0ae6 09       		.byte	0x9
+ 1949 0ae7 2202     		.2byte	0x222
+ 1950 0ae9 CD040000 		.4byte	0x4cd
+ 1951 0aed 10       		.uleb128 0x10
+ 1952 0aee 9C040000 		.4byte	0x49c
+ 1953 0af2 FD0A0000 		.4byte	0xafd
+ 1954 0af6 11       		.uleb128 0x11
+ 1955 0af7 AB000000 		.4byte	0xab
+ 1956 0afb 00       		.byte	0
+ 1957 0afc 00       		.byte	0
+ 1958 0afd 25       		.uleb128 0x25
+ 1959 0afe E60A0000 		.4byte	.LASF169
+ 1960 0b02 09       		.byte	0x9
+ 1961 0b03 2C02     		.2byte	0x22c
+ 1962 0b05 ED0A0000 		.4byte	0xaed
+ 1963 0b09 10       		.uleb128 0x10
+ 1964 0b0a 15050000 		.4byte	0x515
+ 1965 0b0e 190B0000 		.4byte	0xb19
+ 1966 0b12 11       		.uleb128 0x11
+ 1967 0b13 AB000000 		.4byte	0xab
+ 1968 0b17 00       		.byte	0
+ 1969 0b18 00       		.byte	0
+ 1970 0b19 25       		.uleb128 0x25
+ 1971 0b1a 98040000 		.4byte	.LASF170
+ 1972 0b1e 09       		.byte	0x9
+ 1973 0b1f 2D02     		.2byte	0x22d
+ 1974 0b21 090B0000 		.4byte	0xb09
+ 1975 0b25 25       		.uleb128 0x25
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 46
+
+
+ 1976 0b26 99000000 		.4byte	.LASF171
+ 1977 0b2a 09       		.byte	0x9
+ 1978 0b2b 5202     		.2byte	0x252
+ 1979 0b2d CA000000 		.4byte	0xca
+ 1980 0b31 26       		.uleb128 0x26
+ 1981 0b32 8E020000 		.4byte	.LASF172
+ 1982 0b36 10       		.byte	0x10
+ 1983 0b37 87       		.byte	0x87
+ 1984 0b38 4C030000 		.4byte	0x34c
+ 1985 0b3c 26       		.uleb128 0x26
+ 1986 0b3d 2C000000 		.4byte	.LASF173
+ 1987 0b41 11       		.byte	0x11
+ 1988 0b42 7C       		.byte	0x7c
+ 1989 0b43 09010000 		.4byte	0x109
+ 1990 0b47 26       		.uleb128 0x26
+ 1991 0b48 65060000 		.4byte	.LASF174
+ 1992 0b4c 11       		.byte	0x11
+ 1993 0b4d 7D       		.byte	0x7d
+ 1994 0b4e 520B0000 		.4byte	0xb52
+ 1995 0b52 12       		.uleb128 0x12
+ 1996 0b53 BE010000 		.4byte	0x1be
+ 1997 0b57 26       		.uleb128 0x26
+ 1998 0b58 030B0000 		.4byte	.LASF175
+ 1999 0b5c 12       		.byte	0x12
+ 2000 0b5d 5E       		.byte	0x5e
+ 2001 0b5e 70020000 		.4byte	0x270
+ 2002 0b62 25       		.uleb128 0x25
+ 2003 0b63 E1000000 		.4byte	.LASF176
+ 2004 0b67 0A       		.byte	0xa
+ 2005 0b68 6001     		.2byte	0x160
+ 2006 0b6a EB000000 		.4byte	0xeb
+ 2007 0b6e 10       		.uleb128 0x10
+ 2008 0b6f 7E0B0000 		.4byte	0xb7e
+ 2009 0b73 7E0B0000 		.4byte	0xb7e
+ 2010 0b77 11       		.uleb128 0x11
+ 2011 0b78 AB000000 		.4byte	0xab
+ 2012 0b7c 00       		.byte	0
+ 2013 0b7d 00       		.byte	0
+ 2014 0b7e 12       		.uleb128 0x12
+ 2015 0b7f 70050000 		.4byte	0x570
+ 2016 0b83 25       		.uleb128 0x25
+ 2017 0b84 9E090000 		.4byte	.LASF177
+ 2018 0b88 0A       		.byte	0xa
+ 2019 0b89 6401     		.2byte	0x164
+ 2020 0b8b 8F0B0000 		.4byte	0xb8f
+ 2021 0b8f 12       		.uleb128 0x12
+ 2022 0b90 6E0B0000 		.4byte	0xb6e
+ 2023 0b94 27       		.uleb128 0x27
+ 2024 0b95 3D000000 		.4byte	.LASF178
+ 2025 0b99 3D000000 		.4byte	.LASF178
+ 2026 0b9d 0C       		.byte	0xc
+ 2027 0b9e 81       		.byte	0x81
+ 2028 0b9f 27       		.uleb128 0x27
+ 2029 0ba0 73060000 		.4byte	.LASF179
+ 2030 0ba4 73060000 		.4byte	.LASF179
+ 2031 0ba8 0D       		.byte	0xd
+ 2032 0ba9 4D       		.byte	0x4d
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 47
+
+
+ 2033 0baa 27       		.uleb128 0x27
+ 2034 0bab 260B0000 		.4byte	.LASF180
+ 2035 0baf 260B0000 		.4byte	.LASF180
+ 2036 0bb3 0D       		.byte	0xd
+ 2037 0bb4 52       		.byte	0x52
+ 2038 0bb5 27       		.uleb128 0x27
+ 2039 0bb6 04080000 		.4byte	.LASF181
+ 2040 0bba 04080000 		.4byte	.LASF181
+ 2041 0bbe 0D       		.byte	0xd
+ 2042 0bbf 4E       		.byte	0x4e
+ 2043 0bc0 27       		.uleb128 0x27
+ 2044 0bc1 AB0B0000 		.4byte	.LASF182
+ 2045 0bc5 AB0B0000 		.4byte	.LASF182
+ 2046 0bc9 0D       		.byte	0xd
+ 2047 0bca 4F       		.byte	0x4f
+ 2048 0bcb 27       		.uleb128 0x27
+ 2049 0bcc 850B0000 		.4byte	.LASF183
+ 2050 0bd0 850B0000 		.4byte	.LASF183
+ 2051 0bd4 0D       		.byte	0xd
+ 2052 0bd5 55       		.byte	0x55
+ 2053 0bd6 27       		.uleb128 0x27
+ 2054 0bd7 9B080000 		.4byte	.LASF184
+ 2055 0bdb 9B080000 		.4byte	.LASF184
+ 2056 0bdf 0D       		.byte	0xd
+ 2057 0be0 57       		.byte	0x57
+ 2058 0be1 28       		.uleb128 0x28
+ 2059 0be2 B7020000 		.4byte	.LASF188
+ 2060 0be6 B7020000 		.4byte	.LASF188
+ 2061 0bea 00       		.byte	0
+ 2062              		.section	.debug_abbrev,"",%progbits
+ 2063              	.Ldebug_abbrev0:
+ 2064 0000 01       		.uleb128 0x1
+ 2065 0001 11       		.uleb128 0x11
+ 2066 0002 01       		.byte	0x1
+ 2067 0003 25       		.uleb128 0x25
+ 2068 0004 0E       		.uleb128 0xe
+ 2069 0005 13       		.uleb128 0x13
+ 2070 0006 0B       		.uleb128 0xb
+ 2071 0007 03       		.uleb128 0x3
+ 2072 0008 0E       		.uleb128 0xe
+ 2073 0009 1B       		.uleb128 0x1b
+ 2074 000a 0E       		.uleb128 0xe
+ 2075 000b 55       		.uleb128 0x55
+ 2076 000c 17       		.uleb128 0x17
+ 2077 000d 11       		.uleb128 0x11
+ 2078 000e 01       		.uleb128 0x1
+ 2079 000f 10       		.uleb128 0x10
+ 2080 0010 17       		.uleb128 0x17
+ 2081 0011 00       		.byte	0
+ 2082 0012 00       		.byte	0
+ 2083 0013 02       		.uleb128 0x2
+ 2084 0014 16       		.uleb128 0x16
+ 2085 0015 00       		.byte	0
+ 2086 0016 03       		.uleb128 0x3
+ 2087 0017 0E       		.uleb128 0xe
+ 2088 0018 3A       		.uleb128 0x3a
+ 2089 0019 0B       		.uleb128 0xb
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 48
+
+
+ 2090 001a 3B       		.uleb128 0x3b
+ 2091 001b 0B       		.uleb128 0xb
+ 2092 001c 49       		.uleb128 0x49
+ 2093 001d 13       		.uleb128 0x13
+ 2094 001e 00       		.byte	0
+ 2095 001f 00       		.byte	0
+ 2096 0020 03       		.uleb128 0x3
+ 2097 0021 24       		.uleb128 0x24
+ 2098 0022 00       		.byte	0
+ 2099 0023 0B       		.uleb128 0xb
+ 2100 0024 0B       		.uleb128 0xb
+ 2101 0025 3E       		.uleb128 0x3e
+ 2102 0026 0B       		.uleb128 0xb
+ 2103 0027 03       		.uleb128 0x3
+ 2104 0028 0E       		.uleb128 0xe
+ 2105 0029 00       		.byte	0
+ 2106 002a 00       		.byte	0
+ 2107 002b 04       		.uleb128 0x4
+ 2108 002c 24       		.uleb128 0x24
+ 2109 002d 00       		.byte	0
+ 2110 002e 0B       		.uleb128 0xb
+ 2111 002f 0B       		.uleb128 0xb
+ 2112 0030 3E       		.uleb128 0x3e
+ 2113 0031 0B       		.uleb128 0xb
+ 2114 0032 03       		.uleb128 0x3
+ 2115 0033 08       		.uleb128 0x8
+ 2116 0034 00       		.byte	0
+ 2117 0035 00       		.byte	0
+ 2118 0036 05       		.uleb128 0x5
+ 2119 0037 0F       		.uleb128 0xf
+ 2120 0038 00       		.byte	0
+ 2121 0039 0B       		.uleb128 0xb
+ 2122 003a 0B       		.uleb128 0xb
+ 2123 003b 00       		.byte	0
+ 2124 003c 00       		.byte	0
+ 2125 003d 06       		.uleb128 0x6
+ 2126 003e 0F       		.uleb128 0xf
+ 2127 003f 00       		.byte	0
+ 2128 0040 0B       		.uleb128 0xb
+ 2129 0041 0B       		.uleb128 0xb
+ 2130 0042 49       		.uleb128 0x49
+ 2131 0043 13       		.uleb128 0x13
+ 2132 0044 00       		.byte	0
+ 2133 0045 00       		.byte	0
+ 2134 0046 07       		.uleb128 0x7
+ 2135 0047 35       		.uleb128 0x35
+ 2136 0048 00       		.byte	0
+ 2137 0049 49       		.uleb128 0x49
+ 2138 004a 13       		.uleb128 0x13
+ 2139 004b 00       		.byte	0
+ 2140 004c 00       		.byte	0
+ 2141 004d 08       		.uleb128 0x8
+ 2142 004e 04       		.uleb128 0x4
+ 2143 004f 01       		.byte	0x1
+ 2144 0050 0B       		.uleb128 0xb
+ 2145 0051 0B       		.uleb128 0xb
+ 2146 0052 49       		.uleb128 0x49
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 49
+
+
+ 2147 0053 13       		.uleb128 0x13
+ 2148 0054 3A       		.uleb128 0x3a
+ 2149 0055 0B       		.uleb128 0xb
+ 2150 0056 3B       		.uleb128 0x3b
+ 2151 0057 05       		.uleb128 0x5
+ 2152 0058 01       		.uleb128 0x1
+ 2153 0059 13       		.uleb128 0x13
+ 2154 005a 00       		.byte	0
+ 2155 005b 00       		.byte	0
+ 2156 005c 09       		.uleb128 0x9
+ 2157 005d 28       		.uleb128 0x28
+ 2158 005e 00       		.byte	0
+ 2159 005f 03       		.uleb128 0x3
+ 2160 0060 0E       		.uleb128 0xe
+ 2161 0061 1C       		.uleb128 0x1c
+ 2162 0062 0B       		.uleb128 0xb
+ 2163 0063 00       		.byte	0
+ 2164 0064 00       		.byte	0
+ 2165 0065 0A       		.uleb128 0xa
+ 2166 0066 16       		.uleb128 0x16
+ 2167 0067 00       		.byte	0
+ 2168 0068 03       		.uleb128 0x3
+ 2169 0069 0E       		.uleb128 0xe
+ 2170 006a 3A       		.uleb128 0x3a
+ 2171 006b 0B       		.uleb128 0xb
+ 2172 006c 3B       		.uleb128 0x3b
+ 2173 006d 05       		.uleb128 0x5
+ 2174 006e 49       		.uleb128 0x49
+ 2175 006f 13       		.uleb128 0x13
+ 2176 0070 00       		.byte	0
+ 2177 0071 00       		.byte	0
+ 2178 0072 0B       		.uleb128 0xb
+ 2179 0073 13       		.uleb128 0x13
+ 2180 0074 01       		.byte	0x1
+ 2181 0075 0B       		.uleb128 0xb
+ 2182 0076 0B       		.uleb128 0xb
+ 2183 0077 3A       		.uleb128 0x3a
+ 2184 0078 0B       		.uleb128 0xb
+ 2185 0079 3B       		.uleb128 0x3b
+ 2186 007a 05       		.uleb128 0x5
+ 2187 007b 01       		.uleb128 0x1
+ 2188 007c 13       		.uleb128 0x13
+ 2189 007d 00       		.byte	0
+ 2190 007e 00       		.byte	0
+ 2191 007f 0C       		.uleb128 0xc
+ 2192 0080 0D       		.uleb128 0xd
+ 2193 0081 00       		.byte	0
+ 2194 0082 03       		.uleb128 0x3
+ 2195 0083 0E       		.uleb128 0xe
+ 2196 0084 3A       		.uleb128 0x3a
+ 2197 0085 0B       		.uleb128 0xb
+ 2198 0086 3B       		.uleb128 0x3b
+ 2199 0087 05       		.uleb128 0x5
+ 2200 0088 49       		.uleb128 0x49
+ 2201 0089 13       		.uleb128 0x13
+ 2202 008a 38       		.uleb128 0x38
+ 2203 008b 0B       		.uleb128 0xb
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 50
+
+
+ 2204 008c 00       		.byte	0
+ 2205 008d 00       		.byte	0
+ 2206 008e 0D       		.uleb128 0xd
+ 2207 008f 15       		.uleb128 0x15
+ 2208 0090 01       		.byte	0x1
+ 2209 0091 27       		.uleb128 0x27
+ 2210 0092 19       		.uleb128 0x19
+ 2211 0093 01       		.uleb128 0x1
+ 2212 0094 13       		.uleb128 0x13
+ 2213 0095 00       		.byte	0
+ 2214 0096 00       		.byte	0
+ 2215 0097 0E       		.uleb128 0xe
+ 2216 0098 05       		.uleb128 0x5
+ 2217 0099 00       		.byte	0
+ 2218 009a 49       		.uleb128 0x49
+ 2219 009b 13       		.uleb128 0x13
+ 2220 009c 00       		.byte	0
+ 2221 009d 00       		.byte	0
+ 2222 009e 0F       		.uleb128 0xf
+ 2223 009f 13       		.uleb128 0x13
+ 2224 00a0 01       		.byte	0x1
+ 2225 00a1 03       		.uleb128 0x3
+ 2226 00a2 0E       		.uleb128 0xe
+ 2227 00a3 0B       		.uleb128 0xb
+ 2228 00a4 0B       		.uleb128 0xb
+ 2229 00a5 3A       		.uleb128 0x3a
+ 2230 00a6 0B       		.uleb128 0xb
+ 2231 00a7 3B       		.uleb128 0x3b
+ 2232 00a8 05       		.uleb128 0x5
+ 2233 00a9 01       		.uleb128 0x1
+ 2234 00aa 13       		.uleb128 0x13
+ 2235 00ab 00       		.byte	0
+ 2236 00ac 00       		.byte	0
+ 2237 00ad 10       		.uleb128 0x10
+ 2238 00ae 01       		.uleb128 0x1
+ 2239 00af 01       		.byte	0x1
+ 2240 00b0 49       		.uleb128 0x49
+ 2241 00b1 13       		.uleb128 0x13
+ 2242 00b2 01       		.uleb128 0x1
+ 2243 00b3 13       		.uleb128 0x13
+ 2244 00b4 00       		.byte	0
+ 2245 00b5 00       		.byte	0
+ 2246 00b6 11       		.uleb128 0x11
+ 2247 00b7 21       		.uleb128 0x21
+ 2248 00b8 00       		.byte	0
+ 2249 00b9 49       		.uleb128 0x49
+ 2250 00ba 13       		.uleb128 0x13
+ 2251 00bb 2F       		.uleb128 0x2f
+ 2252 00bc 0B       		.uleb128 0xb
+ 2253 00bd 00       		.byte	0
+ 2254 00be 00       		.byte	0
+ 2255 00bf 12       		.uleb128 0x12
+ 2256 00c0 26       		.uleb128 0x26
+ 2257 00c1 00       		.byte	0
+ 2258 00c2 49       		.uleb128 0x49
+ 2259 00c3 13       		.uleb128 0x13
+ 2260 00c4 00       		.byte	0
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 51
+
+
+ 2261 00c5 00       		.byte	0
+ 2262 00c6 13       		.uleb128 0x13
+ 2263 00c7 04       		.uleb128 0x4
+ 2264 00c8 01       		.byte	0x1
+ 2265 00c9 0B       		.uleb128 0xb
+ 2266 00ca 0B       		.uleb128 0xb
+ 2267 00cb 49       		.uleb128 0x49
+ 2268 00cc 13       		.uleb128 0x13
+ 2269 00cd 3A       		.uleb128 0x3a
+ 2270 00ce 0B       		.uleb128 0xb
+ 2271 00cf 3B       		.uleb128 0x3b
+ 2272 00d0 0B       		.uleb128 0xb
+ 2273 00d1 01       		.uleb128 0x1
+ 2274 00d2 13       		.uleb128 0x13
+ 2275 00d3 00       		.byte	0
+ 2276 00d4 00       		.byte	0
+ 2277 00d5 14       		.uleb128 0x14
+ 2278 00d6 13       		.uleb128 0x13
+ 2279 00d7 01       		.byte	0x1
+ 2280 00d8 0B       		.uleb128 0xb
+ 2281 00d9 0B       		.uleb128 0xb
+ 2282 00da 3A       		.uleb128 0x3a
+ 2283 00db 0B       		.uleb128 0xb
+ 2284 00dc 3B       		.uleb128 0x3b
+ 2285 00dd 0B       		.uleb128 0xb
+ 2286 00de 01       		.uleb128 0x1
+ 2287 00df 13       		.uleb128 0x13
+ 2288 00e0 00       		.byte	0
+ 2289 00e1 00       		.byte	0
+ 2290 00e2 15       		.uleb128 0x15
+ 2291 00e3 0D       		.uleb128 0xd
+ 2292 00e4 00       		.byte	0
+ 2293 00e5 03       		.uleb128 0x3
+ 2294 00e6 0E       		.uleb128 0xe
+ 2295 00e7 3A       		.uleb128 0x3a
+ 2296 00e8 0B       		.uleb128 0xb
+ 2297 00e9 3B       		.uleb128 0x3b
+ 2298 00ea 0B       		.uleb128 0xb
+ 2299 00eb 49       		.uleb128 0x49
+ 2300 00ec 13       		.uleb128 0x13
+ 2301 00ed 38       		.uleb128 0x38
+ 2302 00ee 0B       		.uleb128 0xb
+ 2303 00ef 00       		.byte	0
+ 2304 00f0 00       		.byte	0
+ 2305 00f1 16       		.uleb128 0x16
+ 2306 00f2 2E       		.uleb128 0x2e
+ 2307 00f3 01       		.byte	0x1
+ 2308 00f4 3F       		.uleb128 0x3f
+ 2309 00f5 19       		.uleb128 0x19
+ 2310 00f6 03       		.uleb128 0x3
+ 2311 00f7 0E       		.uleb128 0xe
+ 2312 00f8 3A       		.uleb128 0x3a
+ 2313 00f9 0B       		.uleb128 0xb
+ 2314 00fa 3B       		.uleb128 0x3b
+ 2315 00fb 0B       		.uleb128 0xb
+ 2316 00fc 27       		.uleb128 0x27
+ 2317 00fd 19       		.uleb128 0x19
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 52
+
+
+ 2318 00fe 49       		.uleb128 0x49
+ 2319 00ff 13       		.uleb128 0x13
+ 2320 0100 11       		.uleb128 0x11
+ 2321 0101 01       		.uleb128 0x1
+ 2322 0102 12       		.uleb128 0x12
+ 2323 0103 06       		.uleb128 0x6
+ 2324 0104 40       		.uleb128 0x40
+ 2325 0105 18       		.uleb128 0x18
+ 2326 0106 9742     		.uleb128 0x2117
+ 2327 0108 19       		.uleb128 0x19
+ 2328 0109 01       		.uleb128 0x1
+ 2329 010a 13       		.uleb128 0x13
+ 2330 010b 00       		.byte	0
+ 2331 010c 00       		.byte	0
+ 2332 010d 17       		.uleb128 0x17
+ 2333 010e 05       		.uleb128 0x5
+ 2334 010f 00       		.byte	0
+ 2335 0110 03       		.uleb128 0x3
+ 2336 0111 0E       		.uleb128 0xe
+ 2337 0112 3A       		.uleb128 0x3a
+ 2338 0113 0B       		.uleb128 0xb
+ 2339 0114 3B       		.uleb128 0x3b
+ 2340 0115 0B       		.uleb128 0xb
+ 2341 0116 49       		.uleb128 0x49
+ 2342 0117 13       		.uleb128 0x13
+ 2343 0118 02       		.uleb128 0x2
+ 2344 0119 17       		.uleb128 0x17
+ 2345 011a 00       		.byte	0
+ 2346 011b 00       		.byte	0
+ 2347 011c 18       		.uleb128 0x18
+ 2348 011d 34       		.uleb128 0x34
+ 2349 011e 00       		.byte	0
+ 2350 011f 03       		.uleb128 0x3
+ 2351 0120 0E       		.uleb128 0xe
+ 2352 0121 3A       		.uleb128 0x3a
+ 2353 0122 0B       		.uleb128 0xb
+ 2354 0123 3B       		.uleb128 0x3b
+ 2355 0124 0B       		.uleb128 0xb
+ 2356 0125 49       		.uleb128 0x49
+ 2357 0126 13       		.uleb128 0x13
+ 2358 0127 02       		.uleb128 0x2
+ 2359 0128 17       		.uleb128 0x17
+ 2360 0129 00       		.byte	0
+ 2361 012a 00       		.byte	0
+ 2362 012b 19       		.uleb128 0x19
+ 2363 012c 898201   		.uleb128 0x4109
+ 2364 012f 01       		.byte	0x1
+ 2365 0130 11       		.uleb128 0x11
+ 2366 0131 01       		.uleb128 0x1
+ 2367 0132 31       		.uleb128 0x31
+ 2368 0133 13       		.uleb128 0x13
+ 2369 0134 01       		.uleb128 0x1
+ 2370 0135 13       		.uleb128 0x13
+ 2371 0136 00       		.byte	0
+ 2372 0137 00       		.byte	0
+ 2373 0138 1A       		.uleb128 0x1a
+ 2374 0139 8A8201   		.uleb128 0x410a
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 53
+
+
+ 2375 013c 00       		.byte	0
+ 2376 013d 02       		.uleb128 0x2
+ 2377 013e 18       		.uleb128 0x18
+ 2378 013f 9142     		.uleb128 0x2111
+ 2379 0141 18       		.uleb128 0x18
+ 2380 0142 00       		.byte	0
+ 2381 0143 00       		.byte	0
+ 2382 0144 1B       		.uleb128 0x1b
+ 2383 0145 898201   		.uleb128 0x4109
+ 2384 0148 00       		.byte	0
+ 2385 0149 11       		.uleb128 0x11
+ 2386 014a 01       		.uleb128 0x1
+ 2387 014b 31       		.uleb128 0x31
+ 2388 014c 13       		.uleb128 0x13
+ 2389 014d 00       		.byte	0
+ 2390 014e 00       		.byte	0
+ 2391 014f 1C       		.uleb128 0x1c
+ 2392 0150 898201   		.uleb128 0x4109
+ 2393 0153 01       		.byte	0x1
+ 2394 0154 11       		.uleb128 0x11
+ 2395 0155 01       		.uleb128 0x1
+ 2396 0156 31       		.uleb128 0x31
+ 2397 0157 13       		.uleb128 0x13
+ 2398 0158 00       		.byte	0
+ 2399 0159 00       		.byte	0
+ 2400 015a 1D       		.uleb128 0x1d
+ 2401 015b 34       		.uleb128 0x34
+ 2402 015c 00       		.byte	0
+ 2403 015d 03       		.uleb128 0x3
+ 2404 015e 0E       		.uleb128 0xe
+ 2405 015f 3A       		.uleb128 0x3a
+ 2406 0160 0B       		.uleb128 0xb
+ 2407 0161 3B       		.uleb128 0x3b
+ 2408 0162 0B       		.uleb128 0xb
+ 2409 0163 49       		.uleb128 0x49
+ 2410 0164 13       		.uleb128 0x13
+ 2411 0165 02       		.uleb128 0x2
+ 2412 0166 18       		.uleb128 0x18
+ 2413 0167 00       		.byte	0
+ 2414 0168 00       		.byte	0
+ 2415 0169 1E       		.uleb128 0x1e
+ 2416 016a 2E       		.uleb128 0x2e
+ 2417 016b 01       		.byte	0x1
+ 2418 016c 3F       		.uleb128 0x3f
+ 2419 016d 19       		.uleb128 0x19
+ 2420 016e 03       		.uleb128 0x3
+ 2421 016f 0E       		.uleb128 0xe
+ 2422 0170 3A       		.uleb128 0x3a
+ 2423 0171 0B       		.uleb128 0xb
+ 2424 0172 3B       		.uleb128 0x3b
+ 2425 0173 0B       		.uleb128 0xb
+ 2426 0174 27       		.uleb128 0x27
+ 2427 0175 19       		.uleb128 0x19
+ 2428 0176 11       		.uleb128 0x11
+ 2429 0177 01       		.uleb128 0x1
+ 2430 0178 12       		.uleb128 0x12
+ 2431 0179 06       		.uleb128 0x6
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 54
+
+
+ 2432 017a 40       		.uleb128 0x40
+ 2433 017b 18       		.uleb128 0x18
+ 2434 017c 9742     		.uleb128 0x2117
+ 2435 017e 19       		.uleb128 0x19
+ 2436 017f 01       		.uleb128 0x1
+ 2437 0180 13       		.uleb128 0x13
+ 2438 0181 00       		.byte	0
+ 2439 0182 00       		.byte	0
+ 2440 0183 1F       		.uleb128 0x1f
+ 2441 0184 2E       		.uleb128 0x2e
+ 2442 0185 01       		.byte	0x1
+ 2443 0186 3F       		.uleb128 0x3f
+ 2444 0187 19       		.uleb128 0x19
+ 2445 0188 03       		.uleb128 0x3
+ 2446 0189 0E       		.uleb128 0xe
+ 2447 018a 3A       		.uleb128 0x3a
+ 2448 018b 0B       		.uleb128 0xb
+ 2449 018c 3B       		.uleb128 0x3b
+ 2450 018d 05       		.uleb128 0x5
+ 2451 018e 27       		.uleb128 0x27
+ 2452 018f 19       		.uleb128 0x19
+ 2453 0190 11       		.uleb128 0x11
+ 2454 0191 01       		.uleb128 0x1
+ 2455 0192 12       		.uleb128 0x12
+ 2456 0193 06       		.uleb128 0x6
+ 2457 0194 40       		.uleb128 0x40
+ 2458 0195 18       		.uleb128 0x18
+ 2459 0196 9742     		.uleb128 0x2117
+ 2460 0198 19       		.uleb128 0x19
+ 2461 0199 01       		.uleb128 0x1
+ 2462 019a 13       		.uleb128 0x13
+ 2463 019b 00       		.byte	0
+ 2464 019c 00       		.byte	0
+ 2465 019d 20       		.uleb128 0x20
+ 2466 019e 05       		.uleb128 0x5
+ 2467 019f 00       		.byte	0
+ 2468 01a0 03       		.uleb128 0x3
+ 2469 01a1 0E       		.uleb128 0xe
+ 2470 01a2 3A       		.uleb128 0x3a
+ 2471 01a3 0B       		.uleb128 0xb
+ 2472 01a4 3B       		.uleb128 0x3b
+ 2473 01a5 05       		.uleb128 0x5
+ 2474 01a6 49       		.uleb128 0x49
+ 2475 01a7 13       		.uleb128 0x13
+ 2476 01a8 02       		.uleb128 0x2
+ 2477 01a9 17       		.uleb128 0x17
+ 2478 01aa 00       		.byte	0
+ 2479 01ab 00       		.byte	0
+ 2480 01ac 21       		.uleb128 0x21
+ 2481 01ad 2E       		.uleb128 0x2e
+ 2482 01ae 01       		.byte	0x1
+ 2483 01af 3F       		.uleb128 0x3f
+ 2484 01b0 19       		.uleb128 0x19
+ 2485 01b1 03       		.uleb128 0x3
+ 2486 01b2 0E       		.uleb128 0xe
+ 2487 01b3 3A       		.uleb128 0x3a
+ 2488 01b4 0B       		.uleb128 0xb
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 55
+
+
+ 2489 01b5 3B       		.uleb128 0x3b
+ 2490 01b6 05       		.uleb128 0x5
+ 2491 01b7 27       		.uleb128 0x27
+ 2492 01b8 19       		.uleb128 0x19
+ 2493 01b9 49       		.uleb128 0x49
+ 2494 01ba 13       		.uleb128 0x13
+ 2495 01bb 11       		.uleb128 0x11
+ 2496 01bc 01       		.uleb128 0x1
+ 2497 01bd 12       		.uleb128 0x12
+ 2498 01be 06       		.uleb128 0x6
+ 2499 01bf 40       		.uleb128 0x40
+ 2500 01c0 18       		.uleb128 0x18
+ 2501 01c1 9742     		.uleb128 0x2117
+ 2502 01c3 19       		.uleb128 0x19
+ 2503 01c4 01       		.uleb128 0x1
+ 2504 01c5 13       		.uleb128 0x13
+ 2505 01c6 00       		.byte	0
+ 2506 01c7 00       		.byte	0
+ 2507 01c8 22       		.uleb128 0x22
+ 2508 01c9 34       		.uleb128 0x34
+ 2509 01ca 00       		.byte	0
+ 2510 01cb 03       		.uleb128 0x3
+ 2511 01cc 0E       		.uleb128 0xe
+ 2512 01cd 3A       		.uleb128 0x3a
+ 2513 01ce 0B       		.uleb128 0xb
+ 2514 01cf 3B       		.uleb128 0x3b
+ 2515 01d0 05       		.uleb128 0x5
+ 2516 01d1 49       		.uleb128 0x49
+ 2517 01d2 13       		.uleb128 0x13
+ 2518 01d3 02       		.uleb128 0x2
+ 2519 01d4 17       		.uleb128 0x17
+ 2520 01d5 00       		.byte	0
+ 2521 01d6 00       		.byte	0
+ 2522 01d7 23       		.uleb128 0x23
+ 2523 01d8 34       		.uleb128 0x34
+ 2524 01d9 00       		.byte	0
+ 2525 01da 03       		.uleb128 0x3
+ 2526 01db 0E       		.uleb128 0xe
+ 2527 01dc 3A       		.uleb128 0x3a
+ 2528 01dd 0B       		.uleb128 0xb
+ 2529 01de 3B       		.uleb128 0x3b
+ 2530 01df 05       		.uleb128 0x5
+ 2531 01e0 49       		.uleb128 0x49
+ 2532 01e1 13       		.uleb128 0x13
+ 2533 01e2 02       		.uleb128 0x2
+ 2534 01e3 18       		.uleb128 0x18
+ 2535 01e4 00       		.byte	0
+ 2536 01e5 00       		.byte	0
+ 2537 01e6 24       		.uleb128 0x24
+ 2538 01e7 05       		.uleb128 0x5
+ 2539 01e8 00       		.byte	0
+ 2540 01e9 03       		.uleb128 0x3
+ 2541 01ea 0E       		.uleb128 0xe
+ 2542 01eb 3A       		.uleb128 0x3a
+ 2543 01ec 0B       		.uleb128 0xb
+ 2544 01ed 3B       		.uleb128 0x3b
+ 2545 01ee 05       		.uleb128 0x5
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 56
+
+
+ 2546 01ef 49       		.uleb128 0x49
+ 2547 01f0 13       		.uleb128 0x13
+ 2548 01f1 02       		.uleb128 0x2
+ 2549 01f2 18       		.uleb128 0x18
+ 2550 01f3 00       		.byte	0
+ 2551 01f4 00       		.byte	0
+ 2552 01f5 25       		.uleb128 0x25
+ 2553 01f6 34       		.uleb128 0x34
+ 2554 01f7 00       		.byte	0
+ 2555 01f8 03       		.uleb128 0x3
+ 2556 01f9 0E       		.uleb128 0xe
+ 2557 01fa 3A       		.uleb128 0x3a
+ 2558 01fb 0B       		.uleb128 0xb
+ 2559 01fc 3B       		.uleb128 0x3b
+ 2560 01fd 05       		.uleb128 0x5
+ 2561 01fe 49       		.uleb128 0x49
+ 2562 01ff 13       		.uleb128 0x13
+ 2563 0200 3F       		.uleb128 0x3f
+ 2564 0201 19       		.uleb128 0x19
+ 2565 0202 3C       		.uleb128 0x3c
+ 2566 0203 19       		.uleb128 0x19
+ 2567 0204 00       		.byte	0
+ 2568 0205 00       		.byte	0
+ 2569 0206 26       		.uleb128 0x26
+ 2570 0207 34       		.uleb128 0x34
+ 2571 0208 00       		.byte	0
+ 2572 0209 03       		.uleb128 0x3
+ 2573 020a 0E       		.uleb128 0xe
+ 2574 020b 3A       		.uleb128 0x3a
+ 2575 020c 0B       		.uleb128 0xb
+ 2576 020d 3B       		.uleb128 0x3b
+ 2577 020e 0B       		.uleb128 0xb
+ 2578 020f 49       		.uleb128 0x49
+ 2579 0210 13       		.uleb128 0x13
+ 2580 0211 3F       		.uleb128 0x3f
+ 2581 0212 19       		.uleb128 0x19
+ 2582 0213 3C       		.uleb128 0x3c
+ 2583 0214 19       		.uleb128 0x19
+ 2584 0215 00       		.byte	0
+ 2585 0216 00       		.byte	0
+ 2586 0217 27       		.uleb128 0x27
+ 2587 0218 2E       		.uleb128 0x2e
+ 2588 0219 00       		.byte	0
+ 2589 021a 3F       		.uleb128 0x3f
+ 2590 021b 19       		.uleb128 0x19
+ 2591 021c 3C       		.uleb128 0x3c
+ 2592 021d 19       		.uleb128 0x19
+ 2593 021e 6E       		.uleb128 0x6e
+ 2594 021f 0E       		.uleb128 0xe
+ 2595 0220 03       		.uleb128 0x3
+ 2596 0221 0E       		.uleb128 0xe
+ 2597 0222 3A       		.uleb128 0x3a
+ 2598 0223 0B       		.uleb128 0xb
+ 2599 0224 3B       		.uleb128 0x3b
+ 2600 0225 0B       		.uleb128 0xb
+ 2601 0226 00       		.byte	0
+ 2602 0227 00       		.byte	0
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 57
+
+
+ 2603 0228 28       		.uleb128 0x28
+ 2604 0229 2E       		.uleb128 0x2e
+ 2605 022a 00       		.byte	0
+ 2606 022b 3F       		.uleb128 0x3f
+ 2607 022c 19       		.uleb128 0x19
+ 2608 022d 3C       		.uleb128 0x3c
+ 2609 022e 19       		.uleb128 0x19
+ 2610 022f 6E       		.uleb128 0x6e
+ 2611 0230 0E       		.uleb128 0xe
+ 2612 0231 03       		.uleb128 0x3
+ 2613 0232 0E       		.uleb128 0xe
+ 2614 0233 00       		.byte	0
+ 2615 0234 00       		.byte	0
+ 2616 0235 00       		.byte	0
+ 2617              		.section	.debug_loc,"",%progbits
+ 2618              	.Ldebug_loc0:
+ 2619              	.LLST0:
+ 2620 0000 00000000 		.4byte	.LVL0
+ 2621 0004 08000000 		.4byte	.LVL1
+ 2622 0008 0100     		.2byte	0x1
+ 2623 000a 50       		.byte	0x50
+ 2624 000b 08000000 		.4byte	.LVL1
+ 2625 000f 1A000000 		.4byte	.LVL5
+ 2626 0013 0400     		.2byte	0x4
+ 2627 0015 F3       		.byte	0xf3
+ 2628 0016 01       		.uleb128 0x1
+ 2629 0017 50       		.byte	0x50
+ 2630 0018 9F       		.byte	0x9f
+ 2631 0019 1A000000 		.4byte	.LVL5
+ 2632 001d 1C000000 		.4byte	.LVL6
+ 2633 0021 0100     		.2byte	0x1
+ 2634 0023 50       		.byte	0x50
+ 2635 0024 1C000000 		.4byte	.LVL6
+ 2636 0028 1E000000 		.4byte	.LFE592
+ 2637 002c 0400     		.2byte	0x4
+ 2638 002e F3       		.byte	0xf3
+ 2639 002f 01       		.uleb128 0x1
+ 2640 0030 50       		.byte	0x50
+ 2641 0031 9F       		.byte	0x9f
+ 2642 0032 00000000 		.4byte	0
+ 2643 0036 00000000 		.4byte	0
+ 2644              	.LLST1:
+ 2645 003a 00000000 		.4byte	.LVL0
+ 2646 003e 0B000000 		.4byte	.LVL2-1
+ 2647 0042 0100     		.2byte	0x1
+ 2648 0044 51       		.byte	0x51
+ 2649 0045 0B000000 		.4byte	.LVL2-1
+ 2650 0049 1A000000 		.4byte	.LVL5
+ 2651 004d 0400     		.2byte	0x4
+ 2652 004f F3       		.byte	0xf3
+ 2653 0050 01       		.uleb128 0x1
+ 2654 0051 51       		.byte	0x51
+ 2655 0052 9F       		.byte	0x9f
+ 2656 0053 1A000000 		.4byte	.LVL5
+ 2657 0057 1E000000 		.4byte	.LFE592
+ 2658 005b 0100     		.2byte	0x1
+ 2659 005d 51       		.byte	0x51
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 58
+
+
+ 2660 005e 00000000 		.4byte	0
+ 2661 0062 00000000 		.4byte	0
+ 2662              	.LLST2:
+ 2663 0066 16000000 		.4byte	.LVL4
+ 2664 006a 1A000000 		.4byte	.LVL5
+ 2665 006e 0200     		.2byte	0x2
+ 2666 0070 30       		.byte	0x30
+ 2667 0071 9F       		.byte	0x9f
+ 2668 0072 00000000 		.4byte	0
+ 2669 0076 00000000 		.4byte	0
+ 2670              	.LLST3:
+ 2671 007a 00000000 		.4byte	.LVL7
+ 2672 007e 07000000 		.4byte	.LVL8-1
+ 2673 0082 0100     		.2byte	0x1
+ 2674 0084 50       		.byte	0x50
+ 2675 0085 07000000 		.4byte	.LVL8-1
+ 2676 0089 0A000000 		.4byte	.LVL9
+ 2677 008d 0400     		.2byte	0x4
+ 2678 008f F3       		.byte	0xf3
+ 2679 0090 01       		.uleb128 0x1
+ 2680 0091 50       		.byte	0x50
+ 2681 0092 9F       		.byte	0x9f
+ 2682 0093 0A000000 		.4byte	.LVL9
+ 2683 0097 0D000000 		.4byte	.LVL10-1
+ 2684 009b 0100     		.2byte	0x1
+ 2685 009d 50       		.byte	0x50
+ 2686 009e 0D000000 		.4byte	.LVL10-1
+ 2687 00a2 14000000 		.4byte	.LFE593
+ 2688 00a6 0400     		.2byte	0x4
+ 2689 00a8 F3       		.byte	0xf3
+ 2690 00a9 01       		.uleb128 0x1
+ 2691 00aa 50       		.byte	0x50
+ 2692 00ab 9F       		.byte	0x9f
+ 2693 00ac 00000000 		.4byte	0
+ 2694 00b0 00000000 		.4byte	0
+ 2695              	.LLST4:
+ 2696 00b4 08000000 		.4byte	.LVL8
+ 2697 00b8 0A000000 		.4byte	.LVL9
+ 2698 00bc 0100     		.2byte	0x1
+ 2699 00be 50       		.byte	0x50
+ 2700 00bf 0E000000 		.4byte	.LVL10
+ 2701 00c3 12000000 		.4byte	.LVL11
+ 2702 00c7 0100     		.2byte	0x1
+ 2703 00c9 50       		.byte	0x50
+ 2704 00ca 00000000 		.4byte	0
+ 2705 00ce 00000000 		.4byte	0
+ 2706              	.LLST5:
+ 2707 00d2 00000000 		.4byte	.LVL12
+ 2708 00d6 0A000000 		.4byte	.LVL13
+ 2709 00da 0100     		.2byte	0x1
+ 2710 00dc 50       		.byte	0x50
+ 2711 00dd 0A000000 		.4byte	.LVL13
+ 2712 00e1 44000000 		.4byte	.LFE594
+ 2713 00e5 0400     		.2byte	0x4
+ 2714 00e7 F3       		.byte	0xf3
+ 2715 00e8 01       		.uleb128 0x1
+ 2716 00e9 50       		.byte	0x50
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 59
+
+
+ 2717 00ea 9F       		.byte	0x9f
+ 2718 00eb 00000000 		.4byte	0
+ 2719 00ef 00000000 		.4byte	0
+ 2720              	.LLST6:
+ 2721 00f3 00000000 		.4byte	.LVL12
+ 2722 00f7 0D000000 		.4byte	.LVL14-1
+ 2723 00fb 0100     		.2byte	0x1
+ 2724 00fd 51       		.byte	0x51
+ 2725 00fe 0D000000 		.4byte	.LVL14-1
+ 2726 0102 44000000 		.4byte	.LFE594
+ 2727 0106 0400     		.2byte	0x4
+ 2728 0108 F3       		.byte	0xf3
+ 2729 0109 01       		.uleb128 0x1
+ 2730 010a 51       		.byte	0x51
+ 2731 010b 9F       		.byte	0x9f
+ 2732 010c 00000000 		.4byte	0
+ 2733 0110 00000000 		.4byte	0
+ 2734              	.LLST7:
+ 2735 0114 00000000 		.4byte	.LVL20
+ 2736 0118 0E000000 		.4byte	.LVL21
+ 2737 011c 0100     		.2byte	0x1
+ 2738 011e 50       		.byte	0x50
+ 2739 011f 0E000000 		.4byte	.LVL21
+ 2740 0123 54000000 		.4byte	.LFE595
+ 2741 0127 0100     		.2byte	0x1
+ 2742 0129 57       		.byte	0x57
+ 2743 012a 00000000 		.4byte	0
+ 2744 012e 00000000 		.4byte	0
+ 2745              	.LLST8:
+ 2746 0132 00000000 		.4byte	.LVL20
+ 2747 0136 11000000 		.4byte	.LVL22-1
+ 2748 013a 0100     		.2byte	0x1
+ 2749 013c 51       		.byte	0x51
+ 2750 013d 11000000 		.4byte	.LVL22-1
+ 2751 0141 54000000 		.4byte	.LFE595
+ 2752 0145 0100     		.2byte	0x1
+ 2753 0147 56       		.byte	0x56
+ 2754 0148 00000000 		.4byte	0
+ 2755 014c 00000000 		.4byte	0
+ 2756              	.LLST9:
+ 2757 0150 00000000 		.4byte	.LVL20
+ 2758 0154 11000000 		.4byte	.LVL22-1
+ 2759 0158 0100     		.2byte	0x1
+ 2760 015a 52       		.byte	0x52
+ 2761 015b 11000000 		.4byte	.LVL22-1
+ 2762 015f 54000000 		.4byte	.LFE595
+ 2763 0163 0400     		.2byte	0x4
+ 2764 0165 F3       		.byte	0xf3
+ 2765 0166 01       		.uleb128 0x1
+ 2766 0167 52       		.byte	0x52
+ 2767 0168 9F       		.byte	0x9f
+ 2768 0169 00000000 		.4byte	0
+ 2769 016d 00000000 		.4byte	0
+ 2770              	.LLST10:
+ 2771 0171 00000000 		.4byte	.LVL20
+ 2772 0175 11000000 		.4byte	.LVL22-1
+ 2773 0179 0100     		.2byte	0x1
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 60
+
+
+ 2774 017b 53       		.byte	0x53
+ 2775 017c 11000000 		.4byte	.LVL22-1
+ 2776 0180 54000000 		.4byte	.LFE595
+ 2777 0184 0400     		.2byte	0x4
+ 2778 0186 F3       		.byte	0xf3
+ 2779 0187 01       		.uleb128 0x1
+ 2780 0188 53       		.byte	0x53
+ 2781 0189 9F       		.byte	0x9f
+ 2782 018a 00000000 		.4byte	0
+ 2783 018e 00000000 		.4byte	0
+ 2784              	.LLST11:
+ 2785 0192 00000000 		.4byte	.LVL29
+ 2786 0196 24000000 		.4byte	.LVL31
+ 2787 019a 0100     		.2byte	0x1
+ 2788 019c 50       		.byte	0x50
+ 2789 019d 24000000 		.4byte	.LVL31
+ 2790 01a1 4A000000 		.4byte	.LVL38
+ 2791 01a5 0100     		.2byte	0x1
+ 2792 01a7 56       		.byte	0x56
+ 2793 01a8 4A000000 		.4byte	.LVL38
+ 2794 01ac 4C000000 		.4byte	.LVL39
+ 2795 01b0 0100     		.2byte	0x1
+ 2796 01b2 50       		.byte	0x50
+ 2797 01b3 4C000000 		.4byte	.LVL39
+ 2798 01b7 4E000000 		.4byte	.LVL40
+ 2799 01bb 0400     		.2byte	0x4
+ 2800 01bd F3       		.byte	0xf3
+ 2801 01be 01       		.uleb128 0x1
+ 2802 01bf 50       		.byte	0x50
+ 2803 01c0 9F       		.byte	0x9f
+ 2804 01c1 4E000000 		.4byte	.LVL40
+ 2805 01c5 50000000 		.4byte	.LVL41
+ 2806 01c9 0100     		.2byte	0x1
+ 2807 01cb 50       		.byte	0x50
+ 2808 01cc 50000000 		.4byte	.LVL41
+ 2809 01d0 52000000 		.4byte	.LVL42
+ 2810 01d4 0400     		.2byte	0x4
+ 2811 01d6 F3       		.byte	0xf3
+ 2812 01d7 01       		.uleb128 0x1
+ 2813 01d8 50       		.byte	0x50
+ 2814 01d9 9F       		.byte	0x9f
+ 2815 01da 52000000 		.4byte	.LVL42
+ 2816 01de 54000000 		.4byte	.LVL43
+ 2817 01e2 0100     		.2byte	0x1
+ 2818 01e4 50       		.byte	0x50
+ 2819 01e5 54000000 		.4byte	.LVL43
+ 2820 01e9 56000000 		.4byte	.LVL44
+ 2821 01ed 0400     		.2byte	0x4
+ 2822 01ef F3       		.byte	0xf3
+ 2823 01f0 01       		.uleb128 0x1
+ 2824 01f1 50       		.byte	0x50
+ 2825 01f2 9F       		.byte	0x9f
+ 2826 01f3 56000000 		.4byte	.LVL44
+ 2827 01f7 58000000 		.4byte	.LVL45
+ 2828 01fb 0100     		.2byte	0x1
+ 2829 01fd 50       		.byte	0x50
+ 2830 01fe 58000000 		.4byte	.LVL45
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 61
+
+
+ 2831 0202 5A000000 		.4byte	.LFE596
+ 2832 0206 0400     		.2byte	0x4
+ 2833 0208 F3       		.byte	0xf3
+ 2834 0209 01       		.uleb128 0x1
+ 2835 020a 50       		.byte	0x50
+ 2836 020b 9F       		.byte	0x9f
+ 2837 020c 00000000 		.4byte	0
+ 2838 0210 00000000 		.4byte	0
+ 2839              	.LLST12:
+ 2840 0214 00000000 		.4byte	.LVL29
+ 2841 0218 24000000 		.4byte	.LVL31
+ 2842 021c 0100     		.2byte	0x1
+ 2843 021e 51       		.byte	0x51
+ 2844 021f 24000000 		.4byte	.LVL31
+ 2845 0223 4A000000 		.4byte	.LVL38
+ 2846 0227 0100     		.2byte	0x1
+ 2847 0229 57       		.byte	0x57
+ 2848 022a 4A000000 		.4byte	.LVL38
+ 2849 022e 5A000000 		.4byte	.LFE596
+ 2850 0232 0100     		.2byte	0x1
+ 2851 0234 51       		.byte	0x51
+ 2852 0235 00000000 		.4byte	0
+ 2853 0239 00000000 		.4byte	0
+ 2854              	.LLST13:
+ 2855 023d 00000000 		.4byte	.LVL29
+ 2856 0241 24000000 		.4byte	.LVL31
+ 2857 0245 0100     		.2byte	0x1
+ 2858 0247 52       		.byte	0x52
+ 2859 0248 24000000 		.4byte	.LVL31
+ 2860 024c 4A000000 		.4byte	.LVL38
+ 2861 0250 0100     		.2byte	0x1
+ 2862 0252 55       		.byte	0x55
+ 2863 0253 4A000000 		.4byte	.LVL38
+ 2864 0257 5A000000 		.4byte	.LFE596
+ 2865 025b 0100     		.2byte	0x1
+ 2866 025d 52       		.byte	0x52
+ 2867 025e 00000000 		.4byte	0
+ 2868 0262 00000000 		.4byte	0
+ 2869              	.LLST14:
+ 2870 0266 22000000 		.4byte	.LVL30
+ 2871 026a 3E000000 		.4byte	.LVL36
+ 2872 026e 0100     		.2byte	0x1
+ 2873 0270 54       		.byte	0x54
+ 2874 0271 40000000 		.4byte	.LVL37
+ 2875 0275 4A000000 		.4byte	.LVL38
+ 2876 0279 0100     		.2byte	0x1
+ 2877 027b 54       		.byte	0x54
+ 2878 027c 00000000 		.4byte	0
+ 2879 0280 00000000 		.4byte	0
+ 2880              	.LLST15:
+ 2881 0284 2E000000 		.4byte	.LVL32
+ 2882 0288 38000000 		.4byte	.LVL34
+ 2883 028c 0100     		.2byte	0x1
+ 2884 028e 50       		.byte	0x50
+ 2885 028f 38000000 		.4byte	.LVL34
+ 2886 0293 3B000000 		.4byte	.LVL35-1
+ 2887 0297 1000     		.2byte	0x10
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 62
+
+
+ 2888 0299 74       		.byte	0x74
+ 2889 029a 00       		.sleb128 0
+ 2890 029b 35       		.byte	0x35
+ 2891 029c 24       		.byte	0x24
+ 2892 029d 75       		.byte	0x75
+ 2893 029e 00       		.sleb128 0
+ 2894 029f 94       		.byte	0x94
+ 2895 02a0 01       		.byte	0x1
+ 2896 02a1 08       		.byte	0x8
+ 2897 02a2 FF       		.byte	0xff
+ 2898 02a3 1A       		.byte	0x1a
+ 2899 02a4 22       		.byte	0x22
+ 2900 02a5 74       		.byte	0x74
+ 2901 02a6 00       		.sleb128 0
+ 2902 02a7 22       		.byte	0x22
+ 2903 02a8 9F       		.byte	0x9f
+ 2904 02a9 00000000 		.4byte	0
+ 2905 02ad 00000000 		.4byte	0
+ 2906              	.LLST16:
+ 2907 02b1 32000000 		.4byte	.LVL33
+ 2908 02b5 3B000000 		.4byte	.LVL35-1
+ 2909 02b9 0100     		.2byte	0x1
+ 2910 02bb 52       		.byte	0x52
+ 2911 02bc 00000000 		.4byte	0
+ 2912 02c0 00000000 		.4byte	0
+ 2913              	.LLST17:
+ 2914 02c4 00000000 		.4byte	.LVL46
+ 2915 02c8 20010000 		.4byte	.LVL77
+ 2916 02cc 0100     		.2byte	0x1
+ 2917 02ce 50       		.byte	0x50
+ 2918 02cf 20010000 		.4byte	.LVL77
+ 2919 02d3 24010000 		.4byte	.LFE597
+ 2920 02d7 0400     		.2byte	0x4
+ 2921 02d9 F3       		.byte	0xf3
+ 2922 02da 01       		.uleb128 0x1
+ 2923 02db 50       		.byte	0x50
+ 2924 02dc 9F       		.byte	0x9f
+ 2925 02dd 00000000 		.4byte	0
+ 2926 02e1 00000000 		.4byte	0
+ 2927              	.LLST18:
+ 2928 02e5 00000000 		.4byte	.LVL46
+ 2929 02e9 0C000000 		.4byte	.LVL48
+ 2930 02ed 0100     		.2byte	0x1
+ 2931 02ef 51       		.byte	0x51
+ 2932 02f0 0C000000 		.4byte	.LVL48
+ 2933 02f4 24010000 		.4byte	.LFE597
+ 2934 02f8 0400     		.2byte	0x4
+ 2935 02fa F3       		.byte	0xf3
+ 2936 02fb 01       		.uleb128 0x1
+ 2937 02fc 51       		.byte	0x51
+ 2938 02fd 9F       		.byte	0x9f
+ 2939 02fe 00000000 		.4byte	0
+ 2940 0302 00000000 		.4byte	0
+ 2941              	.LLST19:
+ 2942 0306 06000000 		.4byte	.LVL47
+ 2943 030a 0C000000 		.4byte	.LVL48
+ 2944 030e 0100     		.2byte	0x1
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 63
+
+
+ 2945 0310 51       		.byte	0x51
+ 2946 0311 0C000000 		.4byte	.LVL48
+ 2947 0315 24010000 		.4byte	.LFE597
+ 2948 0319 0100     		.2byte	0x1
+ 2949 031b 5B       		.byte	0x5b
+ 2950 031c 00000000 		.4byte	0
+ 2951 0320 00000000 		.4byte	0
+ 2952              	.LLST20:
+ 2953 0324 3A000000 		.4byte	.LVL49
+ 2954 0328 F0000000 		.4byte	.LVL75
+ 2955 032c 0100     		.2byte	0x1
+ 2956 032e 57       		.byte	0x57
+ 2957 032f 00000000 		.4byte	0
+ 2958 0333 00000000 		.4byte	0
+ 2959              	.LLST21:
+ 2960 0337 52000000 		.4byte	.LVL50
+ 2961 033b AE000000 		.4byte	.LVL65
+ 2962 033f 0100     		.2byte	0x1
+ 2963 0341 5C       		.byte	0x5c
+ 2964 0342 00000000 		.4byte	0
+ 2965 0346 00000000 		.4byte	0
+ 2966              	.LLST22:
+ 2967 034a 6A000000 		.4byte	.LVL52
+ 2968 034e 94000000 		.4byte	.LVL61
+ 2969 0352 0100     		.2byte	0x1
+ 2970 0354 55       		.byte	0x55
+ 2971 0355 B8000000 		.4byte	.LVL66
+ 2972 0359 DA000000 		.4byte	.LVL69
+ 2973 035d 0100     		.2byte	0x1
+ 2974 035f 54       		.byte	0x54
+ 2975 0360 00000000 		.4byte	0
+ 2976 0364 00000000 		.4byte	0
+ 2977              	.LLST23:
+ 2978 0368 72000000 		.4byte	.LVL53
+ 2979 036c 7A000000 		.4byte	.LVL54
+ 2980 0370 0100     		.2byte	0x1
+ 2981 0372 54       		.byte	0x54
+ 2982 0373 7A000000 		.4byte	.LVL54
+ 2983 0377 80000000 		.4byte	.LVL55
+ 2984 037b 1000     		.2byte	0x10
+ 2985 037d 7E       		.byte	0x7e
+ 2986 037e 00       		.sleb128 0
+ 2987 037f 0A       		.byte	0xa
+ 2988 0380 FFFF     		.2byte	0xffff
+ 2989 0382 1A       		.byte	0x1a
+ 2990 0383 7A       		.byte	0x7a
+ 2991 0384 00       		.sleb128 0
+ 2992 0385 1E       		.byte	0x1e
+ 2993 0386 79       		.byte	0x79
+ 2994 0387 00       		.sleb128 0
+ 2995 0388 22       		.byte	0x22
+ 2996 0389 7C       		.byte	0x7c
+ 2997 038a 00       		.sleb128 0
+ 2998 038b 22       		.byte	0x22
+ 2999 038c 9F       		.byte	0x9f
+ 3000 038d 80000000 		.4byte	.LVL55
+ 3001 0391 86000000 		.4byte	.LVL56
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 64
+
+
+ 3002 0395 0100     		.2byte	0x1
+ 3003 0397 54       		.byte	0x54
+ 3004 0398 86000000 		.4byte	.LVL56
+ 3005 039c 8A000000 		.4byte	.LVL57
+ 3006 03a0 1000     		.2byte	0x10
+ 3007 03a2 7E       		.byte	0x7e
+ 3008 03a3 00       		.sleb128 0
+ 3009 03a4 0A       		.byte	0xa
+ 3010 03a5 FFFF     		.2byte	0xffff
+ 3011 03a7 1A       		.byte	0x1a
+ 3012 03a8 7A       		.byte	0x7a
+ 3013 03a9 00       		.sleb128 0
+ 3014 03aa 1E       		.byte	0x1e
+ 3015 03ab 79       		.byte	0x79
+ 3016 03ac 00       		.sleb128 0
+ 3017 03ad 22       		.byte	0x22
+ 3018 03ae 7C       		.byte	0x7c
+ 3019 03af 00       		.sleb128 0
+ 3020 03b0 22       		.byte	0x22
+ 3021 03b1 9F       		.byte	0x9f
+ 3022 03b2 8A000000 		.4byte	.LVL57
+ 3023 03b6 8E000000 		.4byte	.LVL58
+ 3024 03ba 0100     		.2byte	0x1
+ 3025 03bc 54       		.byte	0x54
+ 3026 03bd 8E000000 		.4byte	.LVL58
+ 3027 03c1 94000000 		.4byte	.LVL61
+ 3028 03c5 1000     		.2byte	0x10
+ 3029 03c7 7E       		.byte	0x7e
+ 3030 03c8 00       		.sleb128 0
+ 3031 03c9 0A       		.byte	0xa
+ 3032 03ca FFFF     		.2byte	0xffff
+ 3033 03cc 1A       		.byte	0x1a
+ 3034 03cd 7A       		.byte	0x7a
+ 3035 03ce 00       		.sleb128 0
+ 3036 03cf 1E       		.byte	0x1e
+ 3037 03d0 79       		.byte	0x79
+ 3038 03d1 00       		.sleb128 0
+ 3039 03d2 22       		.byte	0x22
+ 3040 03d3 7C       		.byte	0x7c
+ 3041 03d4 00       		.sleb128 0
+ 3042 03d5 22       		.byte	0x22
+ 3043 03d6 9F       		.byte	0x9f
+ 3044 03d7 00000000 		.4byte	0
+ 3045 03db 00000000 		.4byte	0
+ 3046              	.LLST24:
+ 3047 03df 52000000 		.4byte	.LVL50
+ 3048 03e3 58000000 		.4byte	.LVL51
+ 3049 03e7 0200     		.2byte	0x2
+ 3050 03e9 30       		.byte	0x30
+ 3051 03ea 9F       		.byte	0x9f
+ 3052 03eb 58000000 		.4byte	.LVL51
+ 3053 03ef A2000000 		.4byte	.LVL63
+ 3054 03f3 0100     		.2byte	0x1
+ 3055 03f5 5E       		.byte	0x5e
+ 3056 03f6 A6000000 		.4byte	.LVL64
+ 3057 03fa AE000000 		.4byte	.LVL65
+ 3058 03fe 0100     		.2byte	0x1
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 65
+
+
+ 3059 0400 5E       		.byte	0x5e
+ 3060 0401 AE000000 		.4byte	.LVL65
+ 3061 0405 E4000000 		.4byte	.LVL71
+ 3062 0409 0100     		.2byte	0x1
+ 3063 040b 56       		.byte	0x56
+ 3064 040c E6000000 		.4byte	.LVL72
+ 3065 0410 E8000000 		.4byte	.LVL73
+ 3066 0414 0100     		.2byte	0x1
+ 3067 0416 56       		.byte	0x56
+ 3068 0417 EA000000 		.4byte	.LVL74
+ 3069 041b F0000000 		.4byte	.LVL75
+ 3070 041f 0100     		.2byte	0x1
+ 3071 0421 56       		.byte	0x56
+ 3072 0422 00000000 		.4byte	0
+ 3073 0426 00000000 		.4byte	0
+ 3074              	.LLST25:
+ 3075 042a 58000000 		.4byte	.LVL51
+ 3076 042e 90000000 		.4byte	.LVL59
+ 3077 0432 0100     		.2byte	0x1
+ 3078 0434 56       		.byte	0x56
+ 3079 0435 92000000 		.4byte	.LVL60
+ 3080 0439 94000000 		.4byte	.LVL61
+ 3081 043d 0100     		.2byte	0x1
+ 3082 043f 56       		.byte	0x56
+ 3083 0440 96000000 		.4byte	.LVL62
+ 3084 0444 A6000000 		.4byte	.LVL64
+ 3085 0448 0100     		.2byte	0x1
+ 3086 044a 56       		.byte	0x56
+ 3087 044b AE000000 		.4byte	.LVL65
+ 3088 044f D6000000 		.4byte	.LVL67
+ 3089 0453 0100     		.2byte	0x1
+ 3090 0455 55       		.byte	0x55
+ 3091 0456 D8000000 		.4byte	.LVL68
+ 3092 045a DA000000 		.4byte	.LVL69
+ 3093 045e 0100     		.2byte	0x1
+ 3094 0460 55       		.byte	0x55
+ 3095 0461 DC000000 		.4byte	.LVL70
+ 3096 0465 E8000000 		.4byte	.LVL73
+ 3097 0469 0100     		.2byte	0x1
+ 3098 046b 55       		.byte	0x55
+ 3099 046c 00000000 		.4byte	0
+ 3100 0470 00000000 		.4byte	0
+ 3101              	.LLST26:
+ 3102 0474 06000000 		.4byte	.LVL47
+ 3103 0478 0C000000 		.4byte	.LVL48
+ 3104 047c 0200     		.2byte	0x2
+ 3105 047e 30       		.byte	0x30
+ 3106 047f 9F       		.byte	0x9f
+ 3107 0480 0C000000 		.4byte	.LVL48
+ 3108 0484 24010000 		.4byte	.LFE597
+ 3109 0488 0100     		.2byte	0x1
+ 3110 048a 58       		.byte	0x58
+ 3111 048b 00000000 		.4byte	0
+ 3112 048f 00000000 		.4byte	0
+ 3113              		.section	.debug_aranges,"",%progbits
+ 3114 0000 44000000 		.4byte	0x44
+ 3115 0004 0200     		.2byte	0x2
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 66
+
+
+ 3116 0006 00000000 		.4byte	.Ldebug_info0
+ 3117 000a 04       		.byte	0x4
+ 3118 000b 00       		.byte	0
+ 3119 000c 0000     		.2byte	0
+ 3120 000e 0000     		.2byte	0
+ 3121 0010 00000000 		.4byte	.LFB592
+ 3122 0014 1E000000 		.4byte	.LFE592-.LFB592
+ 3123 0018 00000000 		.4byte	.LFB593
+ 3124 001c 14000000 		.4byte	.LFE593-.LFB593
+ 3125 0020 00000000 		.4byte	.LFB594
+ 3126 0024 44000000 		.4byte	.LFE594-.LFB594
+ 3127 0028 00000000 		.4byte	.LFB595
+ 3128 002c 54000000 		.4byte	.LFE595-.LFB595
+ 3129 0030 00000000 		.4byte	.LFB596
+ 3130 0034 5A000000 		.4byte	.LFE596-.LFB596
+ 3131 0038 00000000 		.4byte	.LFB597
+ 3132 003c 24010000 		.4byte	.LFE597-.LFB597
+ 3133 0040 00000000 		.4byte	0
+ 3134 0044 00000000 		.4byte	0
+ 3135              		.section	.debug_ranges,"",%progbits
+ 3136              	.Ldebug_ranges0:
+ 3137 0000 00000000 		.4byte	.LFB592
+ 3138 0004 1E000000 		.4byte	.LFE592
+ 3139 0008 00000000 		.4byte	.LFB593
+ 3140 000c 14000000 		.4byte	.LFE593
+ 3141 0010 00000000 		.4byte	.LFB594
+ 3142 0014 44000000 		.4byte	.LFE594
+ 3143 0018 00000000 		.4byte	.LFB595
+ 3144 001c 54000000 		.4byte	.LFE595
+ 3145 0020 00000000 		.4byte	.LFB596
+ 3146 0024 5A000000 		.4byte	.LFE596
+ 3147 0028 00000000 		.4byte	.LFB597
+ 3148 002c 24010000 		.4byte	.LFE597
+ 3149 0030 00000000 		.4byte	0
+ 3150 0034 00000000 		.4byte	0
+ 3151              		.section	.debug_line,"",%progbits
+ 3152              	.Ldebug_line0:
+ 3153 0000 5D040000 		.section	.debug_str,"MS",%progbits,1
+ 3153      02004403 
+ 3153      00000201 
+ 3153      FB0E0D00 
+ 3153      01010101 
+ 3154              	.LASF106:
+ 3155 0000 794F6666 		.ascii	"yOffset\000"
+ 3155      73657400 
+ 3156              	.LASF41:
+ 3157 0008 72784275 		.ascii	"rxBufSize\000"
+ 3157      6653697A 
+ 3157      6500
+ 3158              	.LASF136:
+ 3159 0012 43795F45 		.ascii	"Cy_EINK_Start\000"
+ 3159      494E4B5F 
+ 3159      53746172 
+ 3159      7400
+ 3160              	.LASF74:
+ 3161 0020 73617449 		.ascii	"satIntrMask\000"
+ 3161      6E74724D 
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 67
+
+
+ 3161      61736B00 
+ 3162              	.LASF173:
+ 3163 002c 5254435F 		.ascii	"RTC_rtcDstStatus\000"
+ 3163      72746344 
+ 3163      73745374 
+ 3163      61747573 
+ 3163      00
+ 3164              	.LASF178:
+ 3165 003d 43795F45 		.ascii	"Cy_EINK_RegisterDelayFunction\000"
+ 3165      494E4B5F 
+ 3165      52656769 
+ 3165      73746572 
+ 3165      44656C61 
+ 3166              	.LASF120:
+ 3167 005b 50565F45 		.ascii	"PV_EINK_ERROR_CHARGEPUMP\000"
+ 3167      494E4B5F 
+ 3167      4552524F 
+ 3167      525F4348 
+ 3167      41524745 
+ 3168              	.LASF155:
+ 3169 0074 43795F45 		.ascii	"Cy_EINK_TextToFrameBuffer\000"
+ 3169      494E4B5F 
+ 3169      54657874 
+ 3169      546F4672 
+ 3169      616D6542 
+ 3170              	.LASF154:
+ 3171 008e 6C696E65 		.ascii	"lineLength\000"
+ 3171      4C656E67 
+ 3171      746800
+ 3172              	.LASF171:
+ 3173 0099 63795F62 		.ascii	"cy_ble_pendingFlashWrite\000"
+ 3173      6C655F70 
+ 3173      656E6469 
+ 3173      6E67466C 
+ 3173      61736857 
+ 3174              	.LASF1:
+ 3175 00b2 5F5F7569 		.ascii	"__uint8_t\000"
+ 3175      6E74385F 
+ 3175      7400
+ 3176              	.LASF83:
+ 3177 00bc 63795F73 		.ascii	"cy_stc_ble_conn_handle_t\000"
+ 3177      74635F62 
+ 3177      6C655F63 
+ 3177      6F6E6E5F 
+ 3177      68616E64 
+ 3178              	.LASF149:
+ 3179 00d5 6672616D 		.ascii	"frameBuffer\000"
+ 3179      65427566 
+ 3179      66657200 
+ 3180              	.LASF176:
+ 3181 00e1 4144435F 		.ascii	"ADC_currentConfig\000"
+ 3181      63757272 
+ 3181      656E7443 
+ 3181      6F6E6669 
+ 3181      6700
+ 3182              	.LASF12:
+ 3183 00f3 6C6F6E67 		.ascii	"long long unsigned int\000"
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 68
+
+
+ 3183      206C6F6E 
+ 3183      6720756E 
+ 3183      7369676E 
+ 3183      65642069 
+ 3184              	.LASF54:
+ 3185 010a 72785269 		.ascii	"rxRingBuf\000"
+ 3185      6E674275 
+ 3185      6600
+ 3186              	.LASF114:
+ 3187 0114 70765F65 		.ascii	"pv_eink_frame_data_t\000"
+ 3187      696E6B5F 
+ 3187      6672616D 
+ 3187      655F6461 
+ 3187      74615F74 
+ 3188              	.LASF0:
+ 3189 0129 5F5F696E 		.ascii	"__int8_t\000"
+ 3189      74385F74 
+ 3189      00
+ 3190              	.LASF43:
+ 3191 0132 74784275 		.ascii	"txBuf\000"
+ 3191      6600
+ 3192              	.LASF104:
+ 3193 0138 666F6E74 		.ascii	"fontData\000"
+ 3193      44617461 
+ 3193      00
+ 3194              	.LASF31:
+ 3195 0141 7765656B 		.ascii	"weekOfMonth\000"
+ 3195      4F664D6F 
+ 3195      6E746800 
+ 3196              	.LASF138:
+ 3197 014d 706F7765 		.ascii	"powerCtrl\000"
+ 3197      72437472 
+ 3197      6C00
+ 3198              	.LASF11:
+ 3199 0157 6C6F6E67 		.ascii	"long long int\000"
+ 3199      206C6F6E 
+ 3199      6720696E 
+ 3199      7400
+ 3200              	.LASF2:
+ 3201 0165 7369676E 		.ascii	"signed char\000"
+ 3201      65642063 
+ 3201      68617200 
+ 3202              	.LASF50:
+ 3203 0171 63795F73 		.ascii	"cy_stc_scb_spi_context\000"
+ 3203      74635F73 
+ 3203      63625F73 
+ 3203      70695F63 
+ 3203      6F6E7465 
+ 3204              	.LASF59:
+ 3205 0188 63795F73 		.ascii	"cy_stc_scb_uart_context_t\000"
+ 3205      74635F73 
+ 3205      63625F75 
+ 3205      6172745F 
+ 3205      636F6E74 
+ 3206              	.LASF64:
+ 3207 01a2 63795F65 		.ascii	"cy_en_sar_range_detect_condition_t\000"
+ 3207      6E5F7361 
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 69
+
+
+ 3207      725F7261 
+ 3207      6E67655F 
+ 3207      64657465 
+ 3208              	.LASF10:
+ 3209 01c5 6C6F6E67 		.ascii	"long unsigned int\000"
+ 3209      20756E73 
+ 3209      69676E65 
+ 3209      6420696E 
+ 3209      7400
+ 3210              	.LASF102:
+ 3211 01d7 636C6B44 		.ascii	"clkDivider\000"
+ 3211      69766964 
+ 3211      657200
+ 3212              	.LASF117:
+ 3213 01e2 50565F45 		.ascii	"PV_EINK_ERROR_ID\000"
+ 3213      494E4B5F 
+ 3213      4552524F 
+ 3213      525F4944 
+ 3213      00
+ 3214              	.LASF87:
+ 3215 01f3 43595F42 		.ascii	"CY_BLE_ADV_STATE_STOP_INITIATED\000"
+ 3215      4C455F41 
+ 3215      44565F53 
+ 3215      54415445 
+ 3215      5F53544F 
+ 3216              	.LASF38:
+ 3217 0213 63795F63 		.ascii	"cy_cb_scb_spi_handle_events_t\000"
+ 3217      625F7363 
+ 3217      625F7370 
+ 3217      695F6861 
+ 3217      6E646C65 
+ 3218              	.LASF130:
+ 3219 0231 63795F65 		.ascii	"cy_eink_update_t\000"
+ 3219      696E6B5F 
+ 3219      75706461 
+ 3219      74655F74 
+ 3219      00
+ 3220              	.LASF35:
+ 3221 0242 73746172 		.ascii	"startDst\000"
+ 3221      74447374 
+ 3221      00
+ 3222              	.LASF60:
+ 3223 024b 43595F53 		.ascii	"CY_SAR_RANGE_COND_BELOW\000"
+ 3223      41525F52 
+ 3223      414E4745 
+ 3223      5F434F4E 
+ 3223      445F4245 
+ 3224              	.LASF26:
+ 3225 0263 43595F52 		.ascii	"CY_RTC_DST_FIXED\000"
+ 3225      54435F44 
+ 3225      53545F46 
+ 3225      49584544 
+ 3225      00
+ 3226              	.LASF8:
+ 3227 0274 6C6F6E67 		.ascii	"long int\000"
+ 3227      20696E74 
+ 3227      00
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 70
+
+
+ 3228              	.LASF37:
+ 3229 027d 63795F73 		.ascii	"cy_stc_rtc_dst_t\000"
+ 3229      74635F72 
+ 3229      74635F64 
+ 3229      73745F74 
+ 3229      00
+ 3230              	.LASF172:
+ 3231 028e 44454255 		.ascii	"DEBUG_UART_context\000"
+ 3231      475F5541 
+ 3231      52545F63 
+ 3231      6F6E7465 
+ 3231      787400
+ 3232              	.LASF88:
+ 3233 02a1 63795F65 		.ascii	"cy_en_ble_adv_state_t\000"
+ 3233      6E5F626C 
+ 3233      655F6164 
+ 3233      765F7374 
+ 3233      6174655F 
+ 3234              	.LASF188:
+ 3235 02b7 6D656D63 		.ascii	"memcpy\000"
+ 3235      707900
+ 3236              	.LASF62:
+ 3237 02be 43595F53 		.ascii	"CY_SAR_RANGE_COND_ABOVE\000"
+ 3237      41525F52 
+ 3237      414E4745 
+ 3237      5F434F4E 
+ 3237      445F4142 
+ 3238              	.LASF19:
+ 3239 02d6 75696E74 		.ascii	"uint16_t\000"
+ 3239      31365F74 
+ 3239      00
+ 3240              	.LASF23:
+ 3241 02df 646F7562 		.ascii	"double\000"
+ 3241      6C6500
+ 3242              	.LASF162:
+ 3243 02e6 6672616D 		.ascii	"frameByte\000"
+ 3243      65427974 
+ 3243      6500
+ 3244              	.LASF134:
+ 3245 02f0 74656D70 		.ascii	"temperature\000"
+ 3245      65726174 
+ 3245      75726500 
+ 3246              	.LASF103:
+ 3247 02fc 4144435F 		.ascii	"ADC_CONFIG_STRUCT\000"
+ 3247      434F4E46 
+ 3247      49475F53 
+ 3247      54525543 
+ 3247      5400
+ 3248              	.LASF150:
+ 3249 030e 696D6167 		.ascii	"image\000"
+ 3249      6500
+ 3250              	.LASF67:
+ 3251 0314 73616D70 		.ascii	"sampleTime01\000"
+ 3251      6C655469 
+ 3251      6D653031 
+ 3251      00
+ 3252              	.LASF93:
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 71
+
+
+ 3253 0321 43595F42 		.ascii	"CY_BLE_CONN_STATE_CLIENT_INCL_DISCOVERING\000"
+ 3253      4C455F43 
+ 3253      4F4E4E5F 
+ 3253      53544154 
+ 3253      455F434C 
+ 3254              	.LASF116:
+ 3255 034b 50565F45 		.ascii	"PV_EINK_ERROR_BUSY\000"
+ 3255      494E4B5F 
+ 3255      4552524F 
+ 3255      525F4255 
+ 3255      535900
+ 3256              	.LASF9:
+ 3257 035e 5F5F7569 		.ascii	"__uint32_t\000"
+ 3257      6E743332 
+ 3257      5F7400
+ 3258              	.LASF100:
+ 3259 0369 6877436F 		.ascii	"hwConfigStc\000"
+ 3259      6E666967 
+ 3259      53746300 
+ 3260              	.LASF128:
+ 3261 0375 43595F45 		.ascii	"CY_EINK_FULL_4STAGE\000"
+ 3261      494E4B5F 
+ 3261      46554C4C 
+ 3261      5F345354 
+ 3261      41474500 
+ 3262              	.LASF133:
+ 3263 0389 63795F65 		.ascii	"cy_eink_api_result\000"
+ 3263      696E6B5F 
+ 3263      6170695F 
+ 3263      72657375 
+ 3263      6C7400
+ 3264              	.LASF42:
+ 3265 039c 72784275 		.ascii	"rxBufIdx\000"
+ 3265      66496478 
+ 3265      00
+ 3266              	.LASF127:
+ 3267 03a5 43595F45 		.ascii	"CY_EINK_PARTIAL\000"
+ 3267      494E4B5F 
+ 3267      50415254 
+ 3267      49414C00 
+ 3268              	.LASF107:
+ 3269 03b5 7853697A 		.ascii	"xSize\000"
+ 3269      6500
+ 3270              	.LASF132:
+ 3271 03bb 43595F45 		.ascii	"CY_EINK_FAILURE\000"
+ 3271      494E4B5F 
+ 3271      4641494C 
+ 3271      55524500 
+ 3272              	.LASF44:
+ 3273 03cb 74784275 		.ascii	"txBufSize\000"
+ 3273      6653697A 
+ 3273      6500
+ 3274              	.LASF33:
+ 3275 03d5 6D6F6E74 		.ascii	"month\000"
+ 3275      6800
+ 3276              	.LASF13:
+ 3277 03db 756E7369 		.ascii	"unsigned int\000"
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 72
+
+
+ 3277      676E6564 
+ 3277      20696E74 
+ 3277      00
+ 3278              	.LASF91:
+ 3279 03e8 43595F42 		.ascii	"CY_BLE_CONN_STATE_CONNECTED\000"
+ 3279      4C455F43 
+ 3279      4F4E4E5F 
+ 3279      53544154 
+ 3279      455F434F 
+ 3280              	.LASF90:
+ 3281 0404 43595F42 		.ascii	"CY_BLE_CONN_STATE_CLIENT_DISCONNECTED_DISCOVERED\000"
+ 3281      4C455F43 
+ 3281      4F4E4E5F 
+ 3281      53544154 
+ 3281      455F434C 
+ 3282              	.LASF164:
+ 3283 0435 76657274 		.ascii	"verticalCounter\000"
+ 3283      6963616C 
+ 3283      436F756E 
+ 3283      74657200 
+ 3284              	.LASF147:
+ 3285 0445 75706461 		.ascii	"updateType\000"
+ 3285      74655479 
+ 3285      706500
+ 3286              	.LASF112:
+ 3287 0450 63795F65 		.ascii	"cy_eink_font_t\000"
+ 3287      696E6B5F 
+ 3287      666F6E74 
+ 3287      5F7400
+ 3288              	.LASF52:
+ 3289 045f 74785374 		.ascii	"txStatus\000"
+ 3289      61747573 
+ 3289      00
+ 3290              	.LASF6:
+ 3291 0468 73686F72 		.ascii	"short unsigned int\000"
+ 3291      7420756E 
+ 3291      7369676E 
+ 3291      65642069 
+ 3291      6E7400
+ 3292              	.LASF110:
+ 3293 047b 79537061 		.ascii	"ySpan\000"
+ 3293      6E00
+ 3294              	.LASF159:
+ 3295 0481 63757272 		.ascii	"currentChar\000"
+ 3295      656E7443 
+ 3295      68617200 
+ 3296              	.LASF69:
+ 3297 048d 72616E67 		.ascii	"rangeThres\000"
+ 3297      65546872 
+ 3297      657300
+ 3298              	.LASF170:
+ 3299 0498 63795F62 		.ascii	"cy_ble_connState\000"
+ 3299      6C655F63 
+ 3299      6F6E6E53 
+ 3299      74617465 
+ 3299      00
+ 3300              	.LASF46:
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 73
+
+
+ 3301 04a9 63624576 		.ascii	"cbEvents\000"
+ 3301      656E7473 
+ 3301      00
+ 3302              	.LASF129:
+ 3303 04b2 43595F45 		.ascii	"CY_EINK_FULL_2STAGE\000"
+ 3303      494E4B5F 
+ 3303      46554C4C 
+ 3303      5F325354 
+ 3303      41474500 
+ 3304              	.LASF61:
+ 3305 04c6 43595F53 		.ascii	"CY_SAR_RANGE_COND_INSIDE\000"
+ 3305      41525F52 
+ 3305      414E4745 
+ 3305      5F434F4E 
+ 3305      445F494E 
+ 3306              	.LASF126:
+ 3307 04df 63795F65 		.ascii	"cy_eink_frame_t\000"
+ 3307      696E6B5F 
+ 3307      6672616D 
+ 3307      655F7400 
+ 3308              	.LASF99:
+ 3309 04ef 6E756D43 		.ascii	"numChannels\000"
+ 3309      68616E6E 
+ 3309      656C7300 
+ 3310              	.LASF122:
+ 3311 04fb 50565F45 		.ascii	"PV_EINK_STAGE1\000"
+ 3311      494E4B5F 
+ 3311      53544147 
+ 3311      453100
+ 3312              	.LASF123:
+ 3313 050a 50565F45 		.ascii	"PV_EINK_STAGE2\000"
+ 3313      494E4B5F 
+ 3313      53544147 
+ 3313      453200
+ 3314              	.LASF124:
+ 3315 0519 50565F45 		.ascii	"PV_EINK_STAGE3\000"
+ 3315      494E4B5F 
+ 3315      53544147 
+ 3315      453300
+ 3316              	.LASF125:
+ 3317 0528 50565F45 		.ascii	"PV_EINK_STAGE4\000"
+ 3317      494E4B5F 
+ 3317      53544147 
+ 3317      453400
+ 3318              	.LASF7:
+ 3319 0537 5F5F696E 		.ascii	"__int32_t\000"
+ 3319      7433325F 
+ 3319      7400
+ 3320              	.LASF27:
+ 3321 0541 63795F65 		.ascii	"cy_en_rtc_dst_format_t\000"
+ 3321      6E5F7274 
+ 3321      635F6473 
+ 3321      745F666F 
+ 3321      726D6174 
+ 3322              	.LASF73:
+ 3323 0558 696E7472 		.ascii	"intrMask\000"
+ 3323      4D61736B 
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 74
+
+
+ 3323      00
+ 3324              	.LASF32:
+ 3325 0561 6461794F 		.ascii	"dayOfWeek\000"
+ 3325      66576565 
+ 3325      6B00
+ 3326              	.LASF72:
+ 3327 056b 6368616E 		.ascii	"chanConfig\000"
+ 3327      436F6E66 
+ 3327      696700
+ 3328              	.LASF82:
+ 3329 0576 61747449 		.ascii	"attId\000"
+ 3329      6400
+ 3330              	.LASF105:
+ 3331 057c 784F6666 		.ascii	"xOffset\000"
+ 3331      73657400 
+ 3332              	.LASF152:
+ 3333 0584 70697865 		.ascii	"pixelLineCounter\000"
+ 3333      6C4C696E 
+ 3333      65436F75 
+ 3333      6E746572 
+ 3333      00
+ 3334              	.LASF15:
+ 3335 0595 73697A65 		.ascii	"sizetype\000"
+ 3335      74797065 
+ 3335      00
+ 3336              	.LASF101:
+ 3337 059e 6D697363 		.ascii	"miscConfig\000"
+ 3337      436F6E66 
+ 3337      696700
+ 3338              	.LASF14:
+ 3339 05a9 6C6F6E67 		.ascii	"long double\000"
+ 3339      20646F75 
+ 3339      626C6500 
+ 3340              	.LASF97:
+ 3341 05b5 63795F65 		.ascii	"cy_en_ble_conn_state_t\000"
+ 3341      6E5F626C 
+ 3341      655F636F 
+ 3341      6E6E5F73 
+ 3341      74617465 
+ 3342              	.LASF85:
+ 3343 05cc 43595F42 		.ascii	"CY_BLE_ADV_STATE_ADV_INITIATED\000"
+ 3343      4C455F41 
+ 3343      44565F53 
+ 3343      54415445 
+ 3343      5F414456 
+ 3344              	.LASF187:
+ 3345 05eb 433A5C55 		.ascii	"C:\\Users\\kateb\\Documents\\PSoC Creator\\CE218136"
+ 3345      73657273 
+ 3345      5C6B6174 
+ 3345      65625C44 
+ 3345      6F63756D 
+ 3346 0619 5F45494E 		.ascii	"_EINK_CapSense_RTOS02\\CE222604_RTC_CTS_RTOS01.cyds"
+ 3346      4B5F4361 
+ 3346      7053656E 
+ 3346      73655F52 
+ 3346      544F5330 
+ 3347 064b 6E00     		.ascii	"n\000"
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 75
+
+
+ 3348              	.LASF145:
+ 3349 064d 70726576 		.ascii	"prevFrame\000"
+ 3349      4672616D 
+ 3349      6500
+ 3350              	.LASF78:
+ 3351 0657 636F6E66 		.ascii	"configRouting\000"
+ 3351      6967526F 
+ 3351      7574696E 
+ 3351      6700
+ 3352              	.LASF174:
+ 3353 0665 5254435F 		.ascii	"RTC_dstConfig\000"
+ 3353      64737443 
+ 3353      6F6E6669 
+ 3353      6700
+ 3354              	.LASF179:
+ 3355 0673 50765F45 		.ascii	"Pv_EINK_Init\000"
+ 3355      494E4B5F 
+ 3355      496E6974 
+ 3355      00
+ 3356              	.LASF148:
+ 3357 0680 43795F45 		.ascii	"Cy_EINK_ImageToFrameBuffer\000"
+ 3357      494E4B5F 
+ 3357      496D6167 
+ 3357      65546F46 
+ 3357      72616D65 
+ 3358              	.LASF53:
+ 3359 069b 72785374 		.ascii	"rxStatus\000"
+ 3359      61747573 
+ 3359      00
+ 3360              	.LASF29:
+ 3361 06a4 686F7572 		.ascii	"hour\000"
+ 3361      00
+ 3362              	.LASF75:
+ 3363 06a9 72616E67 		.ascii	"rangeIntrMask\000"
+ 3363      65496E74 
+ 3363      724D6173 
+ 3363      6B00
+ 3364              	.LASF185:
+ 3365 06b7 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 3365      43313120 
+ 3365      352E342E 
+ 3365      31203230 
+ 3365      31363036 
+ 3366 06ea 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m4 -mfloat-abi=s"
+ 3366      20726576 
+ 3366      6973696F 
+ 3366      6E203233 
+ 3366      37373135 
+ 3367 071d 6F667466 		.ascii	"oftfp -mfpu=fpv4-sp-d16 -mthumb -g -Og -ffunction-s"
+ 3367      70202D6D 
+ 3367      6670753D 
+ 3367      66707634 
+ 3367      2D73702D 
+ 3368 0750 65637469 		.ascii	"ections -ffat-lto-objects\000"
+ 3368      6F6E7320 
+ 3368      2D666661 
+ 3368      742D6C74 
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 76
+
+
+ 3368      6F2D6F62 
+ 3369              	.LASF160:
+ 3370 076a 7072696E 		.ascii	"printLocation\000"
+ 3370      744C6F63 
+ 3370      6174696F 
+ 3370      6E00
+ 3371              	.LASF96:
+ 3372 0778 43595F42 		.ascii	"CY_BLE_CONN_STATE_CLIENT_DISCOVERED\000"
+ 3372      4C455F43 
+ 3372      4F4E4E5F 
+ 3372      53544154 
+ 3372      455F434C 
+ 3373              	.LASF22:
+ 3374 079c 666C6F61 		.ascii	"float\000"
+ 3374      7400
+ 3375              	.LASF30:
+ 3376 07a2 6461794F 		.ascii	"dayOfMonth\000"
+ 3376      664D6F6E 
+ 3376      746800
+ 3377              	.LASF167:
+ 3378 07ad 63795F52 		.ascii	"cy_RTC_daysInMonthTbl\000"
+ 3378      54435F64 
+ 3378      61797349 
+ 3378      6E4D6F6E 
+ 3378      74685462 
+ 3379              	.LASF157:
+ 3380 07c3 666F6E74 		.ascii	"fontInfo\000"
+ 3380      496E666F 
+ 3380      00
+ 3381              	.LASF151:
+ 3382 07cc 696D6743 		.ascii	"imgCoordinates\000"
+ 3382      6F6F7264 
+ 3382      696E6174 
+ 3382      657300
+ 3383              	.LASF58:
+ 3384 07db 74784C65 		.ascii	"txLeftToTransmit\000"
+ 3384      6674546F 
+ 3384      5472616E 
+ 3384      736D6974 
+ 3384      00
+ 3385              	.LASF121:
+ 3386 07ec 70765F65 		.ascii	"pv_eink_status_t\000"
+ 3386      696E6B5F 
+ 3386      73746174 
+ 3386      75735F74 
+ 3386      00
+ 3387              	.LASF71:
+ 3388 07fd 6368616E 		.ascii	"chanEn\000"
+ 3388      456E00
+ 3389              	.LASF181:
+ 3390 0804 50765F45 		.ascii	"Pv_EINK_HardwarePowerOn\000"
+ 3390      494E4B5F 
+ 3390      48617264 
+ 3390      77617265 
+ 3390      506F7765 
+ 3391              	.LASF115:
+ 3392 081c 50565F45 		.ascii	"PV_EINK_RES_OK\000"
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 77
+
+
+ 3392      494E4B5F 
+ 3392      5245535F 
+ 3392      4F4B00
+ 3393              	.LASF94:
+ 3394 082b 43595F42 		.ascii	"CY_BLE_CONN_STATE_CLIENT_CHAR_DISCOVERING\000"
+ 3394      4C455F43 
+ 3394      4F4E4E5F 
+ 3394      53544154 
+ 3394      455F434C 
+ 3395              	.LASF24:
+ 3396 0855 5F426F6F 		.ascii	"_Bool\000"
+ 3396      6C00
+ 3397              	.LASF20:
+ 3398 085b 696E7433 		.ascii	"int32_t\000"
+ 3398      325F7400 
+ 3399              	.LASF3:
+ 3400 0863 756E7369 		.ascii	"unsigned char\000"
+ 3400      676E6564 
+ 3400      20636861 
+ 3400      7200
+ 3401              	.LASF166:
+ 3402 0871 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 3402      52784275 
+ 3402      66666572 
+ 3402      00
+ 3403              	.LASF146:
+ 3404 087e 6E657746 		.ascii	"newFrame\000"
+ 3404      72616D65 
+ 3404      00
+ 3405              	.LASF4:
+ 3406 0887 73686F72 		.ascii	"short int\000"
+ 3406      7420696E 
+ 3406      7400
+ 3407              	.LASF76:
+ 3408 0891 6D757853 		.ascii	"muxSwitch\000"
+ 3408      77697463 
+ 3408      6800
+ 3409              	.LASF184:
+ 3410 089b 50765F45 		.ascii	"Pv_EINK_PartialStageHandler\000"
+ 3410      494E4B5F 
+ 3410      50617274 
+ 3410      69616C53 
+ 3410      74616765 
+ 3411              	.LASF186:
+ 3412 08b7 63795F65 		.ascii	"cy_eink_library\\cy_eink_library.c\000"
+ 3412      696E6B5F 
+ 3412      6C696272 
+ 3412      6172795C 
+ 3412      63795F65 
+ 3413              	.LASF39:
+ 3414 08d9 73746174 		.ascii	"status\000"
+ 3414      757300
+ 3415              	.LASF28:
+ 3416 08e0 666F726D 		.ascii	"format\000"
+ 3416      617400
+ 3417              	.LASF45:
+ 3418 08e7 74784275 		.ascii	"txBufIdx\000"
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 78
+
+
+ 3418      66496478 
+ 3418      00
+ 3419              	.LASF95:
+ 3420 08f0 43595F42 		.ascii	"CY_BLE_CONN_STATE_CLIENT_DESCR_DISCOVERING\000"
+ 3420      4C455F43 
+ 3420      4F4E4E5F 
+ 3420      53544154 
+ 3420      455F434C 
+ 3421              	.LASF141:
+ 3422 091b 6261636B 		.ascii	"background\000"
+ 3422      67726F75 
+ 3422      6E6400
+ 3423              	.LASF156:
+ 3424 0926 73747269 		.ascii	"string\000"
+ 3424      6E6700
+ 3425              	.LASF21:
+ 3426 092d 75696E74 		.ascii	"uint32_t\000"
+ 3426      33325F74 
+ 3426      00
+ 3427              	.LASF165:
+ 3428 0936 686F7269 		.ascii	"horizontalCounter\000"
+ 3428      7A6F6E74 
+ 3428      616C436F 
+ 3428      756E7465 
+ 3428      7200
+ 3429              	.LASF48:
+ 3430 0948 63795F73 		.ascii	"cy_stc_scb_spi_context_t\000"
+ 3430      74635F73 
+ 3430      63625F73 
+ 3430      70695F63 
+ 3430      6F6E7465 
+ 3431              	.LASF79:
+ 3432 0961 76726566 		.ascii	"vrefMvValue\000"
+ 3432      4D765661 
+ 3432      6C756500 
+ 3433              	.LASF113:
+ 3434 096d 63795F65 		.ascii	"cy_eink_delay_function_t\000"
+ 3434      696E6B5F 
+ 3434      64656C61 
+ 3434      795F6675 
+ 3434      6E637469 
+ 3435              	.LASF111:
+ 3436 0986 636F6C6F 		.ascii	"color\000"
+ 3436      7200
+ 3437              	.LASF16:
+ 3438 098c 63686172 		.ascii	"char\000"
+ 3438      00
+ 3439              	.LASF161:
+ 3440 0991 63686172 		.ascii	"charLocation\000"
+ 3440      4C6F6361 
+ 3440      74696F6E 
+ 3440      00
+ 3441              	.LASF177:
+ 3442 099e 4144435F 		.ascii	"ADC_allConfigs\000"
+ 3442      616C6C43 
+ 3442      6F6E6669 
+ 3442      677300
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 79
+
+
+ 3443              	.LASF109:
+ 3444 09ad 78537061 		.ascii	"xSpan\000"
+ 3444      6E00
+ 3445              	.LASF5:
+ 3446 09b3 5F5F7569 		.ascii	"__uint16_t\000"
+ 3446      6E743136 
+ 3446      5F7400
+ 3447              	.LASF65:
+ 3448 09be 6374726C 		.ascii	"ctrl\000"
+ 3448      00
+ 3449              	.LASF163:
+ 3450 09c3 666F6E74 		.ascii	"fontByte\000"
+ 3450      42797465 
+ 3450      00
+ 3451              	.LASF144:
+ 3452 09cc 43795F45 		.ascii	"Cy_EINK_ShowFrame\000"
+ 3452      494E4B5F 
+ 3452      53686F77 
+ 3452      4672616D 
+ 3452      6500
+ 3453              	.LASF168:
+ 3454 09de 63795F62 		.ascii	"cy_ble_advState\000"
+ 3454      6C655F61 
+ 3454      64765374 
+ 3454      61746500 
+ 3455              	.LASF140:
+ 3456 09ee 70777253 		.ascii	"pwrStatus\000"
+ 3456      74617475 
+ 3456      7300
+ 3457              	.LASF25:
+ 3458 09f8 43595F52 		.ascii	"CY_RTC_DST_RELATIVE\000"
+ 3458      54435F44 
+ 3458      53545F52 
+ 3458      454C4154 
+ 3458      49564500 
+ 3459              	.LASF56:
+ 3460 0a0c 72785269 		.ascii	"rxRingBufHead\000"
+ 3460      6E674275 
+ 3460      66486561 
+ 3460      6400
+ 3461              	.LASF55:
+ 3462 0a1a 72785269 		.ascii	"rxRingBufSize\000"
+ 3462      6E674275 
+ 3462      6653697A 
+ 3462      6500
+ 3463              	.LASF92:
+ 3464 0a28 43595F42 		.ascii	"CY_BLE_CONN_STATE_CLIENT_SRVC_DISCOVERING\000"
+ 3464      4C455F43 
+ 3464      4F4E4E5F 
+ 3464      53544154 
+ 3464      455F434C 
+ 3465              	.LASF49:
+ 3466 0a52 63795F63 		.ascii	"cy_cb_scb_uart_handle_events_t\000"
+ 3466      625F7363 
+ 3466      625F7561 
+ 3466      72745F68 
+ 3466      616E646C 
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 80
+
+
+ 3467              	.LASF158:
+ 3468 0a71 666F6E74 		.ascii	"fontCor\000"
+ 3468      436F7200 
+ 3469              	.LASF17:
+ 3470 0a79 696E7438 		.ascii	"int8_t\000"
+ 3470      5F7400
+ 3471              	.LASF34:
+ 3472 0a80 63795F73 		.ascii	"cy_stc_rtc_dst_format_t\000"
+ 3472      74635F72 
+ 3472      74635F64 
+ 3472      73745F66 
+ 3472      6F726D61 
+ 3473              	.LASF47:
+ 3474 0a98 696E6974 		.ascii	"initKey\000"
+ 3474      4B657900 
+ 3475              	.LASF40:
+ 3476 0aa0 72784275 		.ascii	"rxBuf\000"
+ 3476      6600
+ 3477              	.LASF118:
+ 3478 0aa6 50565F45 		.ascii	"PV_EINK_ERROR_BREAKAGE\000"
+ 3478      494E4B5F 
+ 3478      4552524F 
+ 3478      525F4252 
+ 3478      45414B41 
+ 3479              	.LASF89:
+ 3480 0abd 43595F42 		.ascii	"CY_BLE_CONN_STATE_DISCONNECTED\000"
+ 3480      4C455F43 
+ 3480      4F4E4E5F 
+ 3480      53544154 
+ 3480      455F4449 
+ 3481              	.LASF70:
+ 3482 0adc 72616E67 		.ascii	"rangeCond\000"
+ 3482      65436F6E 
+ 3482      6400
+ 3483              	.LASF169:
+ 3484 0ae6 63795F62 		.ascii	"cy_ble_connHandle\000"
+ 3484      6C655F63 
+ 3484      6F6E6E48 
+ 3484      616E646C 
+ 3484      6500
+ 3485              	.LASF142:
+ 3486 0af8 706F7765 		.ascii	"powerCycle\000"
+ 3486      72437963 
+ 3486      6C6500
+ 3487              	.LASF175:
+ 3488 0b03 43595F45 		.ascii	"CY_EINK_SPIM_context\000"
+ 3488      494E4B5F 
+ 3488      5350494D 
+ 3488      5F636F6E 
+ 3488      74657874 
+ 3489              	.LASF153:
+ 3490 0b18 73746172 		.ascii	"startLocation\000"
+ 3490      744C6F63 
+ 3490      6174696F 
+ 3490      6E00
+ 3491              	.LASF180:
+ 3492 0b26 50765F45 		.ascii	"Pv_EINK_SetTempFactor\000"
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 81
+
+
+ 3492      494E4B5F 
+ 3492      53657454 
+ 3492      656D7046 
+ 3492      6163746F 
+ 3493              	.LASF86:
+ 3494 0b3c 43595F42 		.ascii	"CY_BLE_ADV_STATE_ADVERTISING\000"
+ 3494      4C455F41 
+ 3494      44565F53 
+ 3494      54415445 
+ 3494      5F414456 
+ 3495              	.LASF66:
+ 3496 0b59 73616D70 		.ascii	"sampleCtrl\000"
+ 3496      6C654374 
+ 3496      726C00
+ 3497              	.LASF84:
+ 3498 0b64 43595F42 		.ascii	"CY_BLE_ADV_STATE_STOPPED\000"
+ 3498      4C455F41 
+ 3498      44565F53 
+ 3498      54415445 
+ 3498      5F53544F 
+ 3499              	.LASF18:
+ 3500 0b7d 75696E74 		.ascii	"uint8_t\000"
+ 3500      385F7400 
+ 3501              	.LASF183:
+ 3502 0b85 50765F45 		.ascii	"Pv_EINK_FullStageHandler\000"
+ 3502      494E4B5F 
+ 3502      46756C6C 
+ 3502      53746167 
+ 3502      6548616E 
+ 3503              	.LASF68:
+ 3504 0b9e 73616D70 		.ascii	"sampleTime23\000"
+ 3504      6C655469 
+ 3504      6D653233 
+ 3504      00
+ 3505              	.LASF182:
+ 3506 0bab 50765F45 		.ascii	"Pv_EINK_HardwarePowerOff\000"
+ 3506      494E4B5F 
+ 3506      48617264 
+ 3506      77617265 
+ 3506      506F7765 
+ 3507              	.LASF63:
+ 3508 0bc4 43595F53 		.ascii	"CY_SAR_RANGE_COND_OUTSIDE\000"
+ 3508      41525F52 
+ 3508      414E4745 
+ 3508      5F434F4E 
+ 3508      445F4F55 
+ 3509              	.LASF57:
+ 3510 0bde 72785269 		.ascii	"rxRingBufTail\000"
+ 3510      6E674275 
+ 3510      66546169 
+ 3510      6C00
+ 3511              	.LASF108:
+ 3512 0bec 7953697A 		.ascii	"ySize\000"
+ 3512      6500
+ 3513              	.LASF131:
+ 3514 0bf2 43595F45 		.ascii	"CY_EINK_SUCCESS\000"
+ 3514      494E4B5F 
+ARM GAS  C:\Users\kateb\AppData\Local\Temp\ccPuoZtr.s 			page 82
+
+
+ 3514      53554343 
+ 3514      45535300 
+ 3515              	.LASF98:
+ 3516 0c02 6368616E 		.ascii	"channelBase\000"
+ 3516      6E656C42 
+ 3516      61736500 
+ 3517              	.LASF80:
+ 3518 0c0e 63795F73 		.ascii	"cy_stc_sar_config_t\000"
+ 3518      74635F73 
+ 3518      61725F63 
+ 3518      6F6E6669 
+ 3518      675F7400 
+ 3519              	.LASF81:
+ 3520 0c22 62644861 		.ascii	"bdHandle\000"
+ 3520      6E646C65 
+ 3520      00
+ 3521              	.LASF36:
+ 3522 0c2b 73746F70 		.ascii	"stopDst\000"
+ 3522      44737400 
+ 3523              	.LASF77:
+ 3524 0c33 6D757853 		.ascii	"muxSwitchSqCtrl\000"
+ 3524      77697463 
+ 3524      68537143 
+ 3524      74726C00 
+ 3525              	.LASF135:
+ 3526 0c43 64656C61 		.ascii	"delayFunction\000"
+ 3526      7946756E 
+ 3526      6374696F 
+ 3526      6E00
+ 3527              	.LASF119:
+ 3528 0c51 50565F45 		.ascii	"PV_EINK_ERROR_DC\000"
+ 3528      494E4B5F 
+ 3528      4552524F 
+ 3528      525F4443 
+ 3528      00
+ 3529              	.LASF51:
+ 3530 0c62 63795F73 		.ascii	"cy_stc_scb_uart_context\000"
+ 3530      74635F73 
+ 3530      63625F75 
+ 3530      6172745F 
+ 3530      636F6E74 
+ 3531              	.LASF143:
+ 3532 0c7a 43795F45 		.ascii	"Cy_EINK_Clear\000"
+ 3532      494E4B5F 
+ 3532      436C6561 
+ 3532      7200
+ 3533              	.LASF139:
+ 3534 0c88 72657475 		.ascii	"returnValue\000"
+ 3534      726E5661 
+ 3534      6C756500 
+ 3535              	.LASF137:
+ 3536 0c94 43795F45 		.ascii	"Cy_EINK_Power\000"
+ 3536      494E4B5F 
+ 3536      506F7765 
+ 3536      7200
+ 3537              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
